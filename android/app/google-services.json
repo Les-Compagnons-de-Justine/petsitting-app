@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "857949852649",
+    "project_id": "petsitting-434512",
+    "storage_bucket": "petsitting-434512.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857949852649:android:f8134a44d67878ef9bb178",
+        "android_client_info": {
+          "package_name": "com.petsitting.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX9S28LM0WHrGNIoTJ46UW77pXyjNXFNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
