@@ -50,7 +50,7 @@ mixin _$AuthState {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -63,7 +63,7 @@ mixin _$AuthState {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -76,7 +76,7 @@ mixin _$AuthState {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -202,7 +202,7 @@ class _$InitialImpl implements Initial {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -218,7 +218,7 @@ class _$InitialImpl implements Initial {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -234,7 +234,7 @@ class _$InitialImpl implements Initial {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -366,7 +366,7 @@ class _$CheckingImpl implements Checking {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -382,7 +382,7 @@ class _$CheckingImpl implements Checking {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -398,7 +398,7 @@ class _$CheckingImpl implements Checking {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -532,7 +532,7 @@ class _$EmailUnverifiedImpl implements EmailUnverified {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -548,7 +548,7 @@ class _$EmailUnverifiedImpl implements EmailUnverified {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -564,7 +564,7 @@ class _$EmailUnverifiedImpl implements EmailUnverified {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -698,7 +698,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -714,7 +714,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -730,7 +730,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -867,7 +867,7 @@ class _$PartiallyAuthenticatedImpl implements PartiallyAuthenticated {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -883,7 +883,7 @@ class _$PartiallyAuthenticatedImpl implements PartiallyAuthenticated {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -899,7 +899,7 @@ class _$PartiallyAuthenticatedImpl implements PartiallyAuthenticated {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -985,7 +985,7 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserDTO user});
+  $Res call({UsersUser user});
 }
 
 /// @nodoc
@@ -1007,7 +1007,7 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
       null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as UserDTO,
+              as UsersUser,
     ));
   }
 }
@@ -1022,7 +1022,7 @@ class _$AuthenticatedImpl implements Authenticated {
       _$$AuthenticatedImplFromJson(json);
 
   @override
-  final UserDTO user;
+  final UsersUser user;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1060,7 +1060,7 @@ class _$AuthenticatedImpl implements Authenticated {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -1076,7 +1076,7 @@ class _$AuthenticatedImpl implements Authenticated {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -1092,7 +1092,7 @@ class _$AuthenticatedImpl implements Authenticated {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -1166,12 +1166,12 @@ class _$AuthenticatedImpl implements Authenticated {
 }
 
 abstract class Authenticated implements AuthState {
-  const factory Authenticated(final UserDTO user) = _$AuthenticatedImpl;
+  const factory Authenticated(final UsersUser user) = _$AuthenticatedImpl;
 
   factory Authenticated.fromJson(Map<String, dynamic> json) =
       _$AuthenticatedImpl.fromJson;
 
-  UserDTO get user;
+  UsersUser get user;
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -1262,7 +1262,7 @@ class _$CreateUserErrorImpl implements CreateUserError {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -1278,7 +1278,7 @@ class _$CreateUserErrorImpl implements CreateUserError {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -1294,7 +1294,7 @@ class _$CreateUserErrorImpl implements CreateUserError {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -1435,7 +1435,7 @@ class _$LoadingImpl implements Loading {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -1451,7 +1451,7 @@ class _$LoadingImpl implements Loading {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -1467,7 +1467,7 @@ class _$LoadingImpl implements Loading {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,
@@ -1627,7 +1627,7 @@ class _$ErrorImpl implements Error {
     required TResult Function() emailUnverified,
     required TResult Function() unauthenticated,
     required TResult Function() partiallyAuthenticated,
-    required TResult Function(UserDTO user) authenticated,
+    required TResult Function(UsersUser user) authenticated,
     required TResult Function(String message) createUserError,
     required TResult Function() loading,
     required TResult Function(String message) error,
@@ -1643,7 +1643,7 @@ class _$ErrorImpl implements Error {
     TResult? Function()? emailUnverified,
     TResult? Function()? unauthenticated,
     TResult? Function()? partiallyAuthenticated,
-    TResult? Function(UserDTO user)? authenticated,
+    TResult? Function(UsersUser user)? authenticated,
     TResult? Function(String message)? createUserError,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
@@ -1659,7 +1659,7 @@ class _$ErrorImpl implements Error {
     TResult Function()? emailUnverified,
     TResult Function()? unauthenticated,
     TResult Function()? partiallyAuthenticated,
-    TResult Function(UserDTO user)? authenticated,
+    TResult Function(UsersUser user)? authenticated,
     TResult Function(String message)? createUserError,
     TResult Function()? loading,
     TResult Function(String message)? error,

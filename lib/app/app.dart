@@ -38,7 +38,7 @@ class MyApp extends HookWidget {
               MultiBlocListener(
                 listeners: [
                   BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-                    if (state != AuthState.initial() && state != AuthState.checking()) {
+                    if (state != Initial() && state != Checking()) {
                       FlutterNativeSplash.remove();
                     }
                   }),
@@ -89,14 +89,16 @@ class MyApp extends HookWidget {
                             context,
                             MaxWidthBox(
                               maxWidth: 1400,
-                              child: state.maybeWhen(
-                                checking: () => Scaffold(
-                                  body: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                                orElse: () => child!,
-                              ),
+                              child: Builder(builder: (context) {
+                                if (state is Checking) {
+                                  return Scaffold(
+                                    body: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                }
+                                return child!;
+                              }),
                             ),
                           ),
                         ),

@@ -20,7 +20,7 @@ mixin _$MissionsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) =>
@@ -29,7 +29,7 @@ mixin _$MissionsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) =>
@@ -38,7 +38,7 @@ mixin _$MissionsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) {
@@ -150,7 +150,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) {
@@ -162,7 +162,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),
@@ -261,7 +261,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) {
@@ -273,7 +273,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) {
@@ -285,7 +285,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),
@@ -347,7 +347,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<MissionDTO> missions});
+  $Res call({List<MissionsMission> missions});
 }
 
 /// @nodoc
@@ -369,7 +369,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
       null == missions
           ? _value._missions
           : missions // ignore: cast_nullable_to_non_nullable
-              as List<MissionDTO>,
+              as List<MissionsMission>,
     ));
   }
 }
@@ -377,11 +377,12 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(final List<MissionDTO> missions) : _missions = missions;
+  const _$LoadedImpl(final List<MissionsMission> missions)
+      : _missions = missions;
 
-  final List<MissionDTO> _missions;
+  final List<MissionsMission> _missions;
   @override
-  List<MissionDTO> get missions {
+  List<MissionsMission> get missions {
     if (_missions is EqualUnmodifiableListView) return _missions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_missions);
@@ -417,7 +418,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) {
@@ -429,7 +430,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) {
@@ -441,7 +442,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),
@@ -494,9 +495,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements MissionsState {
-  const factory _Loaded(final List<MissionDTO> missions) = _$LoadedImpl;
+  const factory _Loaded(final List<MissionsMission> missions) = _$LoadedImpl;
 
-  List<MissionDTO> get missions;
+  List<MissionsMission> get missions;
 
   /// Create a copy of MissionsState
   /// with the given fields replaced by the non-null parameter values.
@@ -575,7 +576,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) {
@@ -587,7 +588,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) {
@@ -599,7 +600,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),
@@ -706,7 +707,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<MissionDTO> missions) loaded,
+    required TResult Function(List<MissionsMission> missions) loaded,
     required TResult Function(String message) error,
     required TResult Function() Unauthenticated,
   }) {
@@ -718,7 +719,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<MissionDTO> missions)? loaded,
+    TResult? Function(List<MissionsMission> missions)? loaded,
     TResult? Function(String message)? error,
     TResult? Function()? Unauthenticated,
   }) {
@@ -730,7 +731,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<MissionDTO> missions)? loaded,
+    TResult Function(List<MissionsMission> missions)? loaded,
     TResult Function(String message)? error,
     TResult Function()? Unauthenticated,
     required TResult orElse(),

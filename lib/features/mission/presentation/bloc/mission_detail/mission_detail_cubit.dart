@@ -5,15 +5,15 @@ import 'package:petsitting/features/mission/presentation/bloc/mission_detail/mis
 class MissionDetailCubit extends Cubit<MissionDetailState> {
   final MissionDetailRepository _repository;
 
-  MissionDetailCubit(this._repository) : super(const MissionDetailState.initial());
+  MissionDetailCubit(this._repository) : super(Initial());
 
   Future<void> loadMissionDetail(String missionId) async {
-    emit(const MissionDetailState.loading());
+    emit(Loading());
     try {
       final mission = await _repository.getMissionDetail(missionId);
-      emit(MissionDetailState.loaded(mission: mission));
+      emit(Loaded(mission: mission));
     } catch (e) {
-      emit(MissionDetailState.error(e.toString()));
+      emit(Error(e.toString()));
     }
   }
 }

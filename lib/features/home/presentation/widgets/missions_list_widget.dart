@@ -13,7 +13,7 @@ class MissionsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -21,10 +21,16 @@ class MissionsListWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Missions en cours',
-                style: Theme.of(context).textTheme.bodySmall,
+                'Missions en cours ou à venir',
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              TextButton(onPressed: () => context.push(RouteNames.missions), child: Text("Voir tout")),
+              TextButton(
+                onPressed: () => context.push(RouteNames.missions),
+                child: Text(
+                  "Voir tout",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -63,9 +69,9 @@ class MissionsListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMissionsList(List<MissionDTO> missions, BuildContext context) {
+  Widget _buildMissionsList(List<MissionsMission> missions, BuildContext context) {
     return SizedBox(
-      height: 300,
+      height: 230,
       child: PageView.builder(
         itemCount: missions.length,
         controller: PageController(viewportFraction: 1),

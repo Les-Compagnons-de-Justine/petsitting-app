@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import 'package:petsitting/core/bloc/animal/list/animal_list_state.dart';
 import 'package:petsitting/core/bloc/animal/single/single_animal_cubit.dart';
 import 'package:petsitting/core/bloc/animal/single/single_animal_state.dart';
 import 'package:petsitting/core/extensions/context_extension.dart';
+import 'package:petsitting/core/mapper/animal_mapper.dart';
 import 'package:petsitting/core/router/route_names.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
 import 'package:petsitting/core/widgets/custom_app_bar.dart';
@@ -32,57 +34,48 @@ class EditAnimalScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: BlocListener<SingleAnimalCubit, SingleAnimalState>(
           listener: (context, state) {
-            state.maybeWhen(
-              loading: () => QuickAlert.show(
+            if (state is Loading) {
+              QuickAlert.show(
                 context: context,
                 type: QuickAlertType.loading,
-              ),
-              updated: (animal) {
-                // close the loading dialog
-                context.closeDialog();
-                QuickAlert.show(
-                  context: context,
-                  type: QuickAlertType.success,
-                  text: "Animal mis à jour avec succès",
-                  confirmBtnText: 'OK',
-                  onConfirmBtnTap: () {
-                    context.closeDialog();
-                    context
-                        .read<AnimalListCubit>()
-                        .loadAnimals(UserManager().currentUser!.id);
-                    GoRouter.of(context).go(RouteNames.animals);
-                  },
-                );
-              },
-              error: (message) {
-                // close the loading dialog
-                context.closeDialog();
-                return QuickAlert.show(
-                  context: context,
-                  type: QuickAlertType.error,
-                  text: message,
-                  confirmBtnText: 'OK',
-                  onConfirmBtnTap: () {
-                    context.closeDialog();
-                  },
-                );
-              },
-              orElse: () {},
-            );
+              );
+            } else if (state is Updated) {
+              // close the loading dialog
+              context.closeDialog();
+              QuickAlert.show(
+                context: context,
+                type: QuickAlertType.success,
+                text: "Animal mis à jour avec succès",
+                confirmBtnText: 'OK',
+                onConfirmBtnTap: () {
+                  context.closeDialog();
+                  context.read<AnimalListCubit>().loadAnimals(UserManager().currentUser!.id);
+                  GoRouter.of(context).go(RouteNames.animals);
+                },
+              );
+            } else if (state is Error) {
+              // close the loading dialog
+              context.closeDialog();
+              QuickAlert.show(
+                context: context,
+                type: QuickAlertType.error,
+                text: state.message,
+                confirmBtnText: 'OK',
+                onConfirmBtnTap: () {
+                  context.closeDialog();
+                },
+              );
+            }
           },
           child: BlocBuilder<AnimalListCubit, AnimalListState>(
             builder: (context, state) {
-              final AnimalDTO? animal = state.maybeWhen(
-                loaded: (animals) =>
-                    animals.firstWhere((animal) => animal.id == petId),
-                orElse: () => null,
-              );
+              final AnimalWithOwner? animal = state.animals.firstWhereOrNull((animal) => animal.id == petId);
 
               return AnimalFormWidget(
                 animal: animal,
-                ownerId: animal!.owner.id,
+                ownerId: animal!.owner!.id!,
                 onUpdate: (updatedAnimal) {
-                  context.read<SingleAnimalCubit>().updateAnimal(updatedAnimal);
+                  context.read<SingleAnimalCubit>().updateAnimal(AnimalMapper.mapAnimalWithOwnerToAnimalAnimal(updatedAnimal));
                 },
               );
             },

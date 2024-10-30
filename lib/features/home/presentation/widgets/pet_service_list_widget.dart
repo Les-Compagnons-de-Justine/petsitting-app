@@ -27,9 +27,9 @@ class PetServiceListWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               TextButton(
-                  child: const Text(
+                  child: Text(
                     'Voir tout',
-                    style: TextStyle(color: Colors.black),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   onPressed: () {
                     RoleBasedNavigation.navigateToPetServicesList(context);
@@ -51,7 +51,7 @@ class PetServiceListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildPetServiceContent(BuildContext context, List<PetServiceDTO> petServices) {
+  Widget _buildPetServiceContent(BuildContext context, List<PetServicesPetService> petServices) {
     if (petServices.isEmpty) {
       return _buildEmptyState(context);
     }
@@ -74,7 +74,7 @@ class PetServiceListWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildHorizontalPetServiceList(BuildContext context, List<PetServiceDTO> petServices) {
+  Widget _buildHorizontalPetServiceList(BuildContext context, List<PetServicesPetService> petServices) {
     return SizedBox(
       height: 280,
       child: ListView.builder(

@@ -18,7 +18,7 @@ Map<String, dynamic> _$$InitialImplToJson(_$InitialImpl instance) =>
 
 _$LoadedImpl _$$LoadedImplFromJson(Map<String, dynamic> json) => _$LoadedImpl(
       (json['services'] as List<dynamic>)
-          .map((e) => MissionAnimalServiceCreationDTO.fromJson(
+          .map((e) => MissionsAnimalServiceWithDetails.fromJson(
               e as Map<String, dynamic>))
           .toList(),
       $type: json['runtimeType'] as String?,

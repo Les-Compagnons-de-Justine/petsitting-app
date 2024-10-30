@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:petsitting/core/extensions/user_extension.dart';
 import 'package:petsitting/features/auth/presentation/widgets/address_search_widget.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class UserEditFormWidget extends HookWidget {
-  final UserDTO user;
-  final Function(UserUpdateDTO) onUserUpdated;
+  final UsersUser user;
+  final Function(UsersUpdateUserRequest) onUserUpdated;
 
   const UserEditFormWidget({
     super.key,
@@ -31,7 +30,7 @@ class UserEditFormWidget extends HookWidget {
             Validators.pattern(r'^\+?[0-9]{10,14}$'),
           ],
         ),
-        'address': FormControl<PlaceDetailsDTO>(
+        'address': FormControl<PlaceDetails>(
           value: user.address,
           validators: [Validators.required],
         ),
@@ -40,7 +39,7 @@ class UserEditFormWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final form = useMemoized(() => buildForm());
-    final addressController = useTextEditingController(text: user.address.formattedAddress);
+    final addressController = useTextEditingController(text: user.address!.formattedAddress);
     final addressFocusNode = useFocusNode();
 
     return ReactiveForm(
@@ -86,7 +85,7 @@ class UserEditFormWidget extends HookWidget {
               controller: addressController,
               addressFocusNode: addressFocusNode,
               onAddressValidated: (placeDetails) {
-                form.control('address').value = PlaceDetailsDTO(
+                form.control('address').value = PlaceDetails(
                   name: placeDetails.name,
                   formattedAddress: placeDetails.formattedAddress,
                   latitude: placeDetails.latitude,
@@ -114,7 +113,7 @@ class UserEditFormWidget extends HookWidget {
 
   void _submitForm(FormGroup form) {
     if (form.valid) {
-      final updatedUser = UserUpdateDTO(
+      final updatedUser = UsersUpdateUserRequest(
         id: user.id,
         firebaseUid: user.firebaseId ?? '',
         firstname: form.control('firstname').value,
@@ -122,9 +121,6 @@ class UserEditFormWidget extends HookWidget {
         email: user.email,
         phone: form.control('phone').value,
         address: form.control('address').value,
-        role: user.role.toUpdatedDTO(),
-        isVerified: user.isVerified,
-        registrationDate: user.registrationDate,
       );
       onUserUpdated(updatedUser);
     }

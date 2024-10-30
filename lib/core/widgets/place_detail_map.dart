@@ -4,7 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
 class PlaceDetailsMap extends StatelessWidget {
-  final PlaceDetailsDTO placeDetails;
+  final PlaceDetails placeDetails;
   final double height;
   final double width;
   final double zoom;
@@ -19,7 +19,7 @@ class PlaceDetailsMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = LatLng(placeDetails.latitude, placeDetails.longitude);
+    final location = LatLng(placeDetails.latitude!, placeDetails.longitude!);
 
     return SizedBox(
       height: height,

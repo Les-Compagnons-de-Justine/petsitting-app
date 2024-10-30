@@ -11,8 +11,8 @@ class PetServiceAdminScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedCategory = useState<PetServiceDTOCategory?>(null);
-    final selectedAnimalTypes = useState<List<PetServiceDTOAnimalTypes>>([]);
+    final selectedCategory = useState<PetServicesCategory?>(null);
+    final selectedAnimalTypes = useState<List<PetServicesAnimalType>>([]);
 
     useEffect(() {
       context.read<PetServiceCubit>().loadPetServices();
@@ -51,23 +51,23 @@ class PetServiceAdminScreen extends HookWidget {
 
   Widget _buildFilters(
     BuildContext context,
-    ValueNotifier<PetServiceDTOCategory?> selectedCategory,
-    ValueNotifier<List<PetServiceDTOAnimalTypes>> selectedAnimalTypes,
+    ValueNotifier<PetServicesCategory?> selectedCategory,
+    ValueNotifier<List<PetServicesAnimalType>> selectedAnimalTypes,
   ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          DropdownButton<PetServiceDTOCategory>(
+          DropdownButton<PetServicesCategory>(
             isExpanded: true,
             value: selectedCategory.value,
             hint: const Text('Filtrer par catégorie'),
-            onChanged: (PetServiceDTOCategory? newValue) {
+            onChanged: (PetServicesCategory? newValue) {
               selectedCategory.value = newValue;
               _applyFilters(context, selectedCategory.value, selectedAnimalTypes.value);
             },
-            items: PetServiceDTOCategory.values.map((category) {
-              return DropdownMenuItem<PetServiceDTOCategory>(
+            items: PetServicesCategory.values.map((category) {
+              return DropdownMenuItem<PetServicesCategory>(
                 value: category,
                 child: Text(category.toString().split('.').last),
               );
@@ -75,7 +75,7 @@ class PetServiceAdminScreen extends HookWidget {
           ),
           Wrap(
             spacing: 8.0,
-            children: PetServiceDTOAnimalTypes.values.map((type) {
+            children: PetServicesAnimalType.values.map((type) {
               return FilterChip(
                 label: Text(type.toString().split('.').last),
                 selected: selectedAnimalTypes.value.contains(type),
@@ -97,13 +97,13 @@ class PetServiceAdminScreen extends HookWidget {
 
   Widget _buildServiceList(
     BuildContext context,
-    List<PetServiceDTO> services,
-    PetServiceDTOCategory? category,
-    List<PetServiceDTOAnimalTypes> animalTypes,
+    List<PetServicesPetService> services,
+    PetServicesCategory? category,
+    List<PetServicesAnimalType> animalTypes,
   ) {
     final filteredServices = services.where((service) {
       bool categoryMatch = category == null || service.category == category;
-      bool animalTypeMatch = animalTypes.isEmpty || animalTypes.any((type) => service.animalTypes.contains(type));
+      bool animalTypeMatch = animalTypes.isEmpty || animalTypes.any((type) => service.animalTypes!.contains(type));
       return categoryMatch && animalTypeMatch;
     }).toList();
 
@@ -112,7 +112,7 @@ class PetServiceAdminScreen extends HookWidget {
       itemBuilder: (context, index) {
         final service = filteredServices[index];
         return ListTile(
-          title: Text(service.name),
+          title: Text(service.name!),
           subtitle: Text('${service.basePrice}€ - ${service.durationMinutes} min'),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
@@ -133,7 +133,7 @@ class PetServiceAdminScreen extends HookWidget {
     );
   }
 
-  void _showServiceDialog(BuildContext context, {PetServiceDTO? service}) {
+  void _showServiceDialog(BuildContext context, {PetServicesPetService? service}) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -155,7 +155,7 @@ class PetServiceAdminScreen extends HookWidget {
     );
   }
 
-  void _deleteService(BuildContext context, PetServiceDTO service) {
+  void _deleteService(BuildContext context, PetServicesPetService service) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -180,12 +180,12 @@ class PetServiceAdminScreen extends HookWidget {
     );
   }
 
-  void _showServiceDetails(BuildContext context, PetServiceDTO service) {
+  void _showServiceDetails(BuildContext context, PetServicesPetService service) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(service.name),
+          title: Text(service.name!),
           content: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,9 +195,9 @@ class PetServiceAdminScreen extends HookWidget {
                 Text('Prix: ${service.basePrice}€'),
                 Text('Durée: ${service.durationMinutes} minutes'),
                 Text('Catégorie: ${service.category.toString().split('.').last}'),
-                Text('Types d\'animaux: ${service.animalTypes.map((t) => t.toString().split('.').last).join(', ')}'),
-                Text('Prix personnalisé autorisé: ${service.isCustomPriceAllowed ? 'Oui' : 'Non'}'),
-                Text('Durée personnalisée autorisée: ${service.isCustomDurationAllowed ? 'Oui' : 'Non'}'),
+                Text('Types d\'animaux: ${service.animalTypes!.map((t) => t.toString().split('.').last).join(', ')}'),
+                Text('Prix personnalisé autorisé: ${service.isCustomPriceAllowed! ? 'Oui' : 'Non'}'),
+                Text('Durée personnalisée autorisée: ${service.isCustomDurationAllowed! ? 'Oui' : 'Non'}'),
               ],
             ),
           ),
@@ -214,8 +214,8 @@ class PetServiceAdminScreen extends HookWidget {
 
   void _applyFilters(
     BuildContext context,
-    PetServiceDTOCategory? category,
-    List<PetServiceDTOAnimalTypes> animalTypes,
+    PetServicesCategory? category,
+    List<PetServicesAnimalType> animalTypes,
   ) {
     context.read<PetServiceCubit>().loadPetServices(
           category: category,

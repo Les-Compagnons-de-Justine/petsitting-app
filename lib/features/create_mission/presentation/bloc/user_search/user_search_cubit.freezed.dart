@@ -20,7 +20,7 @@ mixin _$UserSearchState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<UserDTO> users) loaded,
+    required TResult Function(List<UsersUser> users) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$UserSearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<UserDTO> users)? loaded,
+    TResult? Function(List<UsersUser> users)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$UserSearchState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<UserDTO> users)? loaded,
+    TResult Function(List<UsersUser> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -132,7 +132,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<UserDTO> users) loaded,
+    required TResult Function(List<UsersUser> users) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -143,7 +143,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<UserDTO> users)? loaded,
+    TResult? Function(List<UsersUser> users)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -154,7 +154,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<UserDTO> users)? loaded,
+    TResult Function(List<UsersUser> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -249,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<UserDTO> users) loaded,
+    required TResult Function(List<UsersUser> users) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<UserDTO> users)? loaded,
+    TResult? Function(List<UsersUser> users)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<UserDTO> users)? loaded,
+    TResult Function(List<UsersUser> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -329,7 +329,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<UserDTO> users});
+  $Res call({List<UsersUser> users});
 }
 
 /// @nodoc
@@ -351,7 +351,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
       null == users
           ? _value._users
           : users // ignore: cast_nullable_to_non_nullable
-              as List<UserDTO>,
+              as List<UsersUser>,
     ));
   }
 }
@@ -359,11 +359,11 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(final List<UserDTO> users) : _users = users;
+  const _$LoadedImpl(final List<UsersUser> users) : _users = users;
 
-  final List<UserDTO> _users;
+  final List<UsersUser> _users;
   @override
-  List<UserDTO> get users {
+  List<UsersUser> get users {
     if (_users is EqualUnmodifiableListView) return _users;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_users);
@@ -399,7 +399,7 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<UserDTO> users) loaded,
+    required TResult Function(List<UsersUser> users) loaded,
     required TResult Function(String message) error,
   }) {
     return loaded(users);
@@ -410,7 +410,7 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<UserDTO> users)? loaded,
+    TResult? Function(List<UsersUser> users)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(users);
@@ -421,7 +421,7 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<UserDTO> users)? loaded,
+    TResult Function(List<UsersUser> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -470,9 +470,9 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements UserSearchState {
-  const factory _Loaded(final List<UserDTO> users) = _$LoadedImpl;
+  const factory _Loaded(final List<UsersUser> users) = _$LoadedImpl;
 
-  List<UserDTO> get users;
+  List<UsersUser> get users;
 
   /// Create a copy of UserSearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -551,7 +551,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<UserDTO> users) loaded,
+    required TResult Function(List<UsersUser> users) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -562,7 +562,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<UserDTO> users)? loaded,
+    TResult? Function(List<UsersUser> users)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -573,7 +573,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<UserDTO> users)? loaded,
+    TResult Function(List<UsersUser> users)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

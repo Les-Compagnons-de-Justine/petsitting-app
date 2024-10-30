@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:petsitting/core/extensions/animal_extension.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class AnimalFormWidget extends StatelessWidget {
-  final AnimalDTO? animal;
+  final AnimalWithOwner? animal;
   final String ownerId;
-  final void Function(AnimalCreateDTO)? onCreate;
-  final void Function(AnimalUpdateDTO)? onUpdate;
+  final void Function(AnimalWithOwner)? onCreate;
+  final void Function(AnimalWithOwner)? onUpdate;
 
   const AnimalFormWidget({
     super.key,
@@ -25,20 +24,20 @@ class AnimalFormWidget extends StatelessWidget {
         value: animal?.name ?? '',
         validators: [Validators.required],
       ),
-      'species': FormControl<AnimalDTOSpecies>(
+      'species': FormControl<AnimalSpecies>(
         value: animal?.species,
         validators: [Validators.required],
       ),
       'breed': FormControl<String>(value: animal?.breed ?? ''),
-      'gender': FormControl<AnimalDTOGender>(
+      'gender': FormControl<AnimalGender>(
         value: animal?.gender,
       ),
       'birthDate': FormControl<DateTime>(
-        value: animal?.birthDate,
+        value: animal != null ? DateTime.tryParse(animal!.birthDate!) : null,
         validators: [Validators.required],
       ),
       'weight': FormControl<double>(value: animal?.weight),
-      'size': FormControl<AnimalDTOSize>(value: animal?.size),
+      'size': FormControl<String>(value: animal?.size?.name),
 
       // Identification
       'microchipNumber': FormControl<String>(
@@ -69,7 +68,7 @@ class AnimalFormWidget extends StatelessWidget {
       ),
 
       // Behavior
-      'energyLevel': FormControl<AnimalDTOEnergyLevel>(
+      'energyLevel': FormControl<AnimalEnergyLevel>(
         value: animal?.energyLevel,
       ),
       'houseTrained': FormControl<bool>(
@@ -90,7 +89,7 @@ class AnimalFormWidget extends StatelessWidget {
         value: animal?.veterinarianContact,
       ),
       'lastVetVisit': FormControl<DateTime>(
-        value: animal?.lastVetVisit,
+        value: animal != null ? DateTime.tryParse(animal!.lastVetVisit!) : null,
       ),
       'specialInstructions': FormControl<String>(
         value: animal?.specialInstructions,
@@ -125,14 +124,14 @@ class AnimalFormWidget extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            ReactiveDropdownField<AnimalDTOSpecies>(
+            ReactiveDropdownField<AnimalSpecies>(
               formControlName: 'species',
               padding: const EdgeInsets.all(0),
               decoration: getInputDecoration('Espèce'),
               validationMessages: {
                 ValidationMessage.required: (error) => 'L\'espèce est requise',
               },
-              items: AnimalDTOSpecies.values.map((species) {
+              items: AnimalSpecies.values.map((species) {
                 return DropdownMenuItem(
                   value: species,
                   child: Text(_getEnumDisplayName(species)),
@@ -145,11 +144,11 @@ class AnimalFormWidget extends StatelessWidget {
               decoration: getOptionalInputDecoration('Race (optionnel)'),
             ),
             const SizedBox(height: 16),
-            ReactiveDropdownField<AnimalDTOGender>(
+            ReactiveDropdownField<AnimalGender>(
               formControlName: 'gender',
               padding: const EdgeInsets.all(0),
               decoration: getOptionalInputDecoration('Genre'),
-              items: AnimalDTOGender.values.where((value) => value != AnimalDTOGender.swaggerGeneratedUnknown).map((gender) {
+              items: AnimalGender.values.where((value) => value != AnimalGender.swaggerGeneratedUnknown).map((gender) {
                 return DropdownMenuItem(
                   value: gender,
                   child: Text(_getEnumDisplayName(gender)),
@@ -185,11 +184,11 @@ class AnimalFormWidget extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            ReactiveDropdownField<AnimalDTOSize>(
+            ReactiveDropdownField<AnimalSize>(
               formControlName: 'size',
               padding: const EdgeInsets.all(0),
               decoration: getOptionalInputDecoration('Taille'),
-              items: AnimalDTOSize.values.map((size) {
+              items: AnimalSize.values.map((size) {
                 return DropdownMenuItem(
                   value: size,
                   child: Text(_getEnumDisplayName(size)),
@@ -242,10 +241,10 @@ class AnimalFormWidget extends StatelessWidget {
 
             // Behavior Fields
             const SizedBox(height: 16),
-            ReactiveDropdownField<AnimalDTOEnergyLevel>(
+            ReactiveDropdownField<AnimalEnergyLevel>(
               formControlName: 'energyLevel',
               decoration: getOptionalInputDecoration('Niveau d\'énergie'),
-              items: AnimalDTOEnergyLevel.values.map((level) {
+              items: AnimalEnergyLevel.values.map((level) {
                 return DropdownMenuItem(
                   value: level,
                   child: Text(_getEnumDisplayName(level)),
@@ -315,62 +314,37 @@ class AnimalFormWidget extends StatelessWidget {
                   final medicationsList = medicationsArray.controls.map((control) => control.value).whereType<String>().toList();
                   final allergiesList = allergiesArray.controls.map((control) => control.value).whereType<String>().toList();
 
+                  final newAnimal = AnimalWithOwner(
+                    id: animal!.id!,
+                    name: form.control('name').value,
+                    owner: animal!.owner,
+                    species: (form.control('species').value as AnimalSpecies),
+                    breed: form.control('breed').value,
+                    gender: (form.control('gender').value as AnimalGender?),
+                    birthDate: form.control('birthDate').value,
+                    weight: form.control('weight').value,
+                    size: (form.control('size').value as AnimalSize?),
+                    microchipNumber: form.control('microchipNumber').value,
+                    vaccinationsUpToDate: form.control('vaccinationsUpToDate').value,
+                    medicalConditions: form.control('medicalConditions').value,
+                    medications: medicationsList.isNotEmpty ? medicationsList : null,
+                    allergies: allergiesList.isNotEmpty ? allergiesList : null,
+                    specialNeeds: form.control('specialNeeds').value,
+                    feedingInstructions: form.control('feedingInstructions').value,
+                    behaviorNotes: form.control('behaviorNotes').value,
+                    energyLevel: (form.control('energyLevel').value as AnimalEnergyLevel?),
+                    houseTrained: form.control('houseTrained').value,
+                    petFriendly: form.control('petFriendly').value,
+                    childFriendly: form.control('childFriendly').value,
+                    photoUrl: form.control('photoUrl').value,
+                    veterinarianContact: form.control('veterinarianContact').value,
+                    lastVetVisit: form.control('lastVetVisit').value,
+                    specialInstructions: form.control('specialInstructions').value,
+                  );
+
                   if (animal != null) {
-                    final updatedAnimal = AnimalUpdateDTO(
-                      id: animal!.id!,
-                      name: form.control('name').value,
-                      ownerId: animal!.owner.id,
-                      species: (form.control('species').value as AnimalDTOSpecies).toUpdateDTOSpecies(),
-                      breed: form.control('breed').value,
-                      gender: (form.control('gender').value as AnimalDTOGender?)?.toUpdateDTOGender(),
-                      birthDate: form.control('birthDate').value,
-                      weight: form.control('weight').value,
-                      size: (form.control('size').value as AnimalDTOSize?)?.toUpdateDTOSize(),
-                      microchipNumber: form.control('microchipNumber').value,
-                      vaccinationsUpToDate: form.control('vaccinationsUpToDate').value,
-                      medicalConditions: form.control('medicalConditions').value,
-                      medications: medicationsList.isNotEmpty ? medicationsList : null,
-                      allergies: allergiesList.isNotEmpty ? allergiesList : null,
-                      specialNeeds: form.control('specialNeeds').value,
-                      feedingInstructions: form.control('feedingInstructions').value,
-                      behaviorNotes: form.control('behaviorNotes').value,
-                      energyLevel: (form.control('energyLevel').value as AnimalDTOEnergyLevel?)?.toUpdateDTOEnergyLevel(),
-                      houseTrained: form.control('houseTrained').value,
-                      petFriendly: form.control('petFriendly').value,
-                      childFriendly: form.control('childFriendly').value,
-                      photoUrl: form.control('photoUrl').value,
-                      veterinarianContact: form.control('veterinarianContact').value,
-                      lastVetVisit: form.control('lastVetVisit').value,
-                      specialInstructions: form.control('specialInstructions').value,
-                    );
-                    onUpdate?.call(updatedAnimal);
+                    onUpdate?.call(newAnimal);
                   } else {
-                    final newAnimal = AnimalCreateDTO(
-                      name: form.control('name').value,
-                      ownerId: ownerId,
-                      species: (form.control('species').value as AnimalDTOSpecies).toCreateDTOSpecies(),
-                      breed: form.control('breed').value,
-                      gender: (form.control('gender').value as AnimalDTOGender?)?.toCreateDTOGender(),
-                      birthDate: form.control('birthDate').value,
-                      weight: form.control('weight').value,
-                      size: (form.control('size').value as AnimalDTOSize?)?.toCreateDTOSize(),
-                      microchipNumber: form.control('microchipNumber').value,
-                      vaccinationsUpToDate: form.control('vaccinationsUpToDate').value,
-                      medicalConditions: form.control('medicalConditions').value,
-                      medications: medicationsList.isNotEmpty ? medicationsList : null,
-                      allergies: allergiesList.isNotEmpty ? allergiesList : null,
-                      specialNeeds: form.control('specialNeeds').value,
-                      feedingInstructions: form.control('feedingInstructions').value,
-                      behaviorNotes: form.control('behaviorNotes').value,
-                      energyLevel: (form.control('energyLevel').value as AnimalDTOEnergyLevel?)?.toCreateDTOEnergyLevel(),
-                      houseTrained: form.control('houseTrained').value,
-                      petFriendly: form.control('petFriendly').value,
-                      childFriendly: form.control('childFriendly').value,
-                      photoUrl: form.control('photoUrl').value,
-                      veterinarianContact: form.control('veterinarianContact').value,
-                      lastVetVisit: form.control('lastVetVisit').value,
-                      specialInstructions: form.control('specialInstructions').value,
-                    );
                     onCreate?.call(newAnimal);
                   }
                 } else {
@@ -512,70 +486,70 @@ class AnimalFormWidget extends StatelessWidget {
   String _getEnumDisplayName(dynamic enumValue) {
     // Helper method to convert enum to a user-friendly string
     // Customize this method based on your enum definitions
-    if (enumValue is AnimalDTOGender) {
+    if (enumValue is AnimalGender) {
       switch (enumValue) {
-        case AnimalDTOGender.male:
+        case AnimalGender.male:
           return 'Mâle';
-        case AnimalDTOGender.female:
+        case AnimalGender.female:
           return 'Femelle';
         default:
           return 'Autre';
       }
-    } else if (enumValue is AnimalDTOSize) {
+    } else if (enumValue is AnimalSize) {
       switch (enumValue) {
-        case AnimalDTOSize.small:
+        case AnimalSize.small:
           return 'Petit';
-        case AnimalDTOSize.medium:
+        case AnimalSize.medium:
           return 'Moyen';
-        case AnimalDTOSize.large:
+        case AnimalSize.large:
           return 'Grand';
         default:
           return 'Autre';
       }
-    } else if (enumValue is AnimalDTOEnergyLevel) {
+    } else if (enumValue is AnimalEnergyLevel) {
       switch (enumValue) {
-        case AnimalDTOEnergyLevel.low:
+        case AnimalEnergyLevel.low:
           return 'Faible';
-        case AnimalDTOEnergyLevel.medium:
+        case AnimalEnergyLevel.normal:
           return 'Moyen';
-        case AnimalDTOEnergyLevel.high:
+        case AnimalEnergyLevel.high:
           return 'Élevé';
         default:
           return 'Autre';
       }
-    } else if (enumValue is AnimalDTOSpecies) {
+    } else if (enumValue is AnimalSpecies) {
       switch (enumValue) {
-        case AnimalDTOSpecies.dog:
+        case AnimalSpecies.dog:
           return 'Chien';
-        case AnimalDTOSpecies.cat:
+        case AnimalSpecies.cat:
           return 'Chat';
-        case AnimalDTOSpecies.bird:
+        case AnimalSpecies.bird:
           return 'Oiseau';
-        case AnimalDTOSpecies.fish:
+        case AnimalSpecies.fish:
           return 'Poisson';
-        case AnimalDTOSpecies.reptile:
+        case AnimalSpecies.reptile:
           return 'Reptile';
-        case AnimalDTOSpecies.swaggerGeneratedUnknown:
+        case AnimalSpecies.swaggerGeneratedUnknown:
           return 'Inconnu';
-        case AnimalDTOSpecies.rodent:
+        case AnimalSpecies.rodent:
           return 'Rongeur';
-        case AnimalDTOSpecies.rabbit:
+        case AnimalSpecies.rabbit:
           return 'Lapin';
-        case AnimalDTOSpecies.ferret:
+        case AnimalSpecies.ferret:
           return 'Furet';
-        case AnimalDTOSpecies.horse:
+        case AnimalSpecies.horse:
           return 'Cheval';
-        case AnimalDTOSpecies.cow:
+        case AnimalSpecies.cow:
           return 'Vache';
-        case AnimalDTOSpecies.pig:
+        case AnimalSpecies.pig:
           return 'Cochon';
-        case AnimalDTOSpecies.sheep:
+        case AnimalSpecies.sheep:
           return 'Mouton';
-        case AnimalDTOSpecies.goat:
+        case AnimalSpecies.goat:
           return 'Chèvre';
-        case AnimalDTOSpecies.poultry:
+        case AnimalSpecies.poultry:
           return 'Volaille';
-        case AnimalDTOSpecies.other:
+        case AnimalSpecies.other:
           return 'Autre';
       }
     }

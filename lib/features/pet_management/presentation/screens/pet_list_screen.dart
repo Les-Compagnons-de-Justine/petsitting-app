@@ -6,7 +6,6 @@ import 'package:petsitting/core/bloc/animal/list/animal_list_state.dart';
 import 'package:petsitting/core/extensions/context_extension.dart';
 import 'package:petsitting/core/router/route_names.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
-import 'package:petsitting/core/widgets/custom_app_bar.dart';
 import 'package:petsitting/features/pet_management/presentation/widgets/pet_component.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -20,54 +19,36 @@ class AnimalListScreen extends HookWidget {
     final user = UserManager().currentUser;
 
     useEffect(() {
-      context.read<AnimalListCubit>().loadAnimals(user?.id);
+      if (context.read<AnimalListCubit>().state.status == AnimalListStatus.initial) {
+        context.read<AnimalListCubit>().loadAnimals(user?.id);
+      }
       return null;
     }, []);
 
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Mes animaux',
-      ),
       body: BlocConsumer<AnimalListCubit, AnimalListState>(
         listener: (context, state) {
-          state.maybeWhen(
-            error: (message) => QuickAlert.show(
+          if (state.status == AnimalListStatus.error) {
+            QuickAlert.show(
               context: context,
               type: QuickAlertType.error,
-              text: message,
-            ),
-            orElse: () {},
-          );
+              text: 'Erreur lors du chargement des animaux.',
+            );
+          }
         },
         builder: (context, state) {
-          final animals = state.maybeWhen(
-            loaded: (animals) => animals,
-            orElse: () => [],
-          );
-
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: state.maybeWhen(
-              unauthenticated: () => Center(
-                child: Text("Vous devez être connecté pour accéder à cette page."),
-              ),
-              loading: () => Center(
-                child: CircularProgressIndicator(),
-              ),
-              error: (error) => Center(
-                child: Text('Erreur: $error'),
-              ),
-              orElse: () => ResponsiveGridList(
-                minItemWidth: 220,
-                children: animals.map((animal) {
-                  return PetComponent(
-                    animal: animal,
-                    onTap: () {
-                      context.navigate(RouteNames.animalDetailId(animal.id!));
-                    },
-                  );
-                }).toList(),
-              ),
+            child: ResponsiveGridList(
+              minItemWidth: 220,
+              children: state.animals.map((animal) {
+                return PetComponent(
+                  animal: animal,
+                  onTap: () {
+                    context.navigate(RouteNames.animalDetailId(animal.id!));
+                  },
+                );
+              }).toList(),
             ),
           );
         },

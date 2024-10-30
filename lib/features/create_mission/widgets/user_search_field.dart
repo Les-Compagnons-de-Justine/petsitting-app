@@ -7,8 +7,8 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 import 'package:searchfield/searchfield.dart';
 
 class UserSearchField extends HookWidget {
-  final List<UserDTO> users;
-  final Function(UserDTO) onUserSelected;
+  final List<UsersUser> users;
+  final Function(UsersUser) onUserSelected;
 
   const UserSearchField({
     super.key,
@@ -18,8 +18,8 @@ class UserSearchField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedUser = useState<UserDTO?>(null);
-    final filteredUsers = useState<List<UserDTO>>([]);
+    final selectedUser = useState<UsersUser?>(null);
+    final filteredUsers = useState<List<UsersUser>>([]);
     final focus = useFocusNode();
     final theme = Theme.of(context);
     final hasFocus = useState(false);
@@ -46,7 +46,7 @@ class UserSearchField extends HookWidget {
                   width: 1.5,
                 ),
               ),
-              child: SearchField<UserDTO>(
+              child: SearchField<UsersUser>(
                 initialValue: selectedUser.value?.toSearchFieldListItem(),
                 suggestions: filteredUsers.value.map((user) => user.toSearchFieldListItem()).toList(),
                 suggestionState: filteredUsers.value.isNotEmpty ? Suggestion.expand : Suggestion.hidden,
@@ -92,15 +92,15 @@ class UserSearchField extends HookWidget {
   }
 }
 
-extension on UserDTO {
-  SearchFieldListItem<UserDTO> toSearchFieldListItem() {
-    return SearchFieldListItem<UserDTO>(
+extension on UsersUser {
+  SearchFieldListItem<UsersUser> toSearchFieldListItem() {
+    return SearchFieldListItem<UsersUser>(
       '$firstname $lastname - $email',
       item: this,
       child: UserInfoText(
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
+        firstname: firstname!,
+        lastname: lastname!,
+        email: email!,
       ),
     );
   }

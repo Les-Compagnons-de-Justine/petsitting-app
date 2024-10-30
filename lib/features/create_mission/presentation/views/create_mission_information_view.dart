@@ -18,13 +18,13 @@ class CreateMissionInformationView extends HookWidget {
     required this.onMissionInformationSubmitted,
   });
 
-  FormGroup buildForm(UserDTO? currentUser, MissionCreation initialData) {
+  FormGroup buildForm(UsersUser? currentUser, MissionCreation initialData) {
     return fb.group({
-      'customer': FormControl<UserDTO>(validators: [Validators.required], value: currentUser, disabled: true),
+      'customer': FormControl<UsersUser>(validators: [Validators.required], value: currentUser, disabled: true),
       'startDate': FormControl<DateTime>(validators: [Validators.required], value: initialData.startDate),
       'endDate': FormControl<DateTime>(validators: [Validators.required], value: initialData.endDate),
       'notes': FormControl<String>(value: initialData.notes),
-      'location': FormControl<PlaceDetailsDTO>(validators: [Validators.required], value: initialData.location),
+      'location': FormControl<PlaceDetails>(validators: [Validators.required], value: initialData.location),
     });
   }
 
@@ -39,7 +39,7 @@ class CreateMissionInformationView extends HookWidget {
       child: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          ReactiveTextField<UserDTO>(
+          ReactiveTextField<UsersUser>(
             formControlName: 'customer',
             readOnly: true,
             valueAccessor: UserValueAccessor(),
@@ -86,7 +86,7 @@ class CreateMissionInformationView extends HookWidget {
             controller: addressController,
             addressFocusNode: addressFocusNode,
             onAddressValidated: (placeDetails) {
-              form.control('location').value = PlaceDetailsDTO(
+              form.control('location').value = PlaceDetails(
                 name: placeDetails.name,
                 formattedAddress: placeDetails.formattedAddress,
                 latitude: placeDetails.latitude,

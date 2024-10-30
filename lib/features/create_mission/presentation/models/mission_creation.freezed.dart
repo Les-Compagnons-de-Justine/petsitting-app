@@ -16,13 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MissionCreation {
-  UserDTO? get customer => throw _privateConstructorUsedError;
+  UsersUser? get customer => throw _privateConstructorUsedError;
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
-  List<DailyServiceCreationDTO>? get dailyServices =>
+  List<MissionsDailyService>? get dailyServices =>
       throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
-  PlaceDetailsDTO? get location => throw _privateConstructorUsedError;
+  PlaceDetails? get location => throw _privateConstructorUsedError;
 
   /// Create a copy of MissionCreation
   /// with the given fields replaced by the non-null parameter values.
@@ -38,12 +38,12 @@ abstract class $MissionCreationCopyWith<$Res> {
       _$MissionCreationCopyWithImpl<$Res, MissionCreation>;
   @useResult
   $Res call(
-      {UserDTO? customer,
+      {UsersUser? customer,
       DateTime? startDate,
       DateTime? endDate,
-      List<DailyServiceCreationDTO>? dailyServices,
+      List<MissionsDailyService>? dailyServices,
       String? notes,
-      PlaceDetailsDTO? location});
+      PlaceDetails? location});
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$MissionCreationCopyWithImpl<$Res, $Val extends MissionCreation>
       customer: freezed == customer
           ? _value.customer
           : customer // ignore: cast_nullable_to_non_nullable
-              as UserDTO?,
+              as UsersUser?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ class _$MissionCreationCopyWithImpl<$Res, $Val extends MissionCreation>
       dailyServices: freezed == dailyServices
           ? _value.dailyServices
           : dailyServices // ignore: cast_nullable_to_non_nullable
-              as List<DailyServiceCreationDTO>?,
+              as List<MissionsDailyService>?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ class _$MissionCreationCopyWithImpl<$Res, $Val extends MissionCreation>
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as PlaceDetailsDTO?,
+              as PlaceDetails?,
     ) as $Val);
   }
 }
@@ -106,12 +106,12 @@ abstract class _$$MissionCreationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {UserDTO? customer,
+      {UsersUser? customer,
       DateTime? startDate,
       DateTime? endDate,
-      List<DailyServiceCreationDTO>? dailyServices,
+      List<MissionsDailyService>? dailyServices,
       String? notes,
-      PlaceDetailsDTO? location});
+      PlaceDetails? location});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$$MissionCreationImplCopyWithImpl<$Res>
       customer: freezed == customer
           ? _value.customer
           : customer // ignore: cast_nullable_to_non_nullable
-              as UserDTO?,
+              as UsersUser?,
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
@@ -150,7 +150,7 @@ class __$$MissionCreationImplCopyWithImpl<$Res>
       dailyServices: freezed == dailyServices
           ? _value._dailyServices
           : dailyServices // ignore: cast_nullable_to_non_nullable
-              as List<DailyServiceCreationDTO>?,
+              as List<MissionsDailyService>?,
       notes: freezed == notes
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ class __$$MissionCreationImplCopyWithImpl<$Res>
       location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as PlaceDetailsDTO?,
+              as PlaceDetails?,
     ));
   }
 }
@@ -170,20 +170,20 @@ class _$MissionCreationImpl implements _MissionCreation {
       {this.customer,
       this.startDate,
       this.endDate,
-      final List<DailyServiceCreationDTO>? dailyServices,
+      final List<MissionsDailyService>? dailyServices,
       this.notes,
       this.location})
       : _dailyServices = dailyServices;
 
   @override
-  final UserDTO? customer;
+  final UsersUser? customer;
   @override
   final DateTime? startDate;
   @override
   final DateTime? endDate;
-  final List<DailyServiceCreationDTO>? _dailyServices;
+  final List<MissionsDailyService>? _dailyServices;
   @override
-  List<DailyServiceCreationDTO>? get dailyServices {
+  List<MissionsDailyService>? get dailyServices {
     final value = _dailyServices;
     if (value == null) return null;
     if (_dailyServices is EqualUnmodifiableListView) return _dailyServices;
@@ -194,7 +194,7 @@ class _$MissionCreationImpl implements _MissionCreation {
   @override
   final String? notes;
   @override
-  final PlaceDetailsDTO? location;
+  final PlaceDetails? location;
 
   @override
   String toString() {
@@ -234,25 +234,25 @@ class _$MissionCreationImpl implements _MissionCreation {
 
 abstract class _MissionCreation implements MissionCreation {
   const factory _MissionCreation(
-      {final UserDTO? customer,
+      {final UsersUser? customer,
       final DateTime? startDate,
       final DateTime? endDate,
-      final List<DailyServiceCreationDTO>? dailyServices,
+      final List<MissionsDailyService>? dailyServices,
       final String? notes,
-      final PlaceDetailsDTO? location}) = _$MissionCreationImpl;
+      final PlaceDetails? location}) = _$MissionCreationImpl;
 
   @override
-  UserDTO? get customer;
+  UsersUser? get customer;
   @override
   DateTime? get startDate;
   @override
   DateTime? get endDate;
   @override
-  List<DailyServiceCreationDTO>? get dailyServices;
+  List<MissionsDailyService>? get dailyServices;
   @override
   String? get notes;
   @override
-  PlaceDetailsDTO? get location;
+  PlaceDetails? get location;
 
   /// Create a copy of MissionCreation
   /// with the given fields replaced by the non-null parameter values.

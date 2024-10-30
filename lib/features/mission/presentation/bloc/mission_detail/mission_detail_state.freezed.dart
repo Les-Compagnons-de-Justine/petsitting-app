@@ -20,7 +20,7 @@ mixin _$MissionDetailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) loaded,
+    required TResult Function(MissionsMissionWithDetails mission) loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$MissionDetailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? loaded,
+    TResult? Function(MissionsMissionWithDetails mission)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$MissionDetailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? loaded,
+    TResult Function(MissionsMissionWithDetails mission)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -132,7 +132,7 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) loaded,
+    required TResult Function(MissionsMissionWithDetails mission) loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -143,7 +143,7 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? loaded,
+    TResult? Function(MissionsMissionWithDetails mission)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -154,7 +154,7 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? loaded,
+    TResult Function(MissionsMissionWithDetails mission)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -249,7 +249,7 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) loaded,
+    required TResult Function(MissionsMissionWithDetails mission) loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? loaded,
+    TResult? Function(MissionsMissionWithDetails mission)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? loaded,
+    TResult Function(MissionsMissionWithDetails mission)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -329,7 +329,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({MissionDTO mission});
+  $Res call({MissionsMissionWithDetails mission});
 }
 
 /// @nodoc
@@ -351,7 +351,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
       mission: null == mission
           ? _value.mission
           : mission // ignore: cast_nullable_to_non_nullable
-              as MissionDTO,
+              as MissionsMissionWithDetails,
     ));
   }
 }
@@ -362,7 +362,7 @@ class _$LoadedImpl implements Loaded {
   const _$LoadedImpl({required this.mission});
 
   @override
-  final MissionDTO mission;
+  final MissionsMissionWithDetails mission;
 
   @override
   String toString() {
@@ -393,7 +393,7 @@ class _$LoadedImpl implements Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) loaded,
+    required TResult Function(MissionsMissionWithDetails mission) loaded,
     required TResult Function(String message) error,
   }) {
     return loaded(mission);
@@ -404,7 +404,7 @@ class _$LoadedImpl implements Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? loaded,
+    TResult? Function(MissionsMissionWithDetails mission)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loaded?.call(mission);
@@ -415,7 +415,7 @@ class _$LoadedImpl implements Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? loaded,
+    TResult Function(MissionsMissionWithDetails mission)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -464,9 +464,10 @@ class _$LoadedImpl implements Loaded {
 }
 
 abstract class Loaded implements MissionDetailState {
-  const factory Loaded({required final MissionDTO mission}) = _$LoadedImpl;
+  const factory Loaded({required final MissionsMissionWithDetails mission}) =
+      _$LoadedImpl;
 
-  MissionDTO get mission;
+  MissionsMissionWithDetails get mission;
 
   /// Create a copy of MissionDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -545,7 +546,7 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) loaded,
+    required TResult Function(MissionsMissionWithDetails mission) loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -556,7 +557,7 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? loaded,
+    TResult? Function(MissionsMissionWithDetails mission)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -567,7 +568,7 @@ class _$ErrorImpl implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? loaded,
+    TResult Function(MissionsMissionWithDetails mission)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

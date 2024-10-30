@@ -19,7 +19,7 @@ class AnimalCardWidget extends HookWidget {
     required this.onEditPressed,
   });
 
-  final AnimalDTO animal;
+  final AnimalWithOwner animal;
   final VoidCallback onEditPressed;
 
   String _getDisplayValue(dynamic enumValue) {
@@ -68,12 +68,12 @@ class AnimalCardWidget extends HookWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        animal.name,
+                        animal.name!,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        '${animal.species.name} - ${animal.breed ?? 'Race non spécifiée'}',
+                        '${animal.species?.name} - ${animal.breed ?? 'Race non spécifiée'}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 8),
@@ -83,7 +83,7 @@ class AnimalCardWidget extends HookWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Né le ${Jiffy.parseFromDateTime(animal.birthDate).format(pattern: "dd/MM/yyyy")}',
+                        'Né le ${Jiffy.parse(animal.birthDate!).format(pattern: "dd/MM/yyyy")}',
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       if (animal.weight != null) ...[
@@ -107,40 +107,35 @@ class AnimalCardWidget extends HookWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.medicalConditions != null &&
-                          animal.medicalConditions!.isNotEmpty) ...[
+                      if (animal.medicalConditions != null && animal.medicalConditions!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Problèmes médicaux: ${animal.medicalConditions}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.medications != null &&
-                          animal.medications!.isNotEmpty) ...[
+                      if (animal.medications != null && animal.medications!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Médicaments: ${animal.medications!.join(', ')}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.allergies != null &&
-                          animal.allergies!.isNotEmpty) ...[
+                      if (animal.allergies != null && animal.allergies!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Allergies: ${animal.allergies!.join(', ')}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.feedingInstructions != null &&
-                          animal.feedingInstructions!.isNotEmpty) ...[
+                      if (animal.feedingInstructions != null && animal.feedingInstructions!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Instructions d\'alimentation: ${animal.feedingInstructions}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.behaviorNotes != null &&
-                          animal.behaviorNotes!.isNotEmpty) ...[
+                      if (animal.behaviorNotes != null && animal.behaviorNotes!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Notes de comportement: ${animal.behaviorNotes}',
@@ -175,16 +170,14 @@ class AnimalCardWidget extends HookWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.specialNeeds != null &&
-                          animal.specialNeeds!.isNotEmpty) ...[
+                      if (animal.specialNeeds != null && animal.specialNeeds!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Besoins spéciaux: ${animal.specialNeeds}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.veterinarianContact != null &&
-                          animal.veterinarianContact!.isNotEmpty) ...[
+                      if (animal.veterinarianContact != null && animal.veterinarianContact!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Contact vétérinaire: ${animal.veterinarianContact}',
@@ -194,12 +187,11 @@ class AnimalCardWidget extends HookWidget {
                       if (animal.lastVetVisit != null) ...[
                         const SizedBox(height: 8),
                         Text(
-                          'Dernière visite chez le véto: ${Jiffy.parseFromDateTime(animal.lastVetVisit!).format(pattern: "dd/MM/yyyy")}',
+                          'Dernière visite chez le véto: ${Jiffy.parse(animal.lastVetVisit!).format(pattern: "dd/MM/yyyy")}',
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                       ],
-                      if (animal.specialInstructions != null &&
-                          animal.specialInstructions!.isNotEmpty) ...[
+                      if (animal.specialInstructions != null && animal.specialInstructions!.isNotEmpty) ...[
                         const SizedBox(height: 8),
                         Text(
                           'Instructions spéciales: ${animal.specialInstructions}',
@@ -217,8 +209,7 @@ class AnimalCardWidget extends HookWidget {
     );
   }
 
-  Future<bool?> _showDeleteConfirmationDialog(
-      BuildContext context, AnimalDTO animal) async {
+  Future<bool?> _showDeleteConfirmationDialog(BuildContext context, AnimalWithOwner animal) async {
     final result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {

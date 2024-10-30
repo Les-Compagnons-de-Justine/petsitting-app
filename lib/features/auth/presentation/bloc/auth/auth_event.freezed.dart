@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_bloc.dart';
+part of 'auth_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -19,7 +19,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -29,7 +29,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -39,7 +39,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -170,7 +170,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -183,7 +183,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -196,7 +196,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -273,7 +273,7 @@ abstract class _$$AuthEventCreateAccountImplCopyWith<$Res> {
           $Res Function(_$AuthEventCreateAccountImpl) then) =
       __$$AuthEventCreateAccountImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({client.UserCreationDTO user});
+  $Res call({UsersCreateUserRequest user});
 }
 
 /// @nodoc
@@ -296,7 +296,7 @@ class __$$AuthEventCreateAccountImplCopyWithImpl<$Res>
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as client.UserCreationDTO,
+              as UsersCreateUserRequest,
     ));
   }
 }
@@ -307,7 +307,7 @@ class _$AuthEventCreateAccountImpl implements AuthEventCreateAccount {
   const _$AuthEventCreateAccountImpl({required this.user});
 
   @override
-  final client.UserCreationDTO user;
+  final UsersCreateUserRequest user;
 
   @override
   String toString() {
@@ -338,7 +338,7 @@ class _$AuthEventCreateAccountImpl implements AuthEventCreateAccount {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -351,7 +351,7 @@ class _$AuthEventCreateAccountImpl implements AuthEventCreateAccount {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -364,7 +364,7 @@ class _$AuthEventCreateAccountImpl implements AuthEventCreateAccount {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -423,10 +423,10 @@ class _$AuthEventCreateAccountImpl implements AuthEventCreateAccount {
 
 abstract class AuthEventCreateAccount implements AuthEvent {
   const factory AuthEventCreateAccount(
-          {required final client.UserCreationDTO user}) =
+          {required final UsersCreateUserRequest user}) =
       _$AuthEventCreateAccountImpl;
 
-  client.UserCreationDTO get user;
+  UsersCreateUserRequest get user;
 
   /// Create a copy of AuthEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -505,7 +505,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -518,7 +518,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -531,7 +531,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -643,7 +643,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -656,7 +656,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -669,7 +669,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -773,7 +773,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -786,7 +786,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -799,7 +799,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,
@@ -932,7 +932,7 @@ class _$AuthEventAuthStateChangedImpl implements AuthEventAuthStateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) signIn,
-    required TResult Function(client.UserCreationDTO user) createAccount,
+    required TResult Function(UsersCreateUserRequest user) createAccount,
     required TResult Function(User user) signUp,
     required TResult Function() signOut,
     required TResult Function() checkStatus,
@@ -945,7 +945,7 @@ class _$AuthEventAuthStateChangedImpl implements AuthEventAuthStateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(User user)? signIn,
-    TResult? Function(client.UserCreationDTO user)? createAccount,
+    TResult? Function(UsersCreateUserRequest user)? createAccount,
     TResult? Function(User user)? signUp,
     TResult? Function()? signOut,
     TResult? Function()? checkStatus,
@@ -958,7 +958,7 @@ class _$AuthEventAuthStateChangedImpl implements AuthEventAuthStateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? signIn,
-    TResult Function(client.UserCreationDTO user)? createAccount,
+    TResult Function(UsersCreateUserRequest user)? createAccount,
     TResult Function(User user)? signUp,
     TResult Function()? signOut,
     TResult Function()? checkStatus,

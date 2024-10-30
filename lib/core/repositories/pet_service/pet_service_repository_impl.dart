@@ -1,4 +1,3 @@
-import 'package:petsitting/core/extensions/pet_services_extension.dart';
 import 'package:petsitting/core/repositories/pet_service/pet_service_repository.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
@@ -8,7 +7,7 @@ class PetServiceRepositoryImpl implements PetServiceRepository {
   PetServiceRepositoryImpl(this._apiClient);
 
   @override
-  Future<List<PetServiceDTO>> getAllPetServices() async {
+  Future<List<PetServicesPetService>> getAllPetServices() async {
     try {
       final response = await _apiClient.apiPetServicesGet();
       if (response.isSuccessful) {
@@ -22,7 +21,7 @@ class PetServiceRepositoryImpl implements PetServiceRepository {
   }
 
   @override
-  Future<PetServiceDTO> getPetServiceById(String id) async {
+  Future<PetServicesPetService> getPetServiceById(String id) async {
     try {
       final response = await _apiClient.apiPetServicesIdGet(id: id);
       if (response.isSuccessful) {
@@ -36,9 +35,9 @@ class PetServiceRepositoryImpl implements PetServiceRepository {
   }
 
   @override
-  Future<List<PetServiceDTO>> getPetServicesByCategory(PetServiceDTOCategory category) async {
+  Future<List<PetServicesPetService>> getPetServicesByCategory(PetServicesCategory category) async {
     try {
-      final response = await _apiClient.apiPetServicesCategoryCategoryGet(category: category.toApiPetServicesCategory());
+      final response = await _apiClient.apiPetServicesCategoryCategoryGet(category: category.name);
       if (response.isSuccessful) {
         return response.bodyOrThrow;
       } else {
@@ -50,9 +49,9 @@ class PetServiceRepositoryImpl implements PetServiceRepository {
   }
 
   @override
-  Future<PetServiceDTO> createPetService(PetServiceDTO service) async {
+  Future<PetServicesPetService> createPetService(PetServicesPetService service) async {
     try {
-      final response = await _apiClient.apiPetServicesPost(body: service);
+      final response = await _apiClient.apiPetServicesPost(service: service);
       if (response.isSuccessful) {
         return response.body!;
       } else {
@@ -64,9 +63,9 @@ class PetServiceRepositoryImpl implements PetServiceRepository {
   }
 
   @override
-  Future<PetServiceDTO> updatePetService(String id, PetServiceDTO service) async {
+  Future<PetServicesPetService> updatePetService(String id, PetServicesPetService service) async {
     try {
-      final response = await _apiClient.apiPetServicesIdPut(id: id, body: service);
+      final response = await _apiClient.apiPetServicesIdPut(id: id, service: service);
       if (response.isSuccessful) {
         return response.body!;
       } else {

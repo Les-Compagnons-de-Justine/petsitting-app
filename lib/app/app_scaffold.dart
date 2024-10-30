@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:petsitting/core/router/route_names.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:petsitting/features/auth/presentation/bloc/auth/auth_event.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -70,7 +71,7 @@ class AppScaffold extends StatelessWidget {
                             ListTile(
                               title: TextButton(
                                 onPressed: () {
-                                  context.read<AuthBloc>().add(AuthEvent.signOut());
+                                  context.read<AuthBloc>().add(AuthEventSignOut());
                                 },
                                 child: const Text('Déconnexion'),
                               ),

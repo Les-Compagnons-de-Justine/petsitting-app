@@ -44,468 +44,442 @@ abstract class PetSittingClient extends ChopperService {
         client: httpClient,
         authenticator: authenticator,
         errorConverter: errorConverter,
-        baseUrl: baseUrl ?? Uri.parse('http://'));
+        baseUrl: baseUrl ?? Uri.parse('http:///api'));
     return _$PetSittingClient(newClient);
   }
 
-  ///
-  ///@param id
-  Future<chopper.Response<UserDTO>> apiUsersIdGet({required String? id}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersIdGet(id: id);
-  }
-
-  ///
-  ///@param id
-  @Get(path: '/api/users/{id}')
-  Future<chopper.Response<UserDTO>> _apiUsersIdGet(
-      {@Path('id') required String? id});
-
-  ///
-  Future<chopper.Response<UserDTO>> apiUsersIdPut(
-      {required UserUpdateDTO? body}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersIdPut(body: body);
-  }
-
-  ///
-  @Put(
-    path: '/api/users/{id}',
-    optionalBody: true,
-  )
-  Future<chopper.Response<UserDTO>> _apiUsersIdPut(
-      {@Body() required UserUpdateDTO? body});
-
-  ///
-  ///@param id
-  Future<chopper.Response> apiUsersIdDelete({required String? id}) {
-    return _apiUsersIdDelete(id: id);
-  }
-
-  ///
-  ///@param id
-  @Delete(path: '/api/users/{id}')
-  Future<chopper.Response> _apiUsersIdDelete({@Path('id') required String? id});
-
-  ///
-  ///@param scheduleId
-  ///@param startTime
-  ///@param endTime
-  Future<chopper.Response<RecurringScheduleDTO>>
-      apiRecurringSchedulesScheduleIdPut({
-    required String? scheduleId,
-    required DateTime? startTime,
-    required DateTime? endTime,
-  }) {
+  ///Update an animal
+  ///@param animal Updated animal data
+  Future<chopper.Response<AnimalWithOwner>> apiAnimalsPut(
+      {required AnimalAnimal? animal}) {
     generatedMapping.putIfAbsent(
-        RecurringScheduleDTO, () => RecurringScheduleDTO.fromJsonFactory);
+        AnimalAnimal, () => AnimalAnimal.fromJsonFactory);
+    generatedMapping.putIfAbsent(
+        AnimalWithOwner, () => AnimalWithOwner.fromJsonFactory);
 
-    return _apiRecurringSchedulesScheduleIdPut(
-        scheduleId: scheduleId, startTime: startTime, endTime: endTime);
+    return _apiAnimalsPut(animal: animal);
   }
 
-  ///
-  ///@param scheduleId
-  ///@param startTime
-  ///@param endTime
-  @Put(
-    path: '/api/recurring-schedules/{scheduleId}',
-    optionalBody: true,
-  )
-  Future<chopper.Response<RecurringScheduleDTO>>
-      _apiRecurringSchedulesScheduleIdPut({
-    @Path('scheduleId') required String? scheduleId,
-    @Query('startTime') required DateTime? startTime,
-    @Query('endTime') required DateTime? endTime,
-  });
+  ///Update an animal
+  ///@param animal Updated animal data
+  @Put(path: '/api/animals')
+  Future<chopper.Response<AnimalWithOwner>> _apiAnimalsPut(
+      {@Body() required AnimalAnimal? animal});
 
-  ///
-  ///@param scheduleId
-  Future<chopper.Response> apiRecurringSchedulesScheduleIdDelete(
-      {required String? scheduleId}) {
-    return _apiRecurringSchedulesScheduleIdDelete(scheduleId: scheduleId);
+  ///Create a new animal
+  ///@param animal Animal data
+  Future<chopper.Response<AnimalWithOwner>> apiAnimalsPost(
+      {required AnimalAnimal? animal}) {
+    generatedMapping.putIfAbsent(
+        AnimalAnimal, () => AnimalAnimal.fromJsonFactory);
+    generatedMapping.putIfAbsent(
+        AnimalWithOwner, () => AnimalWithOwner.fromJsonFactory);
+
+    return _apiAnimalsPost(animal: animal);
   }
 
-  ///
-  ///@param scheduleId
-  @Delete(path: '/api/recurring-schedules/{scheduleId}')
-  Future<chopper.Response> _apiRecurringSchedulesScheduleIdDelete(
-      {@Path('scheduleId') required String? scheduleId});
+  ///Create a new animal
+  ///@param animal Animal data
+  @Post(path: '/api/animals')
+  Future<chopper.Response<AnimalWithOwner>> _apiAnimalsPost(
+      {@Body() required AnimalAnimal? animal});
 
-  ///
-  ///@param id
-  Future<chopper.Response<PetServiceDTO>> apiPetServicesIdGet(
+  ///Get animals by owner ID
+  ///@param ownerId Owner ID
+  Future<chopper.Response<List<AnimalWithOwner>>> apiAnimalsOwnerOwnerIdGet(
+      {required String? ownerId}) {
+    generatedMapping.putIfAbsent(
+        AnimalWithOwner, () => AnimalWithOwner.fromJsonFactory);
+
+    return _apiAnimalsOwnerOwnerIdGet(ownerId: ownerId);
+  }
+
+  ///Get animals by owner ID
+  ///@param ownerId Owner ID
+  @Get(path: '/api/animals/owner/{ownerId}')
+  Future<chopper.Response<List<AnimalWithOwner>>> _apiAnimalsOwnerOwnerIdGet(
+      {@Path('ownerId') required String? ownerId});
+
+  ///Get an animal by ID
+  ///@param id Animal ID
+  Future<chopper.Response<AnimalWithOwner>> apiAnimalsIdGet(
       {required String? id}) {
     generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
-
-    return _apiPetServicesIdGet(id: id);
-  }
-
-  ///
-  ///@param id
-  @Get(path: '/api/pet-services/{id}')
-  Future<chopper.Response<PetServiceDTO>> _apiPetServicesIdGet(
-      {@Path('id') required String? id});
-
-  ///
-  ///@param id
-  Future<chopper.Response<PetServiceDTO>> apiPetServicesIdPut({
-    required String? id,
-    required PetServiceDTO? body,
-  }) {
-    generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
-
-    return _apiPetServicesIdPut(id: id, body: body);
-  }
-
-  ///
-  ///@param id
-  @Put(
-    path: '/api/pet-services/{id}',
-    optionalBody: true,
-  )
-  Future<chopper.Response<PetServiceDTO>> _apiPetServicesIdPut({
-    @Path('id') required String? id,
-    @Body() required PetServiceDTO? body,
-  });
-
-  ///
-  ///@param id
-  Future<chopper.Response> apiPetServicesIdDelete({required String? id}) {
-    return _apiPetServicesIdDelete(id: id);
-  }
-
-  ///
-  ///@param id
-  @Delete(path: '/api/pet-services/{id}')
-  Future<chopper.Response> _apiPetServicesIdDelete(
-      {@Path('id') required String? id});
-
-  ///
-  ///@param id
-  Future<chopper.Response<AnimalDTO>> apiAnimalsIdGet({required String? id}) {
-    generatedMapping.putIfAbsent(AnimalDTO, () => AnimalDTO.fromJsonFactory);
+        AnimalWithOwner, () => AnimalWithOwner.fromJsonFactory);
 
     return _apiAnimalsIdGet(id: id);
   }
 
-  ///
-  ///@param id
+  ///Get an animal by ID
+  ///@param id Animal ID
   @Get(path: '/api/animals/{id}')
-  Future<chopper.Response<AnimalDTO>> _apiAnimalsIdGet(
+  Future<chopper.Response<AnimalWithOwner>> _apiAnimalsIdGet(
       {@Path('id') required String? id});
 
-  ///
-  Future<chopper.Response<AnimalDTO>> apiAnimalsIdPut(
-      {required AnimalUpdateDTO? body}) {
-    generatedMapping.putIfAbsent(AnimalDTO, () => AnimalDTO.fromJsonFactory);
-
-    return _apiAnimalsIdPut(body: body);
-  }
-
-  ///
-  @Put(
-    path: '/api/animals/{id}',
-    optionalBody: true,
-  )
-  Future<chopper.Response<AnimalDTO>> _apiAnimalsIdPut(
-      {@Body() required AnimalUpdateDTO? body});
-
-  ///
-  ///@param id
+  ///Delete an animal by ID
+  ///@param id Animal ID
   Future<chopper.Response> apiAnimalsIdDelete({required String? id}) {
     return _apiAnimalsIdDelete(id: id);
   }
 
-  ///
-  ///@param id
+  ///Delete an animal by ID
+  ///@param id Animal ID
   @Delete(path: '/api/animals/{id}')
   Future<chopper.Response> _apiAnimalsIdDelete(
       {@Path('id') required String? id});
 
-  ///
-  Future<chopper.Response<UserDTO>> apiUsersPost(
-      {required UserCreationDTO? body}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
+  ///Create a new mission
+  ///@param mission Mission data
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsPost(
+      {required MissionsCreateMissionRequest? mission}) {
+    generatedMapping.putIfAbsent(MissionsCreateMissionRequest,
+        () => MissionsCreateMissionRequest.fromJsonFactory);
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
 
-    return _apiUsersPost(body: body);
+    return _apiMissionsPost(mission: mission);
   }
 
-  ///
-  @Post(
-    path: '/api/users',
-    optionalBody: true,
-  )
-  Future<chopper.Response<UserDTO>> _apiUsersPost(
-      {@Body() required UserCreationDTO? body});
+  ///Create a new mission
+  ///@param mission Mission data
+  @Post(path: '/api/missions')
+  Future<chopper.Response<MissionsMissionWithDetails>> _apiMissionsPost(
+      {@Body() required MissionsCreateMissionRequest? mission});
 
-  ///
-  Future<chopper.Response<UserDTO>> apiUsersVetAssistantPost(
-      {required UserCreationDTO? body}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersVetAssistantPost(body: body);
-  }
-
-  ///
-  @Post(
-    path: '/api/users/vet-assistant',
-    optionalBody: true,
-  )
-  Future<chopper.Response<UserDTO>> _apiUsersVetAssistantPost(
-      {@Body() required UserCreationDTO? body});
-
-  ///
-  ///@param vetAssistantId
-  ///@param dayOfWeek
-  Future<chopper.Response<List<RecurringScheduleDTO>>>
-      apiRecurringSchedulesGet({
-    required String? vetAssistantId,
-    required enums.ApiRecurringSchedulesGetDayOfWeek? dayOfWeek,
-  }) {
+  ///Get missions by client ID
+  ///@param clientId Client ID
+  Future<chopper.Response<List<MissionsMission>>> apiMissionsClientClientIdGet(
+      {required String? clientId}) {
     generatedMapping.putIfAbsent(
-        RecurringScheduleDTO, () => RecurringScheduleDTO.fromJsonFactory);
+        MissionsMission, () => MissionsMission.fromJsonFactory);
 
-    return _apiRecurringSchedulesGet(
-        vetAssistantId: vetAssistantId,
-        dayOfWeek: dayOfWeek?.value?.toString());
+    return _apiMissionsClientClientIdGet(clientId: clientId);
   }
 
-  ///
-  ///@param vetAssistantId
-  ///@param dayOfWeek
-  @Get(path: '/api/recurring-schedules')
-  Future<chopper.Response<List<RecurringScheduleDTO>>>
-      _apiRecurringSchedulesGet({
-    @Query('vetAssistantId') required String? vetAssistantId,
-    @Query('dayOfWeek') required String? dayOfWeek,
+  ///Get missions by client ID
+  ///@param clientId Client ID
+  @Get(path: '/api/missions/client/{clientId}')
+  Future<chopper.Response<List<MissionsMission>>> _apiMissionsClientClientIdGet(
+      {@Path('clientId') required String? clientId});
+
+  ///Get missions by client ID
+  ///@param clientId Client ID
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      apiMissionsClientClientIdDetailsGet({required String? clientId}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsClientClientIdDetailsGet(clientId: clientId);
+  }
+
+  ///Get missions by client ID
+  ///@param clientId Client ID
+  @Get(path: '/api/missions/client/{clientId}/details')
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      _apiMissionsClientClientIdDetailsGet(
+          {@Path('clientId') required String? clientId});
+
+  ///Get missions within a date range
+  ///@param startDate Start Date in format YYYY-MM-DD
+  ///@param endDate End Date in format YYYY-MM-DD
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      apiMissionsDateRangeGet({
+    required String? startDate,
+    required String? endDate,
+  }) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsDateRangeGet(startDate: startDate, endDate: endDate);
+  }
+
+  ///Get missions within a date range
+  ///@param startDate Start Date in format YYYY-MM-DD
+  ///@param endDate End Date in format YYYY-MM-DD
+  @Get(path: '/api/missions/date-range')
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      _apiMissionsDateRangeGet({
+    @Query('startDate') required String? startDate,
+    @Query('endDate') required String? endDate,
   });
 
-  ///
-  ///@param vetAssistantId
-  ///@param dayOfWeek
-  ///@param startTime
-  ///@param endTime
-  Future<chopper.Response<RecurringScheduleDTO>> apiRecurringSchedulesPost({
-    required String? vetAssistantId,
-    required enums.ApiRecurringSchedulesPostDayOfWeek? dayOfWeek,
-    required DateTime? startTime,
-    required DateTime? endTime,
-  }) {
-    generatedMapping.putIfAbsent(
-        RecurringScheduleDTO, () => RecurringScheduleDTO.fromJsonFactory);
+  ///Get missions by vet assistant ID
+  ///@param vetAssistantId Vet Assistant ID
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      apiMissionsVetAssistantVetAssistantIdGet(
+          {required String? vetAssistantId}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
 
-    return _apiRecurringSchedulesPost(
-        vetAssistantId: vetAssistantId,
-        dayOfWeek: dayOfWeek?.value?.toString(),
-        startTime: startTime,
-        endTime: endTime);
+    return _apiMissionsVetAssistantVetAssistantIdGet(
+        vetAssistantId: vetAssistantId);
   }
 
-  ///
-  ///@param vetAssistantId
-  ///@param dayOfWeek
-  ///@param startTime
-  ///@param endTime
-  @Post(
-    path: '/api/recurring-schedules',
+  ///Get missions by vet assistant ID
+  ///@param vetAssistantId Vet Assistant ID
+  @Get(path: '/api/missions/vet-assistant/{vetAssistantId}')
+  Future<chopper.Response<List<MissionsMissionWithDetails>>>
+      _apiMissionsVetAssistantVetAssistantIdGet(
+          {@Path('vetAssistantId') required String? vetAssistantId});
+
+  ///Get a mission by ID
+  ///@param id Mission ID
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdGet(
+      {required String? id}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdGet(id: id);
+  }
+
+  ///Get a mission by ID
+  ///@param id Mission ID
+  @Get(path: '/api/missions/{id}')
+  Future<chopper.Response<MissionsMissionWithDetails>> _apiMissionsIdGet(
+      {@Path('id') required String? id});
+
+  ///Assign a vet assistant to a mission
+  ///@param id Mission ID
+  ///@param vetAssistantId Vet Assistant ID
+  Future<chopper.Response<MissionsMissionWithDetails>>
+      apiMissionsIdAssignVetAssistantIdPut({
+    required String? id,
+    required String? vetAssistantId,
+  }) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdAssignVetAssistantIdPut(
+        id: id, vetAssistantId: vetAssistantId);
+  }
+
+  ///Assign a vet assistant to a mission
+  ///@param id Mission ID
+  ///@param vetAssistantId Vet Assistant ID
+  @Put(
+    path: '/api/missions/{id}/assign/{vetAssistantId}',
     optionalBody: true,
   )
-  Future<chopper.Response<RecurringScheduleDTO>> _apiRecurringSchedulesPost({
-    @Query('vetAssistantId') required String? vetAssistantId,
-    @Query('dayOfWeek') required String? dayOfWeek,
-    @Query('startTime') required DateTime? startTime,
-    @Query('endTime') required DateTime? endTime,
+  Future<chopper.Response<MissionsMissionWithDetails>>
+      _apiMissionsIdAssignVetAssistantIdPut({
+    @Path('id') required String? id,
+    @Path('vetAssistantId') required String? vetAssistantId,
   });
 
-  ///
-  Future<chopper.Response<List<PetServiceDTO>>> apiPetServicesGet() {
+  ///Cancel a mission
+  ///@param id Mission ID
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdCancelPut(
+      {required String? id}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdCancelPut(id: id);
+  }
+
+  ///Cancel a mission
+  ///@param id Mission ID
+  @Put(
+    path: '/api/missions/{id}/cancel',
+    optionalBody: true,
+  )
+  Future<chopper.Response<MissionsMissionWithDetails>> _apiMissionsIdCancelPut(
+      {@Path('id') required String? id});
+
+  ///Complete a mission
+  ///@param id Mission ID
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdCompletePut(
+      {required String? id}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdCompletePut(id: id);
+  }
+
+  ///Complete a mission
+  ///@param id Mission ID
+  @Put(
+    path: '/api/missions/{id}/complete',
+    optionalBody: true,
+  )
+  Future<chopper.Response<MissionsMissionWithDetails>>
+      _apiMissionsIdCompletePut({@Path('id') required String? id});
+
+  ///Confirm a mission
+  ///@param id Mission ID
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdConfirmPut(
+      {required String? id}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdConfirmPut(id: id);
+  }
+
+  ///Confirm a mission
+  ///@param id Mission ID
+  @Put(
+    path: '/api/missions/{id}/confirm',
+    optionalBody: true,
+  )
+  Future<chopper.Response<MissionsMissionWithDetails>> _apiMissionsIdConfirmPut(
+      {@Path('id') required String? id});
+
+  ///Mark a mission as paid
+  ///@param id Mission ID
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdMarkPaidPut(
+      {required String? id}) {
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdMarkPaidPut(id: id);
+  }
+
+  ///Mark a mission as paid
+  ///@param id Mission ID
+  @Put(
+    path: '/api/missions/{id}/mark-paid',
+    optionalBody: true,
+  )
+  Future<chopper.Response<MissionsMissionWithDetails>>
+      _apiMissionsIdMarkPaidPut({@Path('id') required String? id});
+
+  ///Update mission status
+  ///@param id Mission ID
+  ///@param status New status
+  Future<chopper.Response<MissionsMissionWithDetails>> apiMissionsIdStatusPut({
+    required String? id,
+    required MissionsUpdateMissionStatusRequest? status,
+  }) {
+    generatedMapping.putIfAbsent(MissionsUpdateMissionStatusRequest,
+        () => MissionsUpdateMissionStatusRequest.fromJsonFactory);
+    generatedMapping.putIfAbsent(MissionsMissionWithDetails,
+        () => MissionsMissionWithDetails.fromJsonFactory);
+
+    return _apiMissionsIdStatusPut(id: id, status: status);
+  }
+
+  ///Update mission status
+  ///@param id Mission ID
+  ///@param status New status
+  @Put(path: '/api/missions/{id}/status')
+  Future<chopper.Response<MissionsMissionWithDetails>> _apiMissionsIdStatusPut({
+    @Path('id') required String? id,
+    @Body() required MissionsUpdateMissionStatusRequest? status,
+  });
+
+  ///Get all pet services
+  Future<chopper.Response<List<PetServicesPetService>>> apiPetServicesGet() {
     generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
     return _apiPetServicesGet();
   }
 
-  ///
+  ///Get all pet services
   @Get(path: '/api/pet-services')
-  Future<chopper.Response<List<PetServiceDTO>>> _apiPetServicesGet();
+  Future<chopper.Response<List<PetServicesPetService>>> _apiPetServicesGet();
 
-  ///
-  Future<chopper.Response<PetServiceDTO>> apiPetServicesPost(
-      {required PetServiceDTO? body}) {
+  ///Create a new pet service
+  ///@param service Pet Service data
+  Future<chopper.Response<PetServicesPetService>> apiPetServicesPost(
+      {required PetServicesPetService? service}) {
     generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
-    return _apiPetServicesPost(body: body);
+    return _apiPetServicesPost(service: service);
   }
 
-  ///
-  @Post(
-    path: '/api/pet-services',
-    optionalBody: true,
-  )
-  Future<chopper.Response<PetServiceDTO>> _apiPetServicesPost(
-      {@Body() required PetServiceDTO? body});
+  ///Create a new pet service
+  ///@param service Pet Service data
+  @Post(path: '/api/pet-services')
+  Future<chopper.Response<PetServicesPetService>> _apiPetServicesPost(
+      {@Body() required PetServicesPetService? service});
 
-  ///
-  Future<chopper.Response<MissionDTO>> apiMissionsPost(
-      {required MissionCreationDTO? body}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
+  ///Get pet services by animal type
+  ///@param animalType Animal Type
+  Future<chopper.Response<List<PetServicesPetService>>>
+      apiPetServicesAnimalTypeAnimalTypeGet({required String? animalType}) {
+    generatedMapping.putIfAbsent(
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
-    return _apiMissionsPost(body: body);
+    return _apiPetServicesAnimalTypeAnimalTypeGet(animalType: animalType);
   }
 
-  ///
-  @Post(
-    path: '/api/missions',
-    optionalBody: true,
-  )
-  Future<chopper.Response<MissionDTO>> _apiMissionsPost(
-      {@Body() required MissionCreationDTO? body});
+  ///Get pet services by animal type
+  ///@param animalType Animal Type
+  @Get(path: '/api/pet-services/animal-type/{animalType}')
+  Future<chopper.Response<List<PetServicesPetService>>>
+      _apiPetServicesAnimalTypeAnimalTypeGet(
+          {@Path('animalType') required String? animalType});
 
-  ///
-  ///@param missionId
-  Future<chopper.Response<MissionDTO>> apiMissionsStatusMissionIdStartPost(
-      {required String? missionId}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
+  ///Get pet services by category
+  ///@param category Pet Service Category
+  Future<chopper.Response<List<PetServicesPetService>>>
+      apiPetServicesCategoryCategoryGet({required String? category}) {
+    generatedMapping.putIfAbsent(
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
-    return _apiMissionsStatusMissionIdStartPost(missionId: missionId);
+    return _apiPetServicesCategoryCategoryGet(category: category);
   }
 
-  ///
-  ///@param missionId
-  @Post(
-    path: '/api/missions/status/{missionId}/start',
-    optionalBody: true,
-  )
-  Future<chopper.Response<MissionDTO>> _apiMissionsStatusMissionIdStartPost(
-      {@Path('missionId') required String? missionId});
+  ///Get pet services by category
+  ///@param category Pet Service Category
+  @Get(path: '/api/pet-services/category/{category}')
+  Future<chopper.Response<List<PetServicesPetService>>>
+      _apiPetServicesCategoryCategoryGet(
+          {@Path('category') required String? category});
 
-  ///
-  ///@param missionId
-  Future<chopper.Response<MissionDTO>> apiMissionsStatusMissionIdConfirmPost(
-      {required String? missionId}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
-
-    return _apiMissionsStatusMissionIdConfirmPost(missionId: missionId);
-  }
-
-  ///
-  ///@param missionId
-  @Post(
-    path: '/api/missions/status/{missionId}/confirm',
-    optionalBody: true,
-  )
-  Future<chopper.Response<MissionDTO>> _apiMissionsStatusMissionIdConfirmPost(
-      {@Path('missionId') required String? missionId});
-
-  ///
-  ///@param missionId
-  Future<chopper.Response<MissionDTO>> apiMissionsStatusMissionIdCompletePost(
-      {required String? missionId}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
-
-    return _apiMissionsStatusMissionIdCompletePost(missionId: missionId);
-  }
-
-  ///
-  ///@param missionId
-  @Post(
-    path: '/api/missions/status/{missionId}/complete',
-    optionalBody: true,
-  )
-  Future<chopper.Response<MissionDTO>> _apiMissionsStatusMissionIdCompletePost(
-      {@Path('missionId') required String? missionId});
-
-  ///
-  Future<chopper.Response<AnimalDTO>> apiAnimalsPost(
-      {required AnimalCreateDTO? body}) {
-    generatedMapping.putIfAbsent(AnimalDTO, () => AnimalDTO.fromJsonFactory);
-
-    return _apiAnimalsPost(body: body);
-  }
-
-  ///
-  @Post(
-    path: '/api/animals',
-    optionalBody: true,
-  )
-  Future<chopper.Response<AnimalDTO>> _apiAnimalsPost(
-      {@Body() required AnimalCreateDTO? body});
-
-  ///
-  Future<chopper.Response<UserDTO>> apiUsersMeGet() {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersMeGet();
-  }
-
-  ///
-  @Get(path: '/api/users/me')
-  Future<chopper.Response<UserDTO>> _apiUsersMeGet();
-
-  ///
-  ///@param id
-  Future<chopper.Response<UserDTO>> apiUsersFirebaseIdGet(
+  ///Get a pet service by ID
+  ///@param id Service ID
+  Future<chopper.Response<PetServicesPetService>> apiPetServicesIdGet(
       {required String? id}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
+    generatedMapping.putIfAbsent(
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
-    return _apiUsersFirebaseIdGet(id: id);
+    return _apiPetServicesIdGet(id: id);
   }
 
-  ///
-  ///@param id
-  @Get(path: '/api/users/firebase/{id}')
-  Future<chopper.Response<UserDTO>> _apiUsersFirebaseIdGet(
+  ///Get a pet service by ID
+  ///@param id Service ID
+  @Get(path: '/api/pet-services/{id}')
+  Future<chopper.Response<PetServicesPetService>> _apiPetServicesIdGet(
       {@Path('id') required String? id});
 
-  ///
-  ///@param email
-  Future<chopper.Response<UserDTO>> apiUsersEmailGet({required String? email}) {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersEmailGet(email: email);
-  }
-
-  ///
-  ///@param email
-  @Get(path: '/api/users/email')
-  Future<chopper.Response<UserDTO>> _apiUsersEmailGet(
-      {@Query('email') required String? email});
-
-  ///
-  Future<chopper.Response<List<UserDTO>>> apiUsersAllGet() {
-    generatedMapping.putIfAbsent(UserDTO, () => UserDTO.fromJsonFactory);
-
-    return _apiUsersAllGet();
-  }
-
-  ///
-  @Get(path: '/api/users/all')
-  Future<chopper.Response<List<UserDTO>>> _apiUsersAllGet();
-
-  ///
-  ///@param query
-  Future<chopper.Response<List<PlaceSuggestion>>> apiPlacesSuggestionsGet(
-      {required String? query}) {
+  ///Update a pet service by ID
+  ///@param id Service ID
+  ///@param service Updated pet service data
+  Future<chopper.Response<PetServicesPetService>> apiPetServicesIdPut({
+    required String? id,
+    required PetServicesPetService? service,
+  }) {
     generatedMapping.putIfAbsent(
-        PlaceSuggestion, () => PlaceSuggestion.fromJsonFactory);
+        PetServicesPetService, () => PetServicesPetService.fromJsonFactory);
 
-    return _apiPlacesSuggestionsGet(query: query);
+    return _apiPetServicesIdPut(id: id, service: service);
   }
 
-  ///
-  ///@param query
-  @Get(path: '/api/places/suggestions')
-  Future<chopper.Response<List<PlaceSuggestion>>> _apiPlacesSuggestionsGet(
-      {@Query('query') required String? query});
+  ///Update a pet service by ID
+  ///@param id Service ID
+  ///@param service Updated pet service data
+  @Put(path: '/api/pet-services/{id}')
+  Future<chopper.Response<PetServicesPetService>> _apiPetServicesIdPut({
+    @Path('id') required String? id,
+    @Body() required PetServicesPetService? service,
+  });
 
-  ///
-  ///@param placeId
+  ///Delete a pet service by ID
+  ///@param id Service ID
+  Future<chopper.Response> apiPetServicesIdDelete({required String? id}) {
+    return _apiPetServicesIdDelete(id: id);
+  }
+
+  ///Delete a pet service by ID
+  ///@param id Service ID
+  @Delete(path: '/api/pet-services/{id}')
+  Future<chopper.Response> _apiPetServicesIdDelete(
+      {@Path('id') required String? id});
+
+  ///Get place details
+  ///@param placeId Place ID
   Future<chopper.Response<PlaceDetails>> apiPlacesDetailsPlaceIdGet(
       {required String? placeId}) {
     generatedMapping.putIfAbsent(
@@ -514,1471 +488,307 @@ abstract class PetSittingClient extends ChopperService {
     return _apiPlacesDetailsPlaceIdGet(placeId: placeId);
   }
 
-  ///
-  ///@param placeId
+  ///Get place details
+  ///@param placeId Place ID
   @Get(path: '/api/places/details/{placeId}')
   Future<chopper.Response<PlaceDetails>> _apiPlacesDetailsPlaceIdGet(
       {@Path('placeId') required String? placeId});
 
-  ///
-  ///@param category
-  Future<chopper.Response<List<PetServiceDTO>>>
-      apiPetServicesCategoryCategoryGet(
-          {required enums.ApiPetServicesCategoryCategoryGetCategory?
-              category}) {
+  ///Get place suggestions
+  ///@param query Search query
+  Future<chopper.Response<List<PlaceSuggestion>>> apiPlacesSuggestionsGet(
+      {required String? query}) {
     generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
+        PlaceSuggestion, () => PlaceSuggestion.fromJsonFactory);
 
-    return _apiPetServicesCategoryCategoryGet(
-        category: category?.value?.toString());
+    return _apiPlacesSuggestionsGet(query: query);
   }
 
-  ///
-  ///@param category
-  @Get(path: '/api/pet-services/category/{category}')
-  Future<chopper.Response<List<PetServiceDTO>>>
-      _apiPetServicesCategoryCategoryGet(
-          {@Path('category') required String? category});
+  ///Get place suggestions
+  ///@param query Search query
+  @Get(path: '/api/places/suggestions')
+  Future<chopper.Response<List<PlaceSuggestion>>> _apiPlacesSuggestionsGet(
+      {@Query('query') required String? query});
 
-  ///
-  ///@param animalType
-  Future<chopper.Response<List<PetServiceDTO>>>
-      apiPetServicesAnimalTypeAnimalTypeGet(
-          {required enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType?
-              animalType}) {
+  ///Get all users
+  Future<chopper.Response<List<UsersUser>>> apiUsersGet() {
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
+
+    return _apiUsersGet();
+  }
+
+  ///Get all users
+  @Get(path: '/api/users')
+  Future<chopper.Response<List<UsersUser>>> _apiUsersGet();
+
+  ///Create a new user
+  ///@param user User data
+  Future<chopper.Response<UsersUser>> apiUsersPost(
+      {required UsersCreateUserRequest? user}) {
     generatedMapping.putIfAbsent(
-        PetServiceDTO, () => PetServiceDTO.fromJsonFactory);
+        UsersCreateUserRequest, () => UsersCreateUserRequest.fromJsonFactory);
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
 
-    return _apiPetServicesAnimalTypeAnimalTypeGet(
-        animalType: animalType?.value?.toString());
+    return _apiUsersPost(user: user);
   }
 
-  ///
-  ///@param animalType
-  @Get(path: '/api/pet-services/animal-type/{animalType}')
-  Future<chopper.Response<List<PetServiceDTO>>>
-      _apiPetServicesAnimalTypeAnimalTypeGet(
-          {@Path('animalType') required String? animalType});
+  ///Create a new user
+  ///@param user User data
+  @Post(path: '/api/users')
+  Future<chopper.Response<UsersUser>> _apiUsersPost(
+      {@Body() required UsersCreateUserRequest? user});
 
-  ///
-  ///@param id
-  Future<chopper.Response<MissionDTO>> apiMissionsIdGet({required String? id}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
+  ///Get a user by email
+  ///@param email User email
+  Future<chopper.Response<UsersUser>> apiUsersEmailEmailGet(
+      {required String? email}) {
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
 
-    return _apiMissionsIdGet(id: id);
+    return _apiUsersEmailEmailGet(email: email);
   }
 
-  ///
-  ///@param id
-  @Get(path: '/api/missions/{id}')
-  Future<chopper.Response<MissionDTO>> _apiMissionsIdGet(
+  ///Get a user by email
+  ///@param email User email
+  @Get(path: '/api/users/email/{email}')
+  Future<chopper.Response<UsersUser>> _apiUsersEmailEmailGet(
+      {@Path('email') required String? email});
+
+  ///Get the current user
+  Future<chopper.Response<UsersUser>> apiUsersMeGet() {
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
+
+    return _apiUsersMeGet();
+  }
+
+  ///Get the current user
+  @Get(path: '/api/users/me')
+  Future<chopper.Response<UsersUser>> _apiUsersMeGet();
+
+  ///Get a user by ID
+  ///@param id User ID
+  Future<chopper.Response<UsersUser>> apiUsersIdGet({required String? id}) {
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
+
+    return _apiUsersIdGet(id: id);
+  }
+
+  ///Get a user by ID
+  ///@param id User ID
+  @Get(path: '/api/users/{id}')
+  Future<chopper.Response<UsersUser>> _apiUsersIdGet(
       {@Path('id') required String? id});
 
-  ///
-  ///@param id
-  Future<chopper.Response<String>> apiMissionsIdPaymentStatusGet(
-      {required String? id}) {
-    return _apiMissionsIdPaymentStatusGet(id: id);
-  }
-
-  ///
-  ///@param id
-  @Get(path: '/api/missions/{id}/payment-status')
-  Future<chopper.Response<String>> _apiMissionsIdPaymentStatusGet(
-      {@Path('id') required String? id});
-
-  ///
-  ///@param vetAssistantId
-  Future<chopper.Response<List<MissionDTO>>>
-      apiMissionsVetAssistantVetAssistantIdGet(
-          {required String? vetAssistantId}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
-
-    return _apiMissionsVetAssistantVetAssistantIdGet(
-        vetAssistantId: vetAssistantId);
-  }
-
-  ///
-  ///@param vetAssistantId
-  @Get(path: '/api/missions/vet-assistant/{vetAssistantId}')
-  Future<chopper.Response<List<MissionDTO>>>
-      _apiMissionsVetAssistantVetAssistantIdGet(
-          {@Path('vetAssistantId') required String? vetAssistantId});
-
-  ///
-  ///@param startDate
-  ///@param endDate
-  Future<chopper.Response<List<MissionDTO>>> apiMissionsDateRangeGet({
-    required String? startDate,
-    required String? endDate,
+  ///Update a user by ID
+  ///@param id User ID
+  ///@param user Updated user data
+  Future<chopper.Response<UsersUser>> apiUsersIdPut({
+    required String? id,
+    required UsersUpdateUserRequest? user,
   }) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
+    generatedMapping.putIfAbsent(
+        UsersUpdateUserRequest, () => UsersUpdateUserRequest.fromJsonFactory);
+    generatedMapping.putIfAbsent(UsersUser, () => UsersUser.fromJsonFactory);
 
-    return _apiMissionsDateRangeGet(startDate: startDate, endDate: endDate);
+    return _apiUsersIdPut(id: id, user: user);
   }
 
-  ///
-  ///@param startDate
-  ///@param endDate
-  @Get(path: '/api/missions/date-range')
-  Future<chopper.Response<List<MissionDTO>>> _apiMissionsDateRangeGet({
-    @Query('startDate') required String? startDate,
-    @Query('endDate') required String? endDate,
+  ///Update a user by ID
+  ///@param id User ID
+  ///@param user Updated user data
+  @Put(path: '/api/users/{id}')
+  Future<chopper.Response<UsersUser>> _apiUsersIdPut({
+    @Path('id') required String? id,
+    @Body() required UsersUpdateUserRequest? user,
   });
 
-  ///
-  ///@param clientId
-  Future<chopper.Response<List<MissionDTO>>> apiMissionsClientClientIdGet(
-      {required String? clientId}) {
-    generatedMapping.putIfAbsent(MissionDTO, () => MissionDTO.fromJsonFactory);
-
-    return _apiMissionsClientClientIdGet(clientId: clientId);
+  ///Delete a user by ID
+  ///@param id User ID
+  Future<chopper.Response> apiUsersIdDelete({required String? id}) {
+    return _apiUsersIdDelete(id: id);
   }
 
-  ///
-  ///@param clientId
-  @Get(path: '/api/missions/client/{clientId}')
-  Future<chopper.Response<List<MissionDTO>>> _apiMissionsClientClientIdGet(
-      {@Path('clientId') required String? clientId});
-
-  ///
-  ///@param ownerId
-  Future<chopper.Response<List<AnimalDTO>>> apiAnimalsOwnerOwnerIdGet(
-      {required String? ownerId}) {
-    generatedMapping.putIfAbsent(AnimalDTO, () => AnimalDTO.fromJsonFactory);
-
-    return _apiAnimalsOwnerOwnerIdGet(ownerId: ownerId);
-  }
-
-  ///
-  ///@param ownerId
-  @Get(path: '/api/animals/owner/{ownerId}')
-  Future<chopper.Response<List<AnimalDTO>>> _apiAnimalsOwnerOwnerIdGet(
-      {@Path('ownerId') required String? ownerId});
+  ///Delete a user by ID
+  ///@param id User ID
+  @Delete(path: '/api/users/{id}')
+  Future<chopper.Response> _apiUsersIdDelete({@Path('id') required String? id});
 }
 
 @JsonSerializable(explicitToJson: true)
-class PlaceDetailsDTO {
-  const PlaceDetailsDTO({
-    required this.name,
-    required this.formattedAddress,
-    required this.latitude,
-    required this.longitude,
-  });
-
-  factory PlaceDetailsDTO.fromJson(Map<String, dynamic> json) =>
-      _$PlaceDetailsDTOFromJson(json);
-
-  static const toJsonFactory = _$PlaceDetailsDTOToJson;
-  Map<String, dynamic> toJson() => _$PlaceDetailsDTOToJson(this);
-
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'formattedAddress')
-  final String formattedAddress;
-  @JsonKey(name: 'latitude')
-  final double latitude;
-  @JsonKey(name: 'longitude')
-  final double longitude;
-  static const fromJsonFactory = _$PlaceDetailsDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is PlaceDetailsDTO &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.formattedAddress, formattedAddress) ||
-                const DeepCollectionEquality()
-                    .equals(other.formattedAddress, formattedAddress)) &&
-            (identical(other.latitude, latitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.latitude, latitude)) &&
-            (identical(other.longitude, longitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(formattedAddress) ^
-      const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude) ^
-      runtimeType.hashCode;
-}
-
-extension $PlaceDetailsDTOExtension on PlaceDetailsDTO {
-  PlaceDetailsDTO copyWith(
-      {String? name,
-      String? formattedAddress,
-      double? latitude,
-      double? longitude}) {
-    return PlaceDetailsDTO(
-        name: name ?? this.name,
-        formattedAddress: formattedAddress ?? this.formattedAddress,
-        latitude: latitude ?? this.latitude,
-        longitude: longitude ?? this.longitude);
-  }
-
-  PlaceDetailsDTO copyWithWrapped(
-      {Wrapped<String>? name,
-      Wrapped<String>? formattedAddress,
-      Wrapped<double>? latitude,
-      Wrapped<double>? longitude}) {
-    return PlaceDetailsDTO(
-        name: (name != null ? name.value : this.name),
-        formattedAddress: (formattedAddress != null
-            ? formattedAddress.value
-            : this.formattedAddress),
-        latitude: (latitude != null ? latitude.value : this.latitude),
-        longitude: (longitude != null ? longitude.value : this.longitude));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class UserUpdateDTO {
-  const UserUpdateDTO({
-    required this.id,
-    required this.firebaseUid,
-    required this.lastname,
-    required this.firstname,
-    required this.email,
-    required this.address,
-    required this.phone,
-    required this.role,
-    this.photoUrl,
-    this.emergencyContact,
-    this.preferredCommunicationMethod,
-    required this.isVerified,
-    required this.registrationDate,
-    this.notes,
-  });
-
-  factory UserUpdateDTO.fromJson(Map<String, dynamic> json) =>
-      _$UserUpdateDTOFromJson(json);
-
-  static const toJsonFactory = _$UserUpdateDTOToJson;
-  Map<String, dynamic> toJson() => _$UserUpdateDTOToJson(this);
-
-  @JsonKey(name: 'id')
-  final String id;
-  @JsonKey(name: 'firebaseUid')
-  final String firebaseUid;
-  @JsonKey(name: 'lastname')
-  final String lastname;
-  @JsonKey(name: 'firstname')
-  final String firstname;
-  @JsonKey(name: 'email')
-  final String email;
-  @JsonKey(name: 'address')
-  final PlaceDetailsDTO address;
-  @JsonKey(name: 'phone')
-  final String phone;
-  @JsonKey(
-    name: 'role',
-    toJson: userUpdateDTORoleToJson,
-    fromJson: userUpdateDTORoleFromJson,
-  )
-  final enums.UserUpdateDTORole role;
-  @JsonKey(name: 'photoUrl')
-  final String? photoUrl;
-  @JsonKey(name: 'emergencyContact')
-  final String? emergencyContact;
-  @JsonKey(name: 'preferredCommunicationMethod')
-  final String? preferredCommunicationMethod;
-  @JsonKey(name: 'isVerified')
-  final bool isVerified;
-  @JsonKey(name: 'registrationDate', toJson: _dateToJson)
-  final DateTime registrationDate;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  static const fromJsonFactory = _$UserUpdateDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is UserUpdateDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.firebaseUid, firebaseUid) ||
-                const DeepCollectionEquality()
-                    .equals(other.firebaseUid, firebaseUid)) &&
-            (identical(other.lastname, lastname) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastname, lastname)) &&
-            (identical(other.firstname, firstname) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstname, firstname)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality()
-                    .equals(other.address, address)) &&
-            (identical(other.phone, phone) ||
-                const DeepCollectionEquality().equals(other.phone, phone)) &&
-            (identical(other.role, role) ||
-                const DeepCollectionEquality().equals(other.role, role)) &&
-            (identical(other.photoUrl, photoUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.emergencyContact, emergencyContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.emergencyContact, emergencyContact)) &&
-            (identical(other.preferredCommunicationMethod,
-                    preferredCommunicationMethod) ||
-                const DeepCollectionEquality().equals(
-                    other.preferredCommunicationMethod,
-                    preferredCommunicationMethod)) &&
-            (identical(other.isVerified, isVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.isVerified, isVerified)) &&
-            (identical(other.registrationDate, registrationDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.registrationDate, registrationDate)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(firebaseUid) ^
-      const DeepCollectionEquality().hash(lastname) ^
-      const DeepCollectionEquality().hash(firstname) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(address) ^
-      const DeepCollectionEquality().hash(phone) ^
-      const DeepCollectionEquality().hash(role) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(emergencyContact) ^
-      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
-      const DeepCollectionEquality().hash(isVerified) ^
-      const DeepCollectionEquality().hash(registrationDate) ^
-      const DeepCollectionEquality().hash(notes) ^
-      runtimeType.hashCode;
-}
-
-extension $UserUpdateDTOExtension on UserUpdateDTO {
-  UserUpdateDTO copyWith(
-      {String? id,
-      String? firebaseUid,
-      String? lastname,
-      String? firstname,
-      String? email,
-      PlaceDetailsDTO? address,
-      String? phone,
-      enums.UserUpdateDTORole? role,
-      String? photoUrl,
-      String? emergencyContact,
-      String? preferredCommunicationMethod,
-      bool? isVerified,
-      DateTime? registrationDate,
-      String? notes}) {
-    return UserUpdateDTO(
-        id: id ?? this.id,
-        firebaseUid: firebaseUid ?? this.firebaseUid,
-        lastname: lastname ?? this.lastname,
-        firstname: firstname ?? this.firstname,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        role: role ?? this.role,
-        photoUrl: photoUrl ?? this.photoUrl,
-        emergencyContact: emergencyContact ?? this.emergencyContact,
-        preferredCommunicationMethod:
-            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
-        isVerified: isVerified ?? this.isVerified,
-        registrationDate: registrationDate ?? this.registrationDate,
-        notes: notes ?? this.notes);
-  }
-
-  UserUpdateDTO copyWithWrapped(
-      {Wrapped<String>? id,
-      Wrapped<String>? firebaseUid,
-      Wrapped<String>? lastname,
-      Wrapped<String>? firstname,
-      Wrapped<String>? email,
-      Wrapped<PlaceDetailsDTO>? address,
-      Wrapped<String>? phone,
-      Wrapped<enums.UserUpdateDTORole>? role,
-      Wrapped<String?>? photoUrl,
-      Wrapped<String?>? emergencyContact,
-      Wrapped<String?>? preferredCommunicationMethod,
-      Wrapped<bool>? isVerified,
-      Wrapped<DateTime>? registrationDate,
-      Wrapped<String?>? notes}) {
-    return UserUpdateDTO(
-        id: (id != null ? id.value : this.id),
-        firebaseUid:
-            (firebaseUid != null ? firebaseUid.value : this.firebaseUid),
-        lastname: (lastname != null ? lastname.value : this.lastname),
-        firstname: (firstname != null ? firstname.value : this.firstname),
-        email: (email != null ? email.value : this.email),
-        address: (address != null ? address.value : this.address),
-        phone: (phone != null ? phone.value : this.phone),
-        role: (role != null ? role.value : this.role),
-        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        emergencyContact: (emergencyContact != null
-            ? emergencyContact.value
-            : this.emergencyContact),
-        preferredCommunicationMethod: (preferredCommunicationMethod != null
-            ? preferredCommunicationMethod.value
-            : this.preferredCommunicationMethod),
-        isVerified: (isVerified != null ? isVerified.value : this.isVerified),
-        registrationDate: (registrationDate != null
-            ? registrationDate.value
-            : this.registrationDate),
-        notes: (notes != null ? notes.value : this.notes));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class UserDTO {
-  const UserDTO({
-    required this.id,
-    this.firebaseId,
-    required this.lastname,
-    required this.firstname,
-    required this.email,
-    required this.address,
-    required this.phone,
-    required this.role,
-    this.photoUrl,
-    this.emergencyContact,
-    this.preferredCommunicationMethod,
-    required this.isVerified,
-    required this.registrationDate,
-    this.notes,
-  });
-
-  factory UserDTO.fromJson(Map<String, dynamic> json) =>
-      _$UserDTOFromJson(json);
-
-  static const toJsonFactory = _$UserDTOToJson;
-  Map<String, dynamic> toJson() => _$UserDTOToJson(this);
-
-  @JsonKey(name: 'id')
-  final String id;
-  @JsonKey(name: 'firebaseId')
-  final String? firebaseId;
-  @JsonKey(name: 'lastname')
-  final String lastname;
-  @JsonKey(name: 'firstname')
-  final String firstname;
-  @JsonKey(name: 'email')
-  final String email;
-  @JsonKey(name: 'address')
-  final PlaceDetailsDTO address;
-  @JsonKey(name: 'phone')
-  final String phone;
-  @JsonKey(
-    name: 'role',
-    toJson: userDTORoleToJson,
-    fromJson: userDTORoleFromJson,
-  )
-  final enums.UserDTORole role;
-  @JsonKey(name: 'photoUrl')
-  final String? photoUrl;
-  @JsonKey(name: 'emergencyContact')
-  final String? emergencyContact;
-  @JsonKey(name: 'preferredCommunicationMethod')
-  final String? preferredCommunicationMethod;
-  @JsonKey(name: 'isVerified')
-  final bool isVerified;
-  @JsonKey(name: 'registrationDate', toJson: _dateToJson)
-  final DateTime registrationDate;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  static const fromJsonFactory = _$UserDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is UserDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.firebaseId, firebaseId) ||
-                const DeepCollectionEquality()
-                    .equals(other.firebaseId, firebaseId)) &&
-            (identical(other.lastname, lastname) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastname, lastname)) &&
-            (identical(other.firstname, firstname) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstname, firstname)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality()
-                    .equals(other.address, address)) &&
-            (identical(other.phone, phone) ||
-                const DeepCollectionEquality().equals(other.phone, phone)) &&
-            (identical(other.role, role) ||
-                const DeepCollectionEquality().equals(other.role, role)) &&
-            (identical(other.photoUrl, photoUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.emergencyContact, emergencyContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.emergencyContact, emergencyContact)) &&
-            (identical(other.preferredCommunicationMethod,
-                    preferredCommunicationMethod) ||
-                const DeepCollectionEquality().equals(
-                    other.preferredCommunicationMethod,
-                    preferredCommunicationMethod)) &&
-            (identical(other.isVerified, isVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.isVerified, isVerified)) &&
-            (identical(other.registrationDate, registrationDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.registrationDate, registrationDate)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(firebaseId) ^
-      const DeepCollectionEquality().hash(lastname) ^
-      const DeepCollectionEquality().hash(firstname) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(address) ^
-      const DeepCollectionEquality().hash(phone) ^
-      const DeepCollectionEquality().hash(role) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(emergencyContact) ^
-      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
-      const DeepCollectionEquality().hash(isVerified) ^
-      const DeepCollectionEquality().hash(registrationDate) ^
-      const DeepCollectionEquality().hash(notes) ^
-      runtimeType.hashCode;
-}
-
-extension $UserDTOExtension on UserDTO {
-  UserDTO copyWith(
-      {String? id,
-      String? firebaseId,
-      String? lastname,
-      String? firstname,
-      String? email,
-      PlaceDetailsDTO? address,
-      String? phone,
-      enums.UserDTORole? role,
-      String? photoUrl,
-      String? emergencyContact,
-      String? preferredCommunicationMethod,
-      bool? isVerified,
-      DateTime? registrationDate,
-      String? notes}) {
-    return UserDTO(
-        id: id ?? this.id,
-        firebaseId: firebaseId ?? this.firebaseId,
-        lastname: lastname ?? this.lastname,
-        firstname: firstname ?? this.firstname,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        role: role ?? this.role,
-        photoUrl: photoUrl ?? this.photoUrl,
-        emergencyContact: emergencyContact ?? this.emergencyContact,
-        preferredCommunicationMethod:
-            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
-        isVerified: isVerified ?? this.isVerified,
-        registrationDate: registrationDate ?? this.registrationDate,
-        notes: notes ?? this.notes);
-  }
-
-  UserDTO copyWithWrapped(
-      {Wrapped<String>? id,
-      Wrapped<String?>? firebaseId,
-      Wrapped<String>? lastname,
-      Wrapped<String>? firstname,
-      Wrapped<String>? email,
-      Wrapped<PlaceDetailsDTO>? address,
-      Wrapped<String>? phone,
-      Wrapped<enums.UserDTORole>? role,
-      Wrapped<String?>? photoUrl,
-      Wrapped<String?>? emergencyContact,
-      Wrapped<String?>? preferredCommunicationMethod,
-      Wrapped<bool>? isVerified,
-      Wrapped<DateTime>? registrationDate,
-      Wrapped<String?>? notes}) {
-    return UserDTO(
-        id: (id != null ? id.value : this.id),
-        firebaseId: (firebaseId != null ? firebaseId.value : this.firebaseId),
-        lastname: (lastname != null ? lastname.value : this.lastname),
-        firstname: (firstname != null ? firstname.value : this.firstname),
-        email: (email != null ? email.value : this.email),
-        address: (address != null ? address.value : this.address),
-        phone: (phone != null ? phone.value : this.phone),
-        role: (role != null ? role.value : this.role),
-        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        emergencyContact: (emergencyContact != null
-            ? emergencyContact.value
-            : this.emergencyContact),
-        preferredCommunicationMethod: (preferredCommunicationMethod != null
-            ? preferredCommunicationMethod.value
-            : this.preferredCommunicationMethod),
-        isVerified: (isVerified != null ? isVerified.value : this.isVerified),
-        registrationDate: (registrationDate != null
-            ? registrationDate.value
-            : this.registrationDate),
-        notes: (notes != null ? notes.value : this.notes));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class LocalTime {
-  const LocalTime({
-    this.hour,
-    this.minute,
-    this.second,
-    this.nano,
-  });
-
-  factory LocalTime.fromJson(Map<String, dynamic> json) =>
-      _$LocalTimeFromJson(json);
-
-  static const toJsonFactory = _$LocalTimeToJson;
-  Map<String, dynamic> toJson() => _$LocalTimeToJson(this);
-
-  @JsonKey(name: 'hour')
-  final int? hour;
-  @JsonKey(name: 'minute')
-  final int? minute;
-  @JsonKey(name: 'second')
-  final int? second;
-  @JsonKey(name: 'nano')
-  final int? nano;
-  static const fromJsonFactory = _$LocalTimeFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is LocalTime &&
-            (identical(other.hour, hour) ||
-                const DeepCollectionEquality().equals(other.hour, hour)) &&
-            (identical(other.minute, minute) ||
-                const DeepCollectionEquality().equals(other.minute, minute)) &&
-            (identical(other.second, second) ||
-                const DeepCollectionEquality().equals(other.second, second)) &&
-            (identical(other.nano, nano) ||
-                const DeepCollectionEquality().equals(other.nano, nano)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(hour) ^
-      const DeepCollectionEquality().hash(minute) ^
-      const DeepCollectionEquality().hash(second) ^
-      const DeepCollectionEquality().hash(nano) ^
-      runtimeType.hashCode;
-}
-
-extension $LocalTimeExtension on LocalTime {
-  LocalTime copyWith({int? hour, int? minute, int? second, int? nano}) {
-    return LocalTime(
-        hour: hour ?? this.hour,
-        minute: minute ?? this.minute,
-        second: second ?? this.second,
-        nano: nano ?? this.nano);
-  }
-
-  LocalTime copyWithWrapped(
-      {Wrapped<int?>? hour,
-      Wrapped<int?>? minute,
-      Wrapped<int?>? second,
-      Wrapped<int?>? nano}) {
-    return LocalTime(
-        hour: (hour != null ? hour.value : this.hour),
-        minute: (minute != null ? minute.value : this.minute),
-        second: (second != null ? second.value : this.second),
-        nano: (nano != null ? nano.value : this.nano));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class PlaceDetails {
-  const PlaceDetails({
-    required this.name,
-    required this.formattedAddress,
-    required this.latitude,
-    required this.longitude,
-  });
-
-  factory PlaceDetails.fromJson(Map<String, dynamic> json) =>
-      _$PlaceDetailsFromJson(json);
-
-  static const toJsonFactory = _$PlaceDetailsToJson;
-  Map<String, dynamic> toJson() => _$PlaceDetailsToJson(this);
-
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'formattedAddress')
-  final String formattedAddress;
-  @JsonKey(name: 'latitude')
-  final double latitude;
-  @JsonKey(name: 'longitude')
-  final double longitude;
-  static const fromJsonFactory = _$PlaceDetailsFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is PlaceDetails &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.formattedAddress, formattedAddress) ||
-                const DeepCollectionEquality()
-                    .equals(other.formattedAddress, formattedAddress)) &&
-            (identical(other.latitude, latitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.latitude, latitude)) &&
-            (identical(other.longitude, longitude) ||
-                const DeepCollectionEquality()
-                    .equals(other.longitude, longitude)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(formattedAddress) ^
-      const DeepCollectionEquality().hash(latitude) ^
-      const DeepCollectionEquality().hash(longitude) ^
-      runtimeType.hashCode;
-}
-
-extension $PlaceDetailsExtension on PlaceDetails {
-  PlaceDetails copyWith(
-      {String? name,
-      String? formattedAddress,
-      double? latitude,
-      double? longitude}) {
-    return PlaceDetails(
-        name: name ?? this.name,
-        formattedAddress: formattedAddress ?? this.formattedAddress,
-        latitude: latitude ?? this.latitude,
-        longitude: longitude ?? this.longitude);
-  }
-
-  PlaceDetails copyWithWrapped(
-      {Wrapped<String>? name,
-      Wrapped<String>? formattedAddress,
-      Wrapped<double>? latitude,
-      Wrapped<double>? longitude}) {
-    return PlaceDetails(
-        name: (name != null ? name.value : this.name),
-        formattedAddress: (formattedAddress != null
-            ? formattedAddress.value
-            : this.formattedAddress),
-        latitude: (latitude != null ? latitude.value : this.latitude),
-        longitude: (longitude != null ? longitude.value : this.longitude));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class RecurringScheduleDTO {
-  const RecurringScheduleDTO({
-    this.id,
-    required this.vetAssistant,
-    required this.dayOfWeek,
-    required this.startTime,
-    required this.endTime,
-  });
-
-  factory RecurringScheduleDTO.fromJson(Map<String, dynamic> json) =>
-      _$RecurringScheduleDTOFromJson(json);
-
-  static const toJsonFactory = _$RecurringScheduleDTOToJson;
-  Map<String, dynamic> toJson() => _$RecurringScheduleDTOToJson(this);
-
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'vetAssistant')
-  final User vetAssistant;
-  @JsonKey(
-    name: 'dayOfWeek',
-    toJson: recurringScheduleDTODayOfWeekToJson,
-    fromJson: recurringScheduleDTODayOfWeekFromJson,
-  )
-  final enums.RecurringScheduleDTODayOfWeek dayOfWeek;
-  @JsonKey(name: 'startTime')
-  final LocalTime startTime;
-  @JsonKey(name: 'endTime')
-  final LocalTime endTime;
-  static const fromJsonFactory = _$RecurringScheduleDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is RecurringScheduleDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.vetAssistant, vetAssistant) ||
-                const DeepCollectionEquality()
-                    .equals(other.vetAssistant, vetAssistant)) &&
-            (identical(other.dayOfWeek, dayOfWeek) ||
-                const DeepCollectionEquality()
-                    .equals(other.dayOfWeek, dayOfWeek)) &&
-            (identical(other.startTime, startTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.startTime, startTime)) &&
-            (identical(other.endTime, endTime) ||
-                const DeepCollectionEquality().equals(other.endTime, endTime)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(vetAssistant) ^
-      const DeepCollectionEquality().hash(dayOfWeek) ^
-      const DeepCollectionEquality().hash(startTime) ^
-      const DeepCollectionEquality().hash(endTime) ^
-      runtimeType.hashCode;
-}
-
-extension $RecurringScheduleDTOExtension on RecurringScheduleDTO {
-  RecurringScheduleDTO copyWith(
-      {String? id,
-      User? vetAssistant,
-      enums.RecurringScheduleDTODayOfWeek? dayOfWeek,
-      LocalTime? startTime,
-      LocalTime? endTime}) {
-    return RecurringScheduleDTO(
-        id: id ?? this.id,
-        vetAssistant: vetAssistant ?? this.vetAssistant,
-        dayOfWeek: dayOfWeek ?? this.dayOfWeek,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime);
-  }
-
-  RecurringScheduleDTO copyWithWrapped(
-      {Wrapped<String?>? id,
-      Wrapped<User>? vetAssistant,
-      Wrapped<enums.RecurringScheduleDTODayOfWeek>? dayOfWeek,
-      Wrapped<LocalTime>? startTime,
-      Wrapped<LocalTime>? endTime}) {
-    return RecurringScheduleDTO(
-        id: (id != null ? id.value : this.id),
-        vetAssistant:
-            (vetAssistant != null ? vetAssistant.value : this.vetAssistant),
-        dayOfWeek: (dayOfWeek != null ? dayOfWeek.value : this.dayOfWeek),
-        startTime: (startTime != null ? startTime.value : this.startTime),
-        endTime: (endTime != null ? endTime.value : this.endTime));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class Timestamp {
-  const Timestamp({
-    this.seconds,
-    this.nanos,
-  });
-
-  factory Timestamp.fromJson(Map<String, dynamic> json) =>
-      _$TimestampFromJson(json);
-
-  static const toJsonFactory = _$TimestampToJson;
-  Map<String, dynamic> toJson() => _$TimestampToJson(this);
-
-  @JsonKey(name: 'seconds')
-  final int? seconds;
-  @JsonKey(name: 'nanos')
-  final int? nanos;
-  static const fromJsonFactory = _$TimestampFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is Timestamp &&
-            (identical(other.seconds, seconds) ||
-                const DeepCollectionEquality()
-                    .equals(other.seconds, seconds)) &&
-            (identical(other.nanos, nanos) ||
-                const DeepCollectionEquality().equals(other.nanos, nanos)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(seconds) ^
-      const DeepCollectionEquality().hash(nanos) ^
-      runtimeType.hashCode;
-}
-
-extension $TimestampExtension on Timestamp {
-  Timestamp copyWith({int? seconds, int? nanos}) {
-    return Timestamp(
-        seconds: seconds ?? this.seconds, nanos: nanos ?? this.nanos);
-  }
-
-  Timestamp copyWithWrapped({Wrapped<int?>? seconds, Wrapped<int?>? nanos}) {
-    return Timestamp(
-        seconds: (seconds != null ? seconds.value : this.seconds),
-        nanos: (nanos != null ? nanos.value : this.nanos));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class User {
-  const User({
-    this.id,
-    this.firebaseId,
-    required this.lastname,
-    required this.firstname,
-    required this.email,
-    required this.address,
-    required this.phone,
-    required this.role,
-    this.photoUrl,
-    this.emergencyContact,
-    this.preferredCommunicationMethod,
-    required this.isVerified,
-    required this.registrationDate,
-    this.notes,
-  });
-
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
-  static const toJsonFactory = _$UserToJson;
-  Map<String, dynamic> toJson() => _$UserToJson(this);
-
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'firebaseId')
-  final String? firebaseId;
-  @JsonKey(name: 'lastname')
-  final String lastname;
-  @JsonKey(name: 'firstname')
-  final String firstname;
-  @JsonKey(name: 'email')
-  final String email;
-  @JsonKey(name: 'address')
-  final PlaceDetails address;
-  @JsonKey(name: 'phone')
-  final String phone;
-  @JsonKey(
-    name: 'role',
-    toJson: userRoleToJson,
-    fromJson: userRoleFromJson,
-  )
-  final enums.UserRole role;
-  @JsonKey(name: 'photoUrl')
-  final String? photoUrl;
-  @JsonKey(name: 'emergencyContact')
-  final String? emergencyContact;
-  @JsonKey(name: 'preferredCommunicationMethod')
-  final String? preferredCommunicationMethod;
-  @JsonKey(name: 'isVerified')
-  final bool isVerified;
-  @JsonKey(name: 'registrationDate')
-  final Timestamp registrationDate;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  static const fromJsonFactory = _$UserFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is User &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.firebaseId, firebaseId) ||
-                const DeepCollectionEquality()
-                    .equals(other.firebaseId, firebaseId)) &&
-            (identical(other.lastname, lastname) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastname, lastname)) &&
-            (identical(other.firstname, firstname) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstname, firstname)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality()
-                    .equals(other.address, address)) &&
-            (identical(other.phone, phone) ||
-                const DeepCollectionEquality().equals(other.phone, phone)) &&
-            (identical(other.role, role) ||
-                const DeepCollectionEquality().equals(other.role, role)) &&
-            (identical(other.photoUrl, photoUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.emergencyContact, emergencyContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.emergencyContact, emergencyContact)) &&
-            (identical(other.preferredCommunicationMethod,
-                    preferredCommunicationMethod) ||
-                const DeepCollectionEquality().equals(
-                    other.preferredCommunicationMethod,
-                    preferredCommunicationMethod)) &&
-            (identical(other.isVerified, isVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.isVerified, isVerified)) &&
-            (identical(other.registrationDate, registrationDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.registrationDate, registrationDate)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(firebaseId) ^
-      const DeepCollectionEquality().hash(lastname) ^
-      const DeepCollectionEquality().hash(firstname) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(address) ^
-      const DeepCollectionEquality().hash(phone) ^
-      const DeepCollectionEquality().hash(role) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(emergencyContact) ^
-      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
-      const DeepCollectionEquality().hash(isVerified) ^
-      const DeepCollectionEquality().hash(registrationDate) ^
-      const DeepCollectionEquality().hash(notes) ^
-      runtimeType.hashCode;
-}
-
-extension $UserExtension on User {
-  User copyWith(
-      {String? id,
-      String? firebaseId,
-      String? lastname,
-      String? firstname,
-      String? email,
-      PlaceDetails? address,
-      String? phone,
-      enums.UserRole? role,
-      String? photoUrl,
-      String? emergencyContact,
-      String? preferredCommunicationMethod,
-      bool? isVerified,
-      Timestamp? registrationDate,
-      String? notes}) {
-    return User(
-        id: id ?? this.id,
-        firebaseId: firebaseId ?? this.firebaseId,
-        lastname: lastname ?? this.lastname,
-        firstname: firstname ?? this.firstname,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        role: role ?? this.role,
-        photoUrl: photoUrl ?? this.photoUrl,
-        emergencyContact: emergencyContact ?? this.emergencyContact,
-        preferredCommunicationMethod:
-            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
-        isVerified: isVerified ?? this.isVerified,
-        registrationDate: registrationDate ?? this.registrationDate,
-        notes: notes ?? this.notes);
-  }
-
-  User copyWithWrapped(
-      {Wrapped<String?>? id,
-      Wrapped<String?>? firebaseId,
-      Wrapped<String>? lastname,
-      Wrapped<String>? firstname,
-      Wrapped<String>? email,
-      Wrapped<PlaceDetails>? address,
-      Wrapped<String>? phone,
-      Wrapped<enums.UserRole>? role,
-      Wrapped<String?>? photoUrl,
-      Wrapped<String?>? emergencyContact,
-      Wrapped<String?>? preferredCommunicationMethod,
-      Wrapped<bool>? isVerified,
-      Wrapped<Timestamp>? registrationDate,
-      Wrapped<String?>? notes}) {
-    return User(
-        id: (id != null ? id.value : this.id),
-        firebaseId: (firebaseId != null ? firebaseId.value : this.firebaseId),
-        lastname: (lastname != null ? lastname.value : this.lastname),
-        firstname: (firstname != null ? firstname.value : this.firstname),
-        email: (email != null ? email.value : this.email),
-        address: (address != null ? address.value : this.address),
-        phone: (phone != null ? phone.value : this.phone),
-        role: (role != null ? role.value : this.role),
-        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        emergencyContact: (emergencyContact != null
-            ? emergencyContact.value
-            : this.emergencyContact),
-        preferredCommunicationMethod: (preferredCommunicationMethod != null
-            ? preferredCommunicationMethod.value
-            : this.preferredCommunicationMethod),
-        isVerified: (isVerified != null ? isVerified.value : this.isVerified),
-        registrationDate: (registrationDate != null
-            ? registrationDate.value
-            : this.registrationDate),
-        notes: (notes != null ? notes.value : this.notes));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class PetServiceDTO {
-  const PetServiceDTO({
-    this.id,
-    required this.name,
-    required this.description,
-    required this.durationMinutes,
-    required this.basePrice,
-    required this.category,
-    required this.animalTypes,
-    required this.isCustomPriceAllowed,
-    required this.isCustomDurationAllowed,
-    required this.includedItems,
-  });
-
-  factory PetServiceDTO.fromJson(Map<String, dynamic> json) =>
-      _$PetServiceDTOFromJson(json);
-
-  static const toJsonFactory = _$PetServiceDTOToJson;
-  Map<String, dynamic> toJson() => _$PetServiceDTOToJson(this);
-
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'description')
-  final String description;
-  @JsonKey(name: 'durationMinutes')
-  final int durationMinutes;
-  @JsonKey(name: 'basePrice')
-  final double basePrice;
-  @JsonKey(
-    name: 'category',
-    toJson: petServiceDTOCategoryToJson,
-    fromJson: petServiceDTOCategoryFromJson,
-  )
-  final enums.PetServiceDTOCategory category;
-  @JsonKey(
-    name: 'animalTypes',
-    toJson: petServiceDTOAnimalTypesListToJson,
-    fromJson: petServiceDTOAnimalTypesListFromJson,
-  )
-  final List<enums.PetServiceDTOAnimalTypes> animalTypes;
-  @JsonKey(name: 'isCustomPriceAllowed')
-  final bool isCustomPriceAllowed;
-  @JsonKey(name: 'isCustomDurationAllowed')
-  final bool isCustomDurationAllowed;
-  @JsonKey(name: 'includedItems', defaultValue: <String>[])
-  final List<String> includedItems;
-  static const fromJsonFactory = _$PetServiceDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is PetServiceDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
-            (identical(other.durationMinutes, durationMinutes) ||
-                const DeepCollectionEquality()
-                    .equals(other.durationMinutes, durationMinutes)) &&
-            (identical(other.basePrice, basePrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.basePrice, basePrice)) &&
-            (identical(other.category, category) ||
-                const DeepCollectionEquality()
-                    .equals(other.category, category)) &&
-            (identical(other.animalTypes, animalTypes) ||
-                const DeepCollectionEquality()
-                    .equals(other.animalTypes, animalTypes)) &&
-            (identical(other.isCustomPriceAllowed, isCustomPriceAllowed) ||
-                const DeepCollectionEquality().equals(
-                    other.isCustomPriceAllowed, isCustomPriceAllowed)) &&
-            (identical(
-                    other.isCustomDurationAllowed, isCustomDurationAllowed) ||
-                const DeepCollectionEquality().equals(
-                    other.isCustomDurationAllowed, isCustomDurationAllowed)) &&
-            (identical(other.includedItems, includedItems) ||
-                const DeepCollectionEquality()
-                    .equals(other.includedItems, includedItems)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(durationMinutes) ^
-      const DeepCollectionEquality().hash(basePrice) ^
-      const DeepCollectionEquality().hash(category) ^
-      const DeepCollectionEquality().hash(animalTypes) ^
-      const DeepCollectionEquality().hash(isCustomPriceAllowed) ^
-      const DeepCollectionEquality().hash(isCustomDurationAllowed) ^
-      const DeepCollectionEquality().hash(includedItems) ^
-      runtimeType.hashCode;
-}
-
-extension $PetServiceDTOExtension on PetServiceDTO {
-  PetServiceDTO copyWith(
-      {String? id,
-      String? name,
-      String? description,
-      int? durationMinutes,
-      double? basePrice,
-      enums.PetServiceDTOCategory? category,
-      List<enums.PetServiceDTOAnimalTypes>? animalTypes,
-      bool? isCustomPriceAllowed,
-      bool? isCustomDurationAllowed,
-      List<String>? includedItems}) {
-    return PetServiceDTO(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        durationMinutes: durationMinutes ?? this.durationMinutes,
-        basePrice: basePrice ?? this.basePrice,
-        category: category ?? this.category,
-        animalTypes: animalTypes ?? this.animalTypes,
-        isCustomPriceAllowed: isCustomPriceAllowed ?? this.isCustomPriceAllowed,
-        isCustomDurationAllowed:
-            isCustomDurationAllowed ?? this.isCustomDurationAllowed,
-        includedItems: includedItems ?? this.includedItems);
-  }
-
-  PetServiceDTO copyWithWrapped(
-      {Wrapped<String?>? id,
-      Wrapped<String>? name,
-      Wrapped<String>? description,
-      Wrapped<int>? durationMinutes,
-      Wrapped<double>? basePrice,
-      Wrapped<enums.PetServiceDTOCategory>? category,
-      Wrapped<List<enums.PetServiceDTOAnimalTypes>>? animalTypes,
-      Wrapped<bool>? isCustomPriceAllowed,
-      Wrapped<bool>? isCustomDurationAllowed,
-      Wrapped<List<String>>? includedItems}) {
-    return PetServiceDTO(
-        id: (id != null ? id.value : this.id),
-        name: (name != null ? name.value : this.name),
-        description:
-            (description != null ? description.value : this.description),
-        durationMinutes: (durationMinutes != null
-            ? durationMinutes.value
-            : this.durationMinutes),
-        basePrice: (basePrice != null ? basePrice.value : this.basePrice),
-        category: (category != null ? category.value : this.category),
-        animalTypes:
-            (animalTypes != null ? animalTypes.value : this.animalTypes),
-        isCustomPriceAllowed: (isCustomPriceAllowed != null
-            ? isCustomPriceAllowed.value
-            : this.isCustomPriceAllowed),
-        isCustomDurationAllowed: (isCustomDurationAllowed != null
-            ? isCustomDurationAllowed.value
-            : this.isCustomDurationAllowed),
-        includedItems:
-            (includedItems != null ? includedItems.value : this.includedItems));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class AnimalUpdateDTO {
-  const AnimalUpdateDTO({
-    required this.id,
-    required this.name,
-    required this.ownerId,
-    required this.species,
+class AnimalAnimal {
+  const AnimalAnimal({
+    this.allergies,
+    this.behaviorNotes,
+    this.birthDate,
     this.breed,
+    this.childFriendly,
+    this.energyLevel,
+    this.feedingInstructions,
     this.gender,
-    required this.birthDate,
-    this.weight,
-    this.size,
-    this.microchipNumber,
-    this.vaccinationsUpToDate,
+    this.houseTrained,
+    this.id,
+    this.lastVetVisit,
     this.medicalConditions,
     this.medications,
-    this.allergies,
-    this.specialNeeds,
-    this.feedingInstructions,
-    this.behaviorNotes,
-    this.energyLevel,
-    this.houseTrained,
+    this.microchipNumber,
+    this.name,
+    this.ownerId,
     this.petFriendly,
-    this.childFriendly,
     this.photoUrl,
-    this.veterinarianContact,
-    this.lastVetVisit,
+    this.size,
     this.specialInstructions,
+    this.specialNeeds,
+    this.species,
+    this.vaccinationsUpToDate,
+    this.veterinarianContact,
+    this.weight,
   });
 
-  factory AnimalUpdateDTO.fromJson(Map<String, dynamic> json) =>
-      _$AnimalUpdateDTOFromJson(json);
+  factory AnimalAnimal.fromJson(Map<String, dynamic> json) =>
+      _$AnimalAnimalFromJson(json);
 
-  static const toJsonFactory = _$AnimalUpdateDTOToJson;
-  Map<String, dynamic> toJson() => _$AnimalUpdateDTOToJson(this);
+  static const toJsonFactory = _$AnimalAnimalToJson;
+  Map<String, dynamic> toJson() => _$AnimalAnimalToJson(this);
 
-  @JsonKey(name: 'id')
-  final String id;
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'ownerId')
-  final String ownerId;
-  @JsonKey(
-    name: 'species',
-    toJson: animalUpdateDTOSpeciesToJson,
-    fromJson: animalUpdateDTOSpeciesFromJson,
-  )
-  final enums.AnimalUpdateDTOSpecies species;
+  @JsonKey(name: 'allergies', defaultValue: <String>[])
+  final List<String>? allergies;
+  @JsonKey(name: 'behaviorNotes')
+  final String? behaviorNotes;
+  @JsonKey(name: 'birthDate')
+  final String? birthDate;
   @JsonKey(name: 'breed')
   final String? breed;
+  @JsonKey(name: 'childFriendly')
+  final bool? childFriendly;
+  @JsonKey(
+    name: 'energyLevel',
+    toJson: animalEnergyLevelNullableToJson,
+    fromJson: animalEnergyLevelNullableFromJson,
+  )
+  final enums.AnimalEnergyLevel? energyLevel;
+  @JsonKey(name: 'feedingInstructions')
+  final String? feedingInstructions;
   @JsonKey(
     name: 'gender',
-    toJson: animalUpdateDTOGenderNullableToJson,
-    fromJson: animalUpdateDTOGenderNullableFromJson,
+    toJson: animalGenderNullableToJson,
+    fromJson: animalGenderNullableFromJson,
   )
-  final enums.AnimalUpdateDTOGender? gender;
-  @JsonKey(name: 'birthDate', toJson: _dateToJson)
-  final DateTime birthDate;
-  @JsonKey(name: 'weight')
-  final double? weight;
-  @JsonKey(
-    name: 'size',
-    toJson: animalUpdateDTOSizeNullableToJson,
-    fromJson: animalUpdateDTOSizeNullableFromJson,
-  )
-  final enums.AnimalUpdateDTOSize? size;
-  @JsonKey(name: 'microchipNumber')
-  final String? microchipNumber;
-  @JsonKey(name: 'vaccinationsUpToDate')
-  final bool? vaccinationsUpToDate;
+  final enums.AnimalGender? gender;
+  @JsonKey(name: 'houseTrained')
+  final bool? houseTrained;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'lastVetVisit')
+  final String? lastVetVisit;
   @JsonKey(name: 'medicalConditions')
   final String? medicalConditions;
   @JsonKey(name: 'medications', defaultValue: <String>[])
   final List<String>? medications;
-  @JsonKey(name: 'allergies', defaultValue: <String>[])
-  final List<String>? allergies;
-  @JsonKey(name: 'specialNeeds')
-  final String? specialNeeds;
-  @JsonKey(name: 'feedingInstructions')
-  final String? feedingInstructions;
-  @JsonKey(name: 'behaviorNotes')
-  final String? behaviorNotes;
-  @JsonKey(
-    name: 'energyLevel',
-    toJson: animalUpdateDTOEnergyLevelNullableToJson,
-    fromJson: animalUpdateDTOEnergyLevelNullableFromJson,
-  )
-  final enums.AnimalUpdateDTOEnergyLevel? energyLevel;
-  @JsonKey(name: 'houseTrained')
-  final bool? houseTrained;
+  @JsonKey(name: 'microchipNumber')
+  final String? microchipNumber;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'ownerId')
+  final String? ownerId;
   @JsonKey(name: 'petFriendly')
   final bool? petFriendly;
-  @JsonKey(name: 'childFriendly')
-  final bool? childFriendly;
   @JsonKey(name: 'photoUrl')
   final String? photoUrl;
-  @JsonKey(name: 'veterinarianContact')
-  final String? veterinarianContact;
-  @JsonKey(name: 'lastVetVisit', toJson: _dateToJson)
-  final DateTime? lastVetVisit;
+  @JsonKey(
+    name: 'size',
+    toJson: animalSizeNullableToJson,
+    fromJson: animalSizeNullableFromJson,
+  )
+  final enums.AnimalSize? size;
   @JsonKey(name: 'specialInstructions')
   final String? specialInstructions;
-  static const fromJsonFactory = _$AnimalUpdateDTOFromJson;
+  @JsonKey(name: 'specialNeeds')
+  final String? specialNeeds;
+  @JsonKey(
+    name: 'species',
+    toJson: animalSpeciesNullableToJson,
+    fromJson: animalSpeciesNullableFromJson,
+  )
+  final enums.AnimalSpecies? species;
+  @JsonKey(name: 'vaccinationsUpToDate')
+  final bool? vaccinationsUpToDate;
+  @JsonKey(name: 'veterinarianContact')
+  final String? veterinarianContact;
+  @JsonKey(name: 'weight')
+  final double? weight;
+  static const fromJsonFactory = _$AnimalAnimalFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is AnimalUpdateDTO &&
+        (other is AnimalAnimal &&
+            (identical(other.allergies, allergies) ||
+                const DeepCollectionEquality()
+                    .equals(other.allergies, allergies)) &&
+            (identical(other.behaviorNotes, behaviorNotes) ||
+                const DeepCollectionEquality()
+                    .equals(other.behaviorNotes, behaviorNotes)) &&
+            (identical(other.birthDate, birthDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.birthDate, birthDate)) &&
+            (identical(other.breed, breed) ||
+                const DeepCollectionEquality().equals(other.breed, breed)) &&
+            (identical(other.childFriendly, childFriendly) ||
+                const DeepCollectionEquality()
+                    .equals(other.childFriendly, childFriendly)) &&
+            (identical(other.energyLevel, energyLevel) ||
+                const DeepCollectionEquality()
+                    .equals(other.energyLevel, energyLevel)) &&
+            (identical(other.feedingInstructions, feedingInstructions) ||
+                const DeepCollectionEquality()
+                    .equals(other.feedingInstructions, feedingInstructions)) &&
+            (identical(other.gender, gender) ||
+                const DeepCollectionEquality().equals(other.gender, gender)) &&
+            (identical(other.houseTrained, houseTrained) ||
+                const DeepCollectionEquality()
+                    .equals(other.houseTrained, houseTrained)) &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.lastVetVisit, lastVetVisit) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastVetVisit, lastVetVisit)) &&
+            (identical(other.medicalConditions, medicalConditions) ||
+                const DeepCollectionEquality()
+                    .equals(other.medicalConditions, medicalConditions)) &&
+            (identical(other.medications, medications) ||
+                const DeepCollectionEquality()
+                    .equals(other.medications, medications)) &&
+            (identical(other.microchipNumber, microchipNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.microchipNumber, microchipNumber)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.ownerId, ownerId) ||
                 const DeepCollectionEquality()
                     .equals(other.ownerId, ownerId)) &&
-            (identical(other.species, species) ||
-                const DeepCollectionEquality()
-                    .equals(other.species, species)) &&
-            (identical(other.breed, breed) ||
-                const DeepCollectionEquality().equals(other.breed, breed)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
-            (identical(other.birthDate, birthDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.birthDate, birthDate)) &&
-            (identical(other.weight, weight) ||
-                const DeepCollectionEquality().equals(other.weight, weight)) &&
-            (identical(other.size, size) ||
-                const DeepCollectionEquality().equals(other.size, size)) &&
-            (identical(other.microchipNumber, microchipNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.microchipNumber, microchipNumber)) &&
-            (identical(other.vaccinationsUpToDate, vaccinationsUpToDate) ||
-                const DeepCollectionEquality().equals(
-                    other.vaccinationsUpToDate, vaccinationsUpToDate)) &&
-            (identical(other.medicalConditions, medicalConditions) ||
-                const DeepCollectionEquality()
-                    .equals(other.medicalConditions, medicalConditions)) &&
-            (identical(other.medications, medications) ||
-                const DeepCollectionEquality()
-                    .equals(other.medications, medications)) &&
-            (identical(other.allergies, allergies) ||
-                const DeepCollectionEquality()
-                    .equals(other.allergies, allergies)) &&
-            (identical(other.specialNeeds, specialNeeds) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialNeeds, specialNeeds)) &&
-            (identical(other.feedingInstructions, feedingInstructions) ||
-                const DeepCollectionEquality()
-                    .equals(other.feedingInstructions, feedingInstructions)) &&
-            (identical(other.behaviorNotes, behaviorNotes) ||
-                const DeepCollectionEquality()
-                    .equals(other.behaviorNotes, behaviorNotes)) &&
-            (identical(other.energyLevel, energyLevel) ||
-                const DeepCollectionEquality()
-                    .equals(other.energyLevel, energyLevel)) &&
-            (identical(other.houseTrained, houseTrained) ||
-                const DeepCollectionEquality()
-                    .equals(other.houseTrained, houseTrained)) &&
             (identical(other.petFriendly, petFriendly) ||
                 const DeepCollectionEquality()
                     .equals(other.petFriendly, petFriendly)) &&
-            (identical(other.childFriendly, childFriendly) ||
-                const DeepCollectionEquality()
-                    .equals(other.childFriendly, childFriendly)) &&
             (identical(other.photoUrl, photoUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.photoUrl, photoUrl)) &&
+            (identical(other.size, size) ||
+                const DeepCollectionEquality().equals(other.size, size)) &&
+            (identical(other.specialInstructions, specialInstructions) ||
+                const DeepCollectionEquality()
+                    .equals(other.specialInstructions, specialInstructions)) &&
+            (identical(other.specialNeeds, specialNeeds) ||
+                const DeepCollectionEquality()
+                    .equals(other.specialNeeds, specialNeeds)) &&
+            (identical(other.species, species) ||
+                const DeepCollectionEquality()
+                    .equals(other.species, species)) &&
+            (identical(other.vaccinationsUpToDate, vaccinationsUpToDate) ||
+                const DeepCollectionEquality().equals(
+                    other.vaccinationsUpToDate, vaccinationsUpToDate)) &&
             (identical(other.veterinarianContact, veterinarianContact) ||
                 const DeepCollectionEquality()
                     .equals(other.veterinarianContact, veterinarianContact)) &&
-            (identical(other.lastVetVisit, lastVetVisit) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastVetVisit, lastVetVisit)) &&
-            (identical(other.specialInstructions, specialInstructions) ||
-                const DeepCollectionEquality().equals(other.specialInstructions, specialInstructions)));
+            (identical(other.weight, weight) || const DeepCollectionEquality().equals(other.weight, weight)));
   }
 
   @override
@@ -1986,339 +796,383 @@ class AnimalUpdateDTO {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(ownerId) ^
-      const DeepCollectionEquality().hash(species) ^
-      const DeepCollectionEquality().hash(breed) ^
-      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(allergies) ^
+      const DeepCollectionEquality().hash(behaviorNotes) ^
       const DeepCollectionEquality().hash(birthDate) ^
-      const DeepCollectionEquality().hash(weight) ^
-      const DeepCollectionEquality().hash(size) ^
-      const DeepCollectionEquality().hash(microchipNumber) ^
-      const DeepCollectionEquality().hash(vaccinationsUpToDate) ^
+      const DeepCollectionEquality().hash(breed) ^
+      const DeepCollectionEquality().hash(childFriendly) ^
+      const DeepCollectionEquality().hash(energyLevel) ^
+      const DeepCollectionEquality().hash(feedingInstructions) ^
+      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(houseTrained) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(lastVetVisit) ^
       const DeepCollectionEquality().hash(medicalConditions) ^
       const DeepCollectionEquality().hash(medications) ^
-      const DeepCollectionEquality().hash(allergies) ^
-      const DeepCollectionEquality().hash(specialNeeds) ^
-      const DeepCollectionEquality().hash(feedingInstructions) ^
-      const DeepCollectionEquality().hash(behaviorNotes) ^
-      const DeepCollectionEquality().hash(energyLevel) ^
-      const DeepCollectionEquality().hash(houseTrained) ^
+      const DeepCollectionEquality().hash(microchipNumber) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(ownerId) ^
       const DeepCollectionEquality().hash(petFriendly) ^
-      const DeepCollectionEquality().hash(childFriendly) ^
       const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(veterinarianContact) ^
-      const DeepCollectionEquality().hash(lastVetVisit) ^
+      const DeepCollectionEquality().hash(size) ^
       const DeepCollectionEquality().hash(specialInstructions) ^
+      const DeepCollectionEquality().hash(specialNeeds) ^
+      const DeepCollectionEquality().hash(species) ^
+      const DeepCollectionEquality().hash(vaccinationsUpToDate) ^
+      const DeepCollectionEquality().hash(veterinarianContact) ^
+      const DeepCollectionEquality().hash(weight) ^
       runtimeType.hashCode;
 }
 
-extension $AnimalUpdateDTOExtension on AnimalUpdateDTO {
-  AnimalUpdateDTO copyWith(
-      {String? id,
-      String? name,
-      String? ownerId,
-      enums.AnimalUpdateDTOSpecies? species,
+extension $AnimalAnimalExtension on AnimalAnimal {
+  AnimalAnimal copyWith(
+      {List<String>? allergies,
+      String? behaviorNotes,
+      String? birthDate,
       String? breed,
-      enums.AnimalUpdateDTOGender? gender,
-      DateTime? birthDate,
-      double? weight,
-      enums.AnimalUpdateDTOSize? size,
-      String? microchipNumber,
-      bool? vaccinationsUpToDate,
+      bool? childFriendly,
+      enums.AnimalEnergyLevel? energyLevel,
+      String? feedingInstructions,
+      enums.AnimalGender? gender,
+      bool? houseTrained,
+      String? id,
+      String? lastVetVisit,
       String? medicalConditions,
       List<String>? medications,
-      List<String>? allergies,
-      String? specialNeeds,
-      String? feedingInstructions,
-      String? behaviorNotes,
-      enums.AnimalUpdateDTOEnergyLevel? energyLevel,
-      bool? houseTrained,
+      String? microchipNumber,
+      String? name,
+      String? ownerId,
       bool? petFriendly,
-      bool? childFriendly,
       String? photoUrl,
+      enums.AnimalSize? size,
+      String? specialInstructions,
+      String? specialNeeds,
+      enums.AnimalSpecies? species,
+      bool? vaccinationsUpToDate,
       String? veterinarianContact,
-      DateTime? lastVetVisit,
-      String? specialInstructions}) {
-    return AnimalUpdateDTO(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        ownerId: ownerId ?? this.ownerId,
-        species: species ?? this.species,
-        breed: breed ?? this.breed,
-        gender: gender ?? this.gender,
+      double? weight}) {
+    return AnimalAnimal(
+        allergies: allergies ?? this.allergies,
+        behaviorNotes: behaviorNotes ?? this.behaviorNotes,
         birthDate: birthDate ?? this.birthDate,
-        weight: weight ?? this.weight,
-        size: size ?? this.size,
-        microchipNumber: microchipNumber ?? this.microchipNumber,
-        vaccinationsUpToDate: vaccinationsUpToDate ?? this.vaccinationsUpToDate,
+        breed: breed ?? this.breed,
+        childFriendly: childFriendly ?? this.childFriendly,
+        energyLevel: energyLevel ?? this.energyLevel,
+        feedingInstructions: feedingInstructions ?? this.feedingInstructions,
+        gender: gender ?? this.gender,
+        houseTrained: houseTrained ?? this.houseTrained,
+        id: id ?? this.id,
+        lastVetVisit: lastVetVisit ?? this.lastVetVisit,
         medicalConditions: medicalConditions ?? this.medicalConditions,
         medications: medications ?? this.medications,
-        allergies: allergies ?? this.allergies,
-        specialNeeds: specialNeeds ?? this.specialNeeds,
-        feedingInstructions: feedingInstructions ?? this.feedingInstructions,
-        behaviorNotes: behaviorNotes ?? this.behaviorNotes,
-        energyLevel: energyLevel ?? this.energyLevel,
-        houseTrained: houseTrained ?? this.houseTrained,
+        microchipNumber: microchipNumber ?? this.microchipNumber,
+        name: name ?? this.name,
+        ownerId: ownerId ?? this.ownerId,
         petFriendly: petFriendly ?? this.petFriendly,
-        childFriendly: childFriendly ?? this.childFriendly,
         photoUrl: photoUrl ?? this.photoUrl,
+        size: size ?? this.size,
+        specialInstructions: specialInstructions ?? this.specialInstructions,
+        specialNeeds: specialNeeds ?? this.specialNeeds,
+        species: species ?? this.species,
+        vaccinationsUpToDate: vaccinationsUpToDate ?? this.vaccinationsUpToDate,
         veterinarianContact: veterinarianContact ?? this.veterinarianContact,
-        lastVetVisit: lastVetVisit ?? this.lastVetVisit,
-        specialInstructions: specialInstructions ?? this.specialInstructions);
+        weight: weight ?? this.weight);
   }
 
-  AnimalUpdateDTO copyWithWrapped(
-      {Wrapped<String>? id,
-      Wrapped<String>? name,
-      Wrapped<String>? ownerId,
-      Wrapped<enums.AnimalUpdateDTOSpecies>? species,
+  AnimalAnimal copyWithWrapped(
+      {Wrapped<List<String>?>? allergies,
+      Wrapped<String?>? behaviorNotes,
+      Wrapped<String?>? birthDate,
       Wrapped<String?>? breed,
-      Wrapped<enums.AnimalUpdateDTOGender?>? gender,
-      Wrapped<DateTime>? birthDate,
-      Wrapped<double?>? weight,
-      Wrapped<enums.AnimalUpdateDTOSize?>? size,
-      Wrapped<String?>? microchipNumber,
-      Wrapped<bool?>? vaccinationsUpToDate,
+      Wrapped<bool?>? childFriendly,
+      Wrapped<enums.AnimalEnergyLevel?>? energyLevel,
+      Wrapped<String?>? feedingInstructions,
+      Wrapped<enums.AnimalGender?>? gender,
+      Wrapped<bool?>? houseTrained,
+      Wrapped<String?>? id,
+      Wrapped<String?>? lastVetVisit,
       Wrapped<String?>? medicalConditions,
       Wrapped<List<String>?>? medications,
-      Wrapped<List<String>?>? allergies,
-      Wrapped<String?>? specialNeeds,
-      Wrapped<String?>? feedingInstructions,
-      Wrapped<String?>? behaviorNotes,
-      Wrapped<enums.AnimalUpdateDTOEnergyLevel?>? energyLevel,
-      Wrapped<bool?>? houseTrained,
+      Wrapped<String?>? microchipNumber,
+      Wrapped<String?>? name,
+      Wrapped<String?>? ownerId,
       Wrapped<bool?>? petFriendly,
-      Wrapped<bool?>? childFriendly,
       Wrapped<String?>? photoUrl,
+      Wrapped<enums.AnimalSize?>? size,
+      Wrapped<String?>? specialInstructions,
+      Wrapped<String?>? specialNeeds,
+      Wrapped<enums.AnimalSpecies?>? species,
+      Wrapped<bool?>? vaccinationsUpToDate,
       Wrapped<String?>? veterinarianContact,
-      Wrapped<DateTime?>? lastVetVisit,
-      Wrapped<String?>? specialInstructions}) {
-    return AnimalUpdateDTO(
-        id: (id != null ? id.value : this.id),
-        name: (name != null ? name.value : this.name),
-        ownerId: (ownerId != null ? ownerId.value : this.ownerId),
-        species: (species != null ? species.value : this.species),
-        breed: (breed != null ? breed.value : this.breed),
-        gender: (gender != null ? gender.value : this.gender),
+      Wrapped<double?>? weight}) {
+    return AnimalAnimal(
+        allergies: (allergies != null ? allergies.value : this.allergies),
+        behaviorNotes:
+            (behaviorNotes != null ? behaviorNotes.value : this.behaviorNotes),
         birthDate: (birthDate != null ? birthDate.value : this.birthDate),
-        weight: (weight != null ? weight.value : this.weight),
-        size: (size != null ? size.value : this.size),
-        microchipNumber: (microchipNumber != null
-            ? microchipNumber.value
-            : this.microchipNumber),
-        vaccinationsUpToDate: (vaccinationsUpToDate != null
-            ? vaccinationsUpToDate.value
-            : this.vaccinationsUpToDate),
+        breed: (breed != null ? breed.value : this.breed),
+        childFriendly:
+            (childFriendly != null ? childFriendly.value : this.childFriendly),
+        energyLevel:
+            (energyLevel != null ? energyLevel.value : this.energyLevel),
+        feedingInstructions: (feedingInstructions != null
+            ? feedingInstructions.value
+            : this.feedingInstructions),
+        gender: (gender != null ? gender.value : this.gender),
+        houseTrained:
+            (houseTrained != null ? houseTrained.value : this.houseTrained),
+        id: (id != null ? id.value : this.id),
+        lastVetVisit:
+            (lastVetVisit != null ? lastVetVisit.value : this.lastVetVisit),
         medicalConditions: (medicalConditions != null
             ? medicalConditions.value
             : this.medicalConditions),
         medications:
             (medications != null ? medications.value : this.medications),
-        allergies: (allergies != null ? allergies.value : this.allergies),
-        specialNeeds:
-            (specialNeeds != null ? specialNeeds.value : this.specialNeeds),
-        feedingInstructions: (feedingInstructions != null
-            ? feedingInstructions.value
-            : this.feedingInstructions),
-        behaviorNotes:
-            (behaviorNotes != null ? behaviorNotes.value : this.behaviorNotes),
-        energyLevel:
-            (energyLevel != null ? energyLevel.value : this.energyLevel),
-        houseTrained:
-            (houseTrained != null ? houseTrained.value : this.houseTrained),
+        microchipNumber: (microchipNumber != null
+            ? microchipNumber.value
+            : this.microchipNumber),
+        name: (name != null ? name.value : this.name),
+        ownerId: (ownerId != null ? ownerId.value : this.ownerId),
         petFriendly:
             (petFriendly != null ? petFriendly.value : this.petFriendly),
-        childFriendly:
-            (childFriendly != null ? childFriendly.value : this.childFriendly),
         photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
+        size: (size != null ? size.value : this.size),
+        specialInstructions: (specialInstructions != null
+            ? specialInstructions.value
+            : this.specialInstructions),
+        specialNeeds:
+            (specialNeeds != null ? specialNeeds.value : this.specialNeeds),
+        species: (species != null ? species.value : this.species),
+        vaccinationsUpToDate: (vaccinationsUpToDate != null
+            ? vaccinationsUpToDate.value
+            : this.vaccinationsUpToDate),
         veterinarianContact: (veterinarianContact != null
             ? veterinarianContact.value
             : this.veterinarianContact),
-        lastVetVisit:
-            (lastVetVisit != null ? lastVetVisit.value : this.lastVetVisit),
-        specialInstructions: (specialInstructions != null
-            ? specialInstructions.value
-            : this.specialInstructions));
+        weight: (weight != null ? weight.value : this.weight));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class AnimalDTO {
-  const AnimalDTO({
-    this.id,
-    required this.name,
-    required this.species,
-    this.breed,
-    this.gender,
-    required this.birthDate,
-    this.weight,
-    this.size,
-    this.microchipNumber,
-    this.vaccinationsUpToDate,
-    this.medicalConditions,
-    this.medications,
-    this.allergies,
-    this.specialNeeds,
-    this.feedingInstructions,
-    this.behaviorNotes,
-    this.energyLevel,
-    this.houseTrained,
-    this.petFriendly,
-    this.childFriendly,
-    this.photoUrl,
-    this.veterinarianContact,
-    this.lastVetVisit,
-    this.specialInstructions,
-    required this.owner,
+class AnimalErrorResponse {
+  const AnimalErrorResponse({
+    this.message,
   });
 
-  factory AnimalDTO.fromJson(Map<String, dynamic> json) =>
-      _$AnimalDTOFromJson(json);
+  factory AnimalErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$AnimalErrorResponseFromJson(json);
 
-  static const toJsonFactory = _$AnimalDTOToJson;
-  Map<String, dynamic> toJson() => _$AnimalDTOToJson(this);
+  static const toJsonFactory = _$AnimalErrorResponseToJson;
+  Map<String, dynamic> toJson() => _$AnimalErrorResponseToJson(this);
 
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(
-    name: 'species',
-    toJson: animalDTOSpeciesToJson,
-    fromJson: animalDTOSpeciesFromJson,
-  )
-  final enums.AnimalDTOSpecies species;
+  @JsonKey(name: 'message')
+  final String? message;
+  static const fromJsonFactory = _$AnimalErrorResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AnimalErrorResponse &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(message) ^ runtimeType.hashCode;
+}
+
+extension $AnimalErrorResponseExtension on AnimalErrorResponse {
+  AnimalErrorResponse copyWith({String? message}) {
+    return AnimalErrorResponse(message: message ?? this.message);
+  }
+
+  AnimalErrorResponse copyWithWrapped({Wrapped<String?>? message}) {
+    return AnimalErrorResponse(
+        message: (message != null ? message.value : this.message));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AnimalWithOwner {
+  const AnimalWithOwner({
+    this.allergies,
+    this.behaviorNotes,
+    this.birthDate,
+    this.breed,
+    this.childFriendly,
+    this.energyLevel,
+    this.feedingInstructions,
+    this.gender,
+    this.houseTrained,
+    this.id,
+    this.lastVetVisit,
+    this.medicalConditions,
+    this.medications,
+    this.microchipNumber,
+    this.name,
+    this.owner,
+    this.petFriendly,
+    this.photoUrl,
+    this.size,
+    this.specialInstructions,
+    this.specialNeeds,
+    this.species,
+    this.vaccinationsUpToDate,
+    this.veterinarianContact,
+    this.weight,
+  });
+
+  factory AnimalWithOwner.fromJson(Map<String, dynamic> json) =>
+      _$AnimalWithOwnerFromJson(json);
+
+  static const toJsonFactory = _$AnimalWithOwnerToJson;
+  Map<String, dynamic> toJson() => _$AnimalWithOwnerToJson(this);
+
+  @JsonKey(name: 'allergies', defaultValue: <String>[])
+  final List<String>? allergies;
+  @JsonKey(name: 'behaviorNotes')
+  final String? behaviorNotes;
+  @JsonKey(name: 'birthDate')
+  final String? birthDate;
   @JsonKey(name: 'breed')
   final String? breed;
+  @JsonKey(name: 'childFriendly')
+  final bool? childFriendly;
+  @JsonKey(
+    name: 'energyLevel',
+    toJson: animalEnergyLevelNullableToJson,
+    fromJson: animalEnergyLevelNullableFromJson,
+  )
+  final enums.AnimalEnergyLevel? energyLevel;
+  @JsonKey(name: 'feedingInstructions')
+  final String? feedingInstructions;
   @JsonKey(
     name: 'gender',
-    toJson: animalDTOGenderNullableToJson,
-    fromJson: animalDTOGenderNullableFromJson,
+    toJson: animalGenderNullableToJson,
+    fromJson: animalGenderNullableFromJson,
   )
-  final enums.AnimalDTOGender? gender;
-  @JsonKey(name: 'birthDate', toJson: _dateToJson)
-  final DateTime birthDate;
-  @JsonKey(name: 'weight')
-  final double? weight;
-  @JsonKey(
-    name: 'size',
-    toJson: animalDTOSizeNullableToJson,
-    fromJson: animalDTOSizeNullableFromJson,
-  )
-  final enums.AnimalDTOSize? size;
-  @JsonKey(name: 'microchipNumber')
-  final String? microchipNumber;
-  @JsonKey(name: 'vaccinationsUpToDate')
-  final bool? vaccinationsUpToDate;
+  final enums.AnimalGender? gender;
+  @JsonKey(name: 'houseTrained')
+  final bool? houseTrained;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'lastVetVisit')
+  final String? lastVetVisit;
   @JsonKey(name: 'medicalConditions')
   final String? medicalConditions;
   @JsonKey(name: 'medications', defaultValue: <String>[])
   final List<String>? medications;
-  @JsonKey(name: 'allergies', defaultValue: <String>[])
-  final List<String>? allergies;
-  @JsonKey(name: 'specialNeeds')
-  final String? specialNeeds;
-  @JsonKey(name: 'feedingInstructions')
-  final String? feedingInstructions;
-  @JsonKey(name: 'behaviorNotes')
-  final String? behaviorNotes;
-  @JsonKey(
-    name: 'energyLevel',
-    toJson: animalDTOEnergyLevelNullableToJson,
-    fromJson: animalDTOEnergyLevelNullableFromJson,
-  )
-  final enums.AnimalDTOEnergyLevel? energyLevel;
-  @JsonKey(name: 'houseTrained')
-  final bool? houseTrained;
+  @JsonKey(name: 'microchipNumber')
+  final String? microchipNumber;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'owner')
+  final UsersUser? owner;
   @JsonKey(name: 'petFriendly')
   final bool? petFriendly;
-  @JsonKey(name: 'childFriendly')
-  final bool? childFriendly;
   @JsonKey(name: 'photoUrl')
   final String? photoUrl;
-  @JsonKey(name: 'veterinarianContact')
-  final String? veterinarianContact;
-  @JsonKey(name: 'lastVetVisit', toJson: _dateToJson)
-  final DateTime? lastVetVisit;
+  @JsonKey(
+    name: 'size',
+    toJson: animalSizeNullableToJson,
+    fromJson: animalSizeNullableFromJson,
+  )
+  final enums.AnimalSize? size;
   @JsonKey(name: 'specialInstructions')
   final String? specialInstructions;
-  @JsonKey(name: 'owner')
-  final UserDTO owner;
-  static const fromJsonFactory = _$AnimalDTOFromJson;
+  @JsonKey(name: 'specialNeeds')
+  final String? specialNeeds;
+  @JsonKey(
+    name: 'species',
+    toJson: animalSpeciesNullableToJson,
+    fromJson: animalSpeciesNullableFromJson,
+  )
+  final enums.AnimalSpecies? species;
+  @JsonKey(name: 'vaccinationsUpToDate')
+  final bool? vaccinationsUpToDate;
+  @JsonKey(name: 'veterinarianContact')
+  final String? veterinarianContact;
+  @JsonKey(name: 'weight')
+  final double? weight;
+  static const fromJsonFactory = _$AnimalWithOwnerFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is AnimalDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.species, species) ||
+        (other is AnimalWithOwner &&
+            (identical(other.allergies, allergies) ||
                 const DeepCollectionEquality()
-                    .equals(other.species, species)) &&
-            (identical(other.breed, breed) ||
-                const DeepCollectionEquality().equals(other.breed, breed)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
+                    .equals(other.allergies, allergies)) &&
+            (identical(other.behaviorNotes, behaviorNotes) ||
+                const DeepCollectionEquality()
+                    .equals(other.behaviorNotes, behaviorNotes)) &&
             (identical(other.birthDate, birthDate) ||
                 const DeepCollectionEquality()
                     .equals(other.birthDate, birthDate)) &&
-            (identical(other.weight, weight) ||
-                const DeepCollectionEquality().equals(other.weight, weight)) &&
-            (identical(other.size, size) ||
-                const DeepCollectionEquality().equals(other.size, size)) &&
-            (identical(other.microchipNumber, microchipNumber) ||
+            (identical(other.breed, breed) ||
+                const DeepCollectionEquality().equals(other.breed, breed)) &&
+            (identical(other.childFriendly, childFriendly) ||
                 const DeepCollectionEquality()
-                    .equals(other.microchipNumber, microchipNumber)) &&
-            (identical(other.vaccinationsUpToDate, vaccinationsUpToDate) ||
-                const DeepCollectionEquality().equals(
-                    other.vaccinationsUpToDate, vaccinationsUpToDate)) &&
+                    .equals(other.childFriendly, childFriendly)) &&
+            (identical(other.energyLevel, energyLevel) ||
+                const DeepCollectionEquality()
+                    .equals(other.energyLevel, energyLevel)) &&
+            (identical(other.feedingInstructions, feedingInstructions) ||
+                const DeepCollectionEquality()
+                    .equals(other.feedingInstructions, feedingInstructions)) &&
+            (identical(other.gender, gender) ||
+                const DeepCollectionEquality().equals(other.gender, gender)) &&
+            (identical(other.houseTrained, houseTrained) ||
+                const DeepCollectionEquality()
+                    .equals(other.houseTrained, houseTrained)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.lastVetVisit, lastVetVisit) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastVetVisit, lastVetVisit)) &&
             (identical(other.medicalConditions, medicalConditions) ||
                 const DeepCollectionEquality()
                     .equals(other.medicalConditions, medicalConditions)) &&
             (identical(other.medications, medications) ||
                 const DeepCollectionEquality()
                     .equals(other.medications, medications)) &&
-            (identical(other.allergies, allergies) ||
+            (identical(other.microchipNumber, microchipNumber) ||
                 const DeepCollectionEquality()
-                    .equals(other.allergies, allergies)) &&
-            (identical(other.specialNeeds, specialNeeds) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialNeeds, specialNeeds)) &&
-            (identical(other.feedingInstructions, feedingInstructions) ||
-                const DeepCollectionEquality()
-                    .equals(other.feedingInstructions, feedingInstructions)) &&
-            (identical(other.behaviorNotes, behaviorNotes) ||
-                const DeepCollectionEquality()
-                    .equals(other.behaviorNotes, behaviorNotes)) &&
-            (identical(other.energyLevel, energyLevel) ||
-                const DeepCollectionEquality()
-                    .equals(other.energyLevel, energyLevel)) &&
-            (identical(other.houseTrained, houseTrained) ||
-                const DeepCollectionEquality()
-                    .equals(other.houseTrained, houseTrained)) &&
+                    .equals(other.microchipNumber, microchipNumber)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.owner, owner) ||
+                const DeepCollectionEquality().equals(other.owner, owner)) &&
             (identical(other.petFriendly, petFriendly) ||
                 const DeepCollectionEquality()
                     .equals(other.petFriendly, petFriendly)) &&
-            (identical(other.childFriendly, childFriendly) ||
-                const DeepCollectionEquality()
-                    .equals(other.childFriendly, childFriendly)) &&
             (identical(other.photoUrl, photoUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.veterinarianContact, veterinarianContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.veterinarianContact, veterinarianContact)) &&
-            (identical(other.lastVetVisit, lastVetVisit) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastVetVisit, lastVetVisit)) &&
+            (identical(other.size, size) ||
+                const DeepCollectionEquality().equals(other.size, size)) &&
             (identical(other.specialInstructions, specialInstructions) ||
                 const DeepCollectionEquality()
                     .equals(other.specialInstructions, specialInstructions)) &&
-            (identical(other.owner, owner) || const DeepCollectionEquality().equals(other.owner, owner)));
+            (identical(other.specialNeeds, specialNeeds) ||
+                const DeepCollectionEquality()
+                    .equals(other.specialNeeds, specialNeeds)) &&
+            (identical(other.species, species) ||
+                const DeepCollectionEquality()
+                    .equals(other.species, species)) &&
+            (identical(other.vaccinationsUpToDate, vaccinationsUpToDate) ||
+                const DeepCollectionEquality().equals(
+                    other.vaccinationsUpToDate, vaccinationsUpToDate)) &&
+            (identical(other.veterinarianContact, veterinarianContact) ||
+                const DeepCollectionEquality()
+                    .equals(other.veterinarianContact, veterinarianContact)) &&
+            (identical(other.weight, weight) ||
+                const DeepCollectionEquality().equals(other.weight, weight)));
   }
 
   @override
@@ -2326,448 +1180,201 @@ class AnimalDTO {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(species) ^
-      const DeepCollectionEquality().hash(breed) ^
-      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(allergies) ^
+      const DeepCollectionEquality().hash(behaviorNotes) ^
       const DeepCollectionEquality().hash(birthDate) ^
-      const DeepCollectionEquality().hash(weight) ^
-      const DeepCollectionEquality().hash(size) ^
-      const DeepCollectionEquality().hash(microchipNumber) ^
-      const DeepCollectionEquality().hash(vaccinationsUpToDate) ^
+      const DeepCollectionEquality().hash(breed) ^
+      const DeepCollectionEquality().hash(childFriendly) ^
+      const DeepCollectionEquality().hash(energyLevel) ^
+      const DeepCollectionEquality().hash(feedingInstructions) ^
+      const DeepCollectionEquality().hash(gender) ^
+      const DeepCollectionEquality().hash(houseTrained) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(lastVetVisit) ^
       const DeepCollectionEquality().hash(medicalConditions) ^
       const DeepCollectionEquality().hash(medications) ^
-      const DeepCollectionEquality().hash(allergies) ^
-      const DeepCollectionEquality().hash(specialNeeds) ^
-      const DeepCollectionEquality().hash(feedingInstructions) ^
-      const DeepCollectionEquality().hash(behaviorNotes) ^
-      const DeepCollectionEquality().hash(energyLevel) ^
-      const DeepCollectionEquality().hash(houseTrained) ^
-      const DeepCollectionEquality().hash(petFriendly) ^
-      const DeepCollectionEquality().hash(childFriendly) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(veterinarianContact) ^
-      const DeepCollectionEquality().hash(lastVetVisit) ^
-      const DeepCollectionEquality().hash(specialInstructions) ^
+      const DeepCollectionEquality().hash(microchipNumber) ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(owner) ^
+      const DeepCollectionEquality().hash(petFriendly) ^
+      const DeepCollectionEquality().hash(photoUrl) ^
+      const DeepCollectionEquality().hash(size) ^
+      const DeepCollectionEquality().hash(specialInstructions) ^
+      const DeepCollectionEquality().hash(specialNeeds) ^
+      const DeepCollectionEquality().hash(species) ^
+      const DeepCollectionEquality().hash(vaccinationsUpToDate) ^
+      const DeepCollectionEquality().hash(veterinarianContact) ^
+      const DeepCollectionEquality().hash(weight) ^
       runtimeType.hashCode;
 }
 
-extension $AnimalDTOExtension on AnimalDTO {
-  AnimalDTO copyWith(
-      {String? id,
-      String? name,
-      enums.AnimalDTOSpecies? species,
+extension $AnimalWithOwnerExtension on AnimalWithOwner {
+  AnimalWithOwner copyWith(
+      {List<String>? allergies,
+      String? behaviorNotes,
+      String? birthDate,
       String? breed,
-      enums.AnimalDTOGender? gender,
-      DateTime? birthDate,
-      double? weight,
-      enums.AnimalDTOSize? size,
-      String? microchipNumber,
-      bool? vaccinationsUpToDate,
+      bool? childFriendly,
+      enums.AnimalEnergyLevel? energyLevel,
+      String? feedingInstructions,
+      enums.AnimalGender? gender,
+      bool? houseTrained,
+      String? id,
+      String? lastVetVisit,
       String? medicalConditions,
       List<String>? medications,
-      List<String>? allergies,
-      String? specialNeeds,
-      String? feedingInstructions,
-      String? behaviorNotes,
-      enums.AnimalDTOEnergyLevel? energyLevel,
-      bool? houseTrained,
+      String? microchipNumber,
+      String? name,
+      UsersUser? owner,
       bool? petFriendly,
-      bool? childFriendly,
       String? photoUrl,
-      String? veterinarianContact,
-      DateTime? lastVetVisit,
+      enums.AnimalSize? size,
       String? specialInstructions,
-      UserDTO? owner}) {
-    return AnimalDTO(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        species: species ?? this.species,
-        breed: breed ?? this.breed,
-        gender: gender ?? this.gender,
+      String? specialNeeds,
+      enums.AnimalSpecies? species,
+      bool? vaccinationsUpToDate,
+      String? veterinarianContact,
+      double? weight}) {
+    return AnimalWithOwner(
+        allergies: allergies ?? this.allergies,
+        behaviorNotes: behaviorNotes ?? this.behaviorNotes,
         birthDate: birthDate ?? this.birthDate,
-        weight: weight ?? this.weight,
-        size: size ?? this.size,
-        microchipNumber: microchipNumber ?? this.microchipNumber,
-        vaccinationsUpToDate: vaccinationsUpToDate ?? this.vaccinationsUpToDate,
+        breed: breed ?? this.breed,
+        childFriendly: childFriendly ?? this.childFriendly,
+        energyLevel: energyLevel ?? this.energyLevel,
+        feedingInstructions: feedingInstructions ?? this.feedingInstructions,
+        gender: gender ?? this.gender,
+        houseTrained: houseTrained ?? this.houseTrained,
+        id: id ?? this.id,
+        lastVetVisit: lastVetVisit ?? this.lastVetVisit,
         medicalConditions: medicalConditions ?? this.medicalConditions,
         medications: medications ?? this.medications,
-        allergies: allergies ?? this.allergies,
-        specialNeeds: specialNeeds ?? this.specialNeeds,
-        feedingInstructions: feedingInstructions ?? this.feedingInstructions,
-        behaviorNotes: behaviorNotes ?? this.behaviorNotes,
-        energyLevel: energyLevel ?? this.energyLevel,
-        houseTrained: houseTrained ?? this.houseTrained,
+        microchipNumber: microchipNumber ?? this.microchipNumber,
+        name: name ?? this.name,
+        owner: owner ?? this.owner,
         petFriendly: petFriendly ?? this.petFriendly,
-        childFriendly: childFriendly ?? this.childFriendly,
         photoUrl: photoUrl ?? this.photoUrl,
-        veterinarianContact: veterinarianContact ?? this.veterinarianContact,
-        lastVetVisit: lastVetVisit ?? this.lastVetVisit,
+        size: size ?? this.size,
         specialInstructions: specialInstructions ?? this.specialInstructions,
-        owner: owner ?? this.owner);
+        specialNeeds: specialNeeds ?? this.specialNeeds,
+        species: species ?? this.species,
+        vaccinationsUpToDate: vaccinationsUpToDate ?? this.vaccinationsUpToDate,
+        veterinarianContact: veterinarianContact ?? this.veterinarianContact,
+        weight: weight ?? this.weight);
   }
 
-  AnimalDTO copyWithWrapped(
-      {Wrapped<String?>? id,
-      Wrapped<String>? name,
-      Wrapped<enums.AnimalDTOSpecies>? species,
+  AnimalWithOwner copyWithWrapped(
+      {Wrapped<List<String>?>? allergies,
+      Wrapped<String?>? behaviorNotes,
+      Wrapped<String?>? birthDate,
       Wrapped<String?>? breed,
-      Wrapped<enums.AnimalDTOGender?>? gender,
-      Wrapped<DateTime>? birthDate,
-      Wrapped<double?>? weight,
-      Wrapped<enums.AnimalDTOSize?>? size,
-      Wrapped<String?>? microchipNumber,
-      Wrapped<bool?>? vaccinationsUpToDate,
+      Wrapped<bool?>? childFriendly,
+      Wrapped<enums.AnimalEnergyLevel?>? energyLevel,
+      Wrapped<String?>? feedingInstructions,
+      Wrapped<enums.AnimalGender?>? gender,
+      Wrapped<bool?>? houseTrained,
+      Wrapped<String?>? id,
+      Wrapped<String?>? lastVetVisit,
       Wrapped<String?>? medicalConditions,
       Wrapped<List<String>?>? medications,
-      Wrapped<List<String>?>? allergies,
-      Wrapped<String?>? specialNeeds,
-      Wrapped<String?>? feedingInstructions,
-      Wrapped<String?>? behaviorNotes,
-      Wrapped<enums.AnimalDTOEnergyLevel?>? energyLevel,
-      Wrapped<bool?>? houseTrained,
+      Wrapped<String?>? microchipNumber,
+      Wrapped<String?>? name,
+      Wrapped<UsersUser?>? owner,
       Wrapped<bool?>? petFriendly,
-      Wrapped<bool?>? childFriendly,
       Wrapped<String?>? photoUrl,
-      Wrapped<String?>? veterinarianContact,
-      Wrapped<DateTime?>? lastVetVisit,
+      Wrapped<enums.AnimalSize?>? size,
       Wrapped<String?>? specialInstructions,
-      Wrapped<UserDTO>? owner}) {
-    return AnimalDTO(
-        id: (id != null ? id.value : this.id),
-        name: (name != null ? name.value : this.name),
-        species: (species != null ? species.value : this.species),
-        breed: (breed != null ? breed.value : this.breed),
-        gender: (gender != null ? gender.value : this.gender),
+      Wrapped<String?>? specialNeeds,
+      Wrapped<enums.AnimalSpecies?>? species,
+      Wrapped<bool?>? vaccinationsUpToDate,
+      Wrapped<String?>? veterinarianContact,
+      Wrapped<double?>? weight}) {
+    return AnimalWithOwner(
+        allergies: (allergies != null ? allergies.value : this.allergies),
+        behaviorNotes:
+            (behaviorNotes != null ? behaviorNotes.value : this.behaviorNotes),
         birthDate: (birthDate != null ? birthDate.value : this.birthDate),
-        weight: (weight != null ? weight.value : this.weight),
-        size: (size != null ? size.value : this.size),
-        microchipNumber: (microchipNumber != null
-            ? microchipNumber.value
-            : this.microchipNumber),
-        vaccinationsUpToDate: (vaccinationsUpToDate != null
-            ? vaccinationsUpToDate.value
-            : this.vaccinationsUpToDate),
+        breed: (breed != null ? breed.value : this.breed),
+        childFriendly:
+            (childFriendly != null ? childFriendly.value : this.childFriendly),
+        energyLevel:
+            (energyLevel != null ? energyLevel.value : this.energyLevel),
+        feedingInstructions: (feedingInstructions != null
+            ? feedingInstructions.value
+            : this.feedingInstructions),
+        gender: (gender != null ? gender.value : this.gender),
+        houseTrained:
+            (houseTrained != null ? houseTrained.value : this.houseTrained),
+        id: (id != null ? id.value : this.id),
+        lastVetVisit:
+            (lastVetVisit != null ? lastVetVisit.value : this.lastVetVisit),
         medicalConditions: (medicalConditions != null
             ? medicalConditions.value
             : this.medicalConditions),
         medications:
             (medications != null ? medications.value : this.medications),
-        allergies: (allergies != null ? allergies.value : this.allergies),
-        specialNeeds:
-            (specialNeeds != null ? specialNeeds.value : this.specialNeeds),
-        feedingInstructions: (feedingInstructions != null
-            ? feedingInstructions.value
-            : this.feedingInstructions),
-        behaviorNotes:
-            (behaviorNotes != null ? behaviorNotes.value : this.behaviorNotes),
-        energyLevel:
-            (energyLevel != null ? energyLevel.value : this.energyLevel),
-        houseTrained:
-            (houseTrained != null ? houseTrained.value : this.houseTrained),
+        microchipNumber: (microchipNumber != null
+            ? microchipNumber.value
+            : this.microchipNumber),
+        name: (name != null ? name.value : this.name),
+        owner: (owner != null ? owner.value : this.owner),
         petFriendly:
             (petFriendly != null ? petFriendly.value : this.petFriendly),
-        childFriendly:
-            (childFriendly != null ? childFriendly.value : this.childFriendly),
         photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        veterinarianContact: (veterinarianContact != null
-            ? veterinarianContact.value
-            : this.veterinarianContact),
-        lastVetVisit:
-            (lastVetVisit != null ? lastVetVisit.value : this.lastVetVisit),
+        size: (size != null ? size.value : this.size),
         specialInstructions: (specialInstructions != null
             ? specialInstructions.value
             : this.specialInstructions),
-        owner: (owner != null ? owner.value : this.owner));
+        specialNeeds:
+            (specialNeeds != null ? specialNeeds.value : this.specialNeeds),
+        species: (species != null ? species.value : this.species),
+        vaccinationsUpToDate: (vaccinationsUpToDate != null
+            ? vaccinationsUpToDate.value
+            : this.vaccinationsUpToDate),
+        veterinarianContact: (veterinarianContact != null
+            ? veterinarianContact.value
+            : this.veterinarianContact),
+        weight: (weight != null ? weight.value : this.weight));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class UserCreationDTO {
-  const UserCreationDTO({
-    this.firebaseUid,
-    required this.lastname,
-    required this.firstname,
-    required this.email,
-    required this.address,
-    required this.phone,
-    required this.role,
-    this.photoUrl,
-    this.emergencyContact,
-    this.preferredCommunicationMethod,
-    required this.isVerified,
-    required this.registrationDate,
-    this.notes,
+class MissionsAnimalService {
+  const MissionsAnimalService({
+    this.animalId,
+    this.date,
+    this.petServiceId,
+    this.price,
   });
 
-  factory UserCreationDTO.fromJson(Map<String, dynamic> json) =>
-      _$UserCreationDTOFromJson(json);
+  factory MissionsAnimalService.fromJson(Map<String, dynamic> json) =>
+      _$MissionsAnimalServiceFromJson(json);
 
-  static const toJsonFactory = _$UserCreationDTOToJson;
-  Map<String, dynamic> toJson() => _$UserCreationDTOToJson(this);
-
-  @JsonKey(name: 'firebaseUid')
-  final String? firebaseUid;
-  @JsonKey(name: 'lastname')
-  final String lastname;
-  @JsonKey(name: 'firstname')
-  final String firstname;
-  @JsonKey(name: 'email')
-  final String email;
-  @JsonKey(name: 'address')
-  final PlaceDetailsDTO address;
-  @JsonKey(name: 'phone')
-  final String phone;
-  @JsonKey(
-    name: 'role',
-    toJson: userCreationDTORoleToJson,
-    fromJson: userCreationDTORoleFromJson,
-  )
-  final enums.UserCreationDTORole role;
-  @JsonKey(name: 'photoUrl')
-  final String? photoUrl;
-  @JsonKey(name: 'emergencyContact')
-  final String? emergencyContact;
-  @JsonKey(name: 'preferredCommunicationMethod')
-  final String? preferredCommunicationMethod;
-  @JsonKey(name: 'isVerified')
-  final bool isVerified;
-  @JsonKey(name: 'registrationDate', toJson: _dateToJson)
-  final DateTime registrationDate;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  static const fromJsonFactory = _$UserCreationDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is UserCreationDTO &&
-            (identical(other.firebaseUid, firebaseUid) ||
-                const DeepCollectionEquality()
-                    .equals(other.firebaseUid, firebaseUid)) &&
-            (identical(other.lastname, lastname) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastname, lastname)) &&
-            (identical(other.firstname, firstname) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstname, firstname)) &&
-            (identical(other.email, email) ||
-                const DeepCollectionEquality().equals(other.email, email)) &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality()
-                    .equals(other.address, address)) &&
-            (identical(other.phone, phone) ||
-                const DeepCollectionEquality().equals(other.phone, phone)) &&
-            (identical(other.role, role) ||
-                const DeepCollectionEquality().equals(other.role, role)) &&
-            (identical(other.photoUrl, photoUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.emergencyContact, emergencyContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.emergencyContact, emergencyContact)) &&
-            (identical(other.preferredCommunicationMethod,
-                    preferredCommunicationMethod) ||
-                const DeepCollectionEquality().equals(
-                    other.preferredCommunicationMethod,
-                    preferredCommunicationMethod)) &&
-            (identical(other.isVerified, isVerified) ||
-                const DeepCollectionEquality()
-                    .equals(other.isVerified, isVerified)) &&
-            (identical(other.registrationDate, registrationDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.registrationDate, registrationDate)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(firebaseUid) ^
-      const DeepCollectionEquality().hash(lastname) ^
-      const DeepCollectionEquality().hash(firstname) ^
-      const DeepCollectionEquality().hash(email) ^
-      const DeepCollectionEquality().hash(address) ^
-      const DeepCollectionEquality().hash(phone) ^
-      const DeepCollectionEquality().hash(role) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(emergencyContact) ^
-      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
-      const DeepCollectionEquality().hash(isVerified) ^
-      const DeepCollectionEquality().hash(registrationDate) ^
-      const DeepCollectionEquality().hash(notes) ^
-      runtimeType.hashCode;
-}
-
-extension $UserCreationDTOExtension on UserCreationDTO {
-  UserCreationDTO copyWith(
-      {String? firebaseUid,
-      String? lastname,
-      String? firstname,
-      String? email,
-      PlaceDetailsDTO? address,
-      String? phone,
-      enums.UserCreationDTORole? role,
-      String? photoUrl,
-      String? emergencyContact,
-      String? preferredCommunicationMethod,
-      bool? isVerified,
-      DateTime? registrationDate,
-      String? notes}) {
-    return UserCreationDTO(
-        firebaseUid: firebaseUid ?? this.firebaseUid,
-        lastname: lastname ?? this.lastname,
-        firstname: firstname ?? this.firstname,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        phone: phone ?? this.phone,
-        role: role ?? this.role,
-        photoUrl: photoUrl ?? this.photoUrl,
-        emergencyContact: emergencyContact ?? this.emergencyContact,
-        preferredCommunicationMethod:
-            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
-        isVerified: isVerified ?? this.isVerified,
-        registrationDate: registrationDate ?? this.registrationDate,
-        notes: notes ?? this.notes);
-  }
-
-  UserCreationDTO copyWithWrapped(
-      {Wrapped<String?>? firebaseUid,
-      Wrapped<String>? lastname,
-      Wrapped<String>? firstname,
-      Wrapped<String>? email,
-      Wrapped<PlaceDetailsDTO>? address,
-      Wrapped<String>? phone,
-      Wrapped<enums.UserCreationDTORole>? role,
-      Wrapped<String?>? photoUrl,
-      Wrapped<String?>? emergencyContact,
-      Wrapped<String?>? preferredCommunicationMethod,
-      Wrapped<bool>? isVerified,
-      Wrapped<DateTime>? registrationDate,
-      Wrapped<String?>? notes}) {
-    return UserCreationDTO(
-        firebaseUid:
-            (firebaseUid != null ? firebaseUid.value : this.firebaseUid),
-        lastname: (lastname != null ? lastname.value : this.lastname),
-        firstname: (firstname != null ? firstname.value : this.firstname),
-        email: (email != null ? email.value : this.email),
-        address: (address != null ? address.value : this.address),
-        phone: (phone != null ? phone.value : this.phone),
-        role: (role != null ? role.value : this.role),
-        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        emergencyContact: (emergencyContact != null
-            ? emergencyContact.value
-            : this.emergencyContact),
-        preferredCommunicationMethod: (preferredCommunicationMethod != null
-            ? preferredCommunicationMethod.value
-            : this.preferredCommunicationMethod),
-        isVerified: (isVerified != null ? isVerified.value : this.isVerified),
-        registrationDate: (registrationDate != null
-            ? registrationDate.value
-            : this.registrationDate),
-        notes: (notes != null ? notes.value : this.notes));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class DailyServiceCreationDTO {
-  const DailyServiceCreationDTO({
-    required this.date,
-    required this.services,
-  });
-
-  factory DailyServiceCreationDTO.fromJson(Map<String, dynamic> json) =>
-      _$DailyServiceCreationDTOFromJson(json);
-
-  static const toJsonFactory = _$DailyServiceCreationDTOToJson;
-  Map<String, dynamic> toJson() => _$DailyServiceCreationDTOToJson(this);
-
-  @JsonKey(name: 'date', toJson: _dateToJson)
-  final DateTime date;
-  @JsonKey(name: 'services', defaultValue: <MissionAnimalServiceCreationDTO>[])
-  final List<MissionAnimalServiceCreationDTO> services;
-  static const fromJsonFactory = _$DailyServiceCreationDTOFromJson;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is DailyServiceCreationDTO &&
-            (identical(other.date, date) ||
-                const DeepCollectionEquality().equals(other.date, date)) &&
-            (identical(other.services, services) ||
-                const DeepCollectionEquality()
-                    .equals(other.services, services)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(date) ^
-      const DeepCollectionEquality().hash(services) ^
-      runtimeType.hashCode;
-}
-
-extension $DailyServiceCreationDTOExtension on DailyServiceCreationDTO {
-  DailyServiceCreationDTO copyWith(
-      {DateTime? date, List<MissionAnimalServiceCreationDTO>? services}) {
-    return DailyServiceCreationDTO(
-        date: date ?? this.date, services: services ?? this.services);
-  }
-
-  DailyServiceCreationDTO copyWithWrapped(
-      {Wrapped<DateTime>? date,
-      Wrapped<List<MissionAnimalServiceCreationDTO>>? services}) {
-    return DailyServiceCreationDTO(
-        date: (date != null ? date.value : this.date),
-        services: (services != null ? services.value : this.services));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class MissionAnimalServiceCreationDTO {
-  const MissionAnimalServiceCreationDTO({
-    required this.animalId,
-    required this.petServiceId,
-    required this.date,
-    required this.price,
-  });
-
-  factory MissionAnimalServiceCreationDTO.fromJson(Map<String, dynamic> json) =>
-      _$MissionAnimalServiceCreationDTOFromJson(json);
-
-  static const toJsonFactory = _$MissionAnimalServiceCreationDTOToJson;
-  Map<String, dynamic> toJson() =>
-      _$MissionAnimalServiceCreationDTOToJson(this);
+  static const toJsonFactory = _$MissionsAnimalServiceToJson;
+  Map<String, dynamic> toJson() => _$MissionsAnimalServiceToJson(this);
 
   @JsonKey(name: 'animalId')
-  final String animalId;
+  final String? animalId;
+  @JsonKey(name: 'date')
+  final String? date;
   @JsonKey(name: 'petServiceId')
-  final String petServiceId;
-  @JsonKey(name: 'date', toJson: _dateToJson)
-  final DateTime date;
+  final String? petServiceId;
   @JsonKey(name: 'price')
-  final double price;
-  static const fromJsonFactory = _$MissionAnimalServiceCreationDTOFromJson;
+  final double? price;
+  static const fromJsonFactory = _$MissionsAnimalServiceFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is MissionAnimalServiceCreationDTO &&
+        (other is MissionsAnimalService &&
             (identical(other.animalId, animalId) ||
                 const DeepCollectionEquality()
                     .equals(other.animalId, animalId)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.petServiceId, petServiceId) ||
                 const DeepCollectionEquality()
                     .equals(other.petServiceId, petServiceId)) &&
-            (identical(other.date, date) ||
-                const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.price, price) ||
                 const DeepCollectionEquality().equals(other.price, price)));
   }
@@ -2778,89 +1385,169 @@ class MissionAnimalServiceCreationDTO {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(animalId) ^
-      const DeepCollectionEquality().hash(petServiceId) ^
       const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(petServiceId) ^
       const DeepCollectionEquality().hash(price) ^
       runtimeType.hashCode;
 }
 
-extension $MissionAnimalServiceCreationDTOExtension
-    on MissionAnimalServiceCreationDTO {
-  MissionAnimalServiceCreationDTO copyWith(
-      {String? animalId, String? petServiceId, DateTime? date, double? price}) {
-    return MissionAnimalServiceCreationDTO(
+extension $MissionsAnimalServiceExtension on MissionsAnimalService {
+  MissionsAnimalService copyWith(
+      {String? animalId, String? date, String? petServiceId, double? price}) {
+    return MissionsAnimalService(
         animalId: animalId ?? this.animalId,
-        petServiceId: petServiceId ?? this.petServiceId,
         date: date ?? this.date,
+        petServiceId: petServiceId ?? this.petServiceId,
         price: price ?? this.price);
   }
 
-  MissionAnimalServiceCreationDTO copyWithWrapped(
-      {Wrapped<String>? animalId,
-      Wrapped<String>? petServiceId,
-      Wrapped<DateTime>? date,
-      Wrapped<double>? price}) {
-    return MissionAnimalServiceCreationDTO(
+  MissionsAnimalService copyWithWrapped(
+      {Wrapped<String?>? animalId,
+      Wrapped<String?>? date,
+      Wrapped<String?>? petServiceId,
+      Wrapped<double?>? price}) {
+    return MissionsAnimalService(
         animalId: (animalId != null ? animalId.value : this.animalId),
+        date: (date != null ? date.value : this.date),
         petServiceId:
             (petServiceId != null ? petServiceId.value : this.petServiceId),
-        date: (date != null ? date.value : this.date),
         price: (price != null ? price.value : this.price));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class MissionCreationDTO {
-  const MissionCreationDTO({
-    required this.clientId,
-    required this.startDate,
-    required this.endDate,
-    required this.dailyServices,
-    this.notes,
-    required this.location,
+class MissionsAnimalServiceWithDetails {
+  const MissionsAnimalServiceWithDetails({
+    this.animal,
+    this.date,
+    this.petService,
+    this.price,
   });
 
-  factory MissionCreationDTO.fromJson(Map<String, dynamic> json) =>
-      _$MissionCreationDTOFromJson(json);
+  factory MissionsAnimalServiceWithDetails.fromJson(
+          Map<String, dynamic> json) =>
+      _$MissionsAnimalServiceWithDetailsFromJson(json);
 
-  static const toJsonFactory = _$MissionCreationDTOToJson;
-  Map<String, dynamic> toJson() => _$MissionCreationDTOToJson(this);
+  static const toJsonFactory = _$MissionsAnimalServiceWithDetailsToJson;
+  Map<String, dynamic> toJson() =>
+      _$MissionsAnimalServiceWithDetailsToJson(this);
 
-  @JsonKey(name: 'clientId')
-  final String clientId;
-  @JsonKey(name: 'startDate', toJson: _dateToJson)
-  final DateTime startDate;
-  @JsonKey(name: 'endDate', toJson: _dateToJson)
-  final DateTime endDate;
-  @JsonKey(name: 'dailyServices', defaultValue: <DailyServiceCreationDTO>[])
-  final List<DailyServiceCreationDTO> dailyServices;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  @JsonKey(name: 'location')
-  final PlaceDetailsDTO location;
-  static const fromJsonFactory = _$MissionCreationDTOFromJson;
+  @JsonKey(name: 'animal')
+  final AnimalWithOwner? animal;
+  @JsonKey(name: 'date')
+  final String? date;
+  @JsonKey(name: 'petService')
+  final PetServicesPetService? petService;
+  @JsonKey(name: 'price')
+  final double? price;
+  static const fromJsonFactory = _$MissionsAnimalServiceWithDetailsFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is MissionCreationDTO &&
+        (other is MissionsAnimalServiceWithDetails &&
+            (identical(other.animal, animal) ||
+                const DeepCollectionEquality().equals(other.animal, animal)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.petService, petService) ||
+                const DeepCollectionEquality()
+                    .equals(other.petService, petService)) &&
+            (identical(other.price, price) ||
+                const DeepCollectionEquality().equals(other.price, price)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(animal) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(petService) ^
+      const DeepCollectionEquality().hash(price) ^
+      runtimeType.hashCode;
+}
+
+extension $MissionsAnimalServiceWithDetailsExtension
+    on MissionsAnimalServiceWithDetails {
+  MissionsAnimalServiceWithDetails copyWith(
+      {AnimalWithOwner? animal,
+      String? date,
+      PetServicesPetService? petService,
+      double? price}) {
+    return MissionsAnimalServiceWithDetails(
+        animal: animal ?? this.animal,
+        date: date ?? this.date,
+        petService: petService ?? this.petService,
+        price: price ?? this.price);
+  }
+
+  MissionsAnimalServiceWithDetails copyWithWrapped(
+      {Wrapped<AnimalWithOwner?>? animal,
+      Wrapped<String?>? date,
+      Wrapped<PetServicesPetService?>? petService,
+      Wrapped<double?>? price}) {
+    return MissionsAnimalServiceWithDetails(
+        animal: (animal != null ? animal.value : this.animal),
+        date: (date != null ? date.value : this.date),
+        petService: (petService != null ? petService.value : this.petService),
+        price: (price != null ? price.value : this.price));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class MissionsCreateMissionRequest {
+  const MissionsCreateMissionRequest({
+    required this.clientId,
+    required this.dailyServices,
+    required this.endDate,
+    required this.location,
+    this.notes,
+    required this.startDate,
+  });
+
+  factory MissionsCreateMissionRequest.fromJson(Map<String, dynamic> json) =>
+      _$MissionsCreateMissionRequestFromJson(json);
+
+  static const toJsonFactory = _$MissionsCreateMissionRequestToJson;
+  Map<String, dynamic> toJson() => _$MissionsCreateMissionRequestToJson(this);
+
+  @JsonKey(name: 'clientId')
+  final String clientId;
+  @JsonKey(name: 'dailyServices', defaultValue: <MissionsDailyService>[])
+  final List<MissionsDailyService> dailyServices;
+  @JsonKey(name: 'endDate')
+  final String endDate;
+  @JsonKey(name: 'location')
+  final PlaceDetails location;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'startDate')
+  final String startDate;
+  static const fromJsonFactory = _$MissionsCreateMissionRequestFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MissionsCreateMissionRequest &&
             (identical(other.clientId, clientId) ||
                 const DeepCollectionEquality()
                     .equals(other.clientId, clientId)) &&
-            (identical(other.startDate, startDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.startDate, startDate)) &&
-            (identical(other.endDate, endDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.endDate, endDate)) &&
             (identical(other.dailyServices, dailyServices) ||
                 const DeepCollectionEquality()
                     .equals(other.dailyServices, dailyServices)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.endDate, endDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.endDate, endDate)) &&
             (identical(other.location, location) ||
                 const DeepCollectionEquality()
-                    .equals(other.location, location)));
+                    .equals(other.location, location)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.startDate, startDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.startDate, startDate)));
   }
 
   @override
@@ -2869,72 +1556,73 @@ class MissionCreationDTO {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(clientId) ^
-      const DeepCollectionEquality().hash(startDate) ^
-      const DeepCollectionEquality().hash(endDate) ^
       const DeepCollectionEquality().hash(dailyServices) ^
-      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(endDate) ^
       const DeepCollectionEquality().hash(location) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(startDate) ^
       runtimeType.hashCode;
 }
 
-extension $MissionCreationDTOExtension on MissionCreationDTO {
-  MissionCreationDTO copyWith(
+extension $MissionsCreateMissionRequestExtension
+    on MissionsCreateMissionRequest {
+  MissionsCreateMissionRequest copyWith(
       {String? clientId,
-      DateTime? startDate,
-      DateTime? endDate,
-      List<DailyServiceCreationDTO>? dailyServices,
+      List<MissionsDailyService>? dailyServices,
+      String? endDate,
+      PlaceDetails? location,
       String? notes,
-      PlaceDetailsDTO? location}) {
-    return MissionCreationDTO(
+      String? startDate}) {
+    return MissionsCreateMissionRequest(
         clientId: clientId ?? this.clientId,
-        startDate: startDate ?? this.startDate,
-        endDate: endDate ?? this.endDate,
         dailyServices: dailyServices ?? this.dailyServices,
+        endDate: endDate ?? this.endDate,
+        location: location ?? this.location,
         notes: notes ?? this.notes,
-        location: location ?? this.location);
+        startDate: startDate ?? this.startDate);
   }
 
-  MissionCreationDTO copyWithWrapped(
+  MissionsCreateMissionRequest copyWithWrapped(
       {Wrapped<String>? clientId,
-      Wrapped<DateTime>? startDate,
-      Wrapped<DateTime>? endDate,
-      Wrapped<List<DailyServiceCreationDTO>>? dailyServices,
+      Wrapped<List<MissionsDailyService>>? dailyServices,
+      Wrapped<String>? endDate,
+      Wrapped<PlaceDetails>? location,
       Wrapped<String?>? notes,
-      Wrapped<PlaceDetailsDTO>? location}) {
-    return MissionCreationDTO(
+      Wrapped<String>? startDate}) {
+    return MissionsCreateMissionRequest(
         clientId: (clientId != null ? clientId.value : this.clientId),
-        startDate: (startDate != null ? startDate.value : this.startDate),
-        endDate: (endDate != null ? endDate.value : this.endDate),
         dailyServices:
             (dailyServices != null ? dailyServices.value : this.dailyServices),
+        endDate: (endDate != null ? endDate.value : this.endDate),
+        location: (location != null ? location.value : this.location),
         notes: (notes != null ? notes.value : this.notes),
-        location: (location != null ? location.value : this.location));
+        startDate: (startDate != null ? startDate.value : this.startDate));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class DailyServiceDTO {
-  const DailyServiceDTO({
-    required this.date,
-    required this.services,
+class MissionsDailyService {
+  const MissionsDailyService({
+    this.date,
+    this.services,
   });
 
-  factory DailyServiceDTO.fromJson(Map<String, dynamic> json) =>
-      _$DailyServiceDTOFromJson(json);
+  factory MissionsDailyService.fromJson(Map<String, dynamic> json) =>
+      _$MissionsDailyServiceFromJson(json);
 
-  static const toJsonFactory = _$DailyServiceDTOToJson;
-  Map<String, dynamic> toJson() => _$DailyServiceDTOToJson(this);
+  static const toJsonFactory = _$MissionsDailyServiceToJson;
+  Map<String, dynamic> toJson() => _$MissionsDailyServiceToJson(this);
 
-  @JsonKey(name: 'date', toJson: _dateToJson)
-  final DateTime date;
-  @JsonKey(name: 'services', defaultValue: <MissionAnimalServiceDTO>[])
-  final List<MissionAnimalServiceDTO> services;
-  static const fromJsonFactory = _$DailyServiceDTOFromJson;
+  @JsonKey(name: 'date')
+  final String? date;
+  @JsonKey(name: 'services', defaultValue: <MissionsAnimalService>[])
+  final List<MissionsAnimalService>? services;
+  static const fromJsonFactory = _$MissionsDailyServiceFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is DailyServiceDTO &&
+        (other is MissionsDailyService &&
             (identical(other.date, date) ||
                 const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.services, services) ||
@@ -2952,60 +1640,51 @@ class DailyServiceDTO {
       runtimeType.hashCode;
 }
 
-extension $DailyServiceDTOExtension on DailyServiceDTO {
-  DailyServiceDTO copyWith(
-      {DateTime? date, List<MissionAnimalServiceDTO>? services}) {
-    return DailyServiceDTO(
+extension $MissionsDailyServiceExtension on MissionsDailyService {
+  MissionsDailyService copyWith(
+      {String? date, List<MissionsAnimalService>? services}) {
+    return MissionsDailyService(
         date: date ?? this.date, services: services ?? this.services);
   }
 
-  DailyServiceDTO copyWithWrapped(
-      {Wrapped<DateTime>? date,
-      Wrapped<List<MissionAnimalServiceDTO>>? services}) {
-    return DailyServiceDTO(
+  MissionsDailyService copyWithWrapped(
+      {Wrapped<String?>? date,
+      Wrapped<List<MissionsAnimalService>?>? services}) {
+    return MissionsDailyService(
         date: (date != null ? date.value : this.date),
         services: (services != null ? services.value : this.services));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class MissionAnimalServiceDTO {
-  const MissionAnimalServiceDTO({
-    required this.animal,
-    required this.petService,
-    required this.date,
-    required this.price,
+class MissionsDailyServiceWithDetails {
+  const MissionsDailyServiceWithDetails({
+    this.date,
+    this.services,
   });
 
-  factory MissionAnimalServiceDTO.fromJson(Map<String, dynamic> json) =>
-      _$MissionAnimalServiceDTOFromJson(json);
+  factory MissionsDailyServiceWithDetails.fromJson(Map<String, dynamic> json) =>
+      _$MissionsDailyServiceWithDetailsFromJson(json);
 
-  static const toJsonFactory = _$MissionAnimalServiceDTOToJson;
-  Map<String, dynamic> toJson() => _$MissionAnimalServiceDTOToJson(this);
+  static const toJsonFactory = _$MissionsDailyServiceWithDetailsToJson;
+  Map<String, dynamic> toJson() =>
+      _$MissionsDailyServiceWithDetailsToJson(this);
 
-  @JsonKey(name: 'animal')
-  final AnimalDTO animal;
-  @JsonKey(name: 'petService')
-  final PetServiceDTO petService;
   @JsonKey(name: 'date')
-  final DateTime date;
-  @JsonKey(name: 'price')
-  final double price;
-  static const fromJsonFactory = _$MissionAnimalServiceDTOFromJson;
+  final String? date;
+  @JsonKey(name: 'services', defaultValue: <MissionsAnimalServiceWithDetails>[])
+  final List<MissionsAnimalServiceWithDetails>? services;
+  static const fromJsonFactory = _$MissionsDailyServiceWithDetailsFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is MissionAnimalServiceDTO &&
-            (identical(other.animal, animal) ||
-                const DeepCollectionEquality().equals(other.animal, animal)) &&
-            (identical(other.petService, petService) ||
-                const DeepCollectionEquality()
-                    .equals(other.petService, petService)) &&
+        (other is MissionsDailyServiceWithDetails &&
             (identical(other.date, date) ||
                 const DeepCollectionEquality().equals(other.date, date)) &&
-            (identical(other.price, price) ||
-                const DeepCollectionEquality().equals(other.price, price)));
+            (identical(other.services, services) ||
+                const DeepCollectionEquality()
+                    .equals(other.services, services)));
   }
 
   @override
@@ -3013,125 +1692,143 @@ class MissionAnimalServiceDTO {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(animal) ^
-      const DeepCollectionEquality().hash(petService) ^
       const DeepCollectionEquality().hash(date) ^
-      const DeepCollectionEquality().hash(price) ^
+      const DeepCollectionEquality().hash(services) ^
       runtimeType.hashCode;
 }
 
-extension $MissionAnimalServiceDTOExtension on MissionAnimalServiceDTO {
-  MissionAnimalServiceDTO copyWith(
-      {AnimalDTO? animal,
-      PetServiceDTO? petService,
-      DateTime? date,
-      double? price}) {
-    return MissionAnimalServiceDTO(
-        animal: animal ?? this.animal,
-        petService: petService ?? this.petService,
-        date: date ?? this.date,
-        price: price ?? this.price);
+extension $MissionsDailyServiceWithDetailsExtension
+    on MissionsDailyServiceWithDetails {
+  MissionsDailyServiceWithDetails copyWith(
+      {String? date, List<MissionsAnimalServiceWithDetails>? services}) {
+    return MissionsDailyServiceWithDetails(
+        date: date ?? this.date, services: services ?? this.services);
   }
 
-  MissionAnimalServiceDTO copyWithWrapped(
-      {Wrapped<AnimalDTO>? animal,
-      Wrapped<PetServiceDTO>? petService,
-      Wrapped<DateTime>? date,
-      Wrapped<double>? price}) {
-    return MissionAnimalServiceDTO(
-        animal: (animal != null ? animal.value : this.animal),
-        petService: (petService != null ? petService.value : this.petService),
+  MissionsDailyServiceWithDetails copyWithWrapped(
+      {Wrapped<String?>? date,
+      Wrapped<List<MissionsAnimalServiceWithDetails>?>? services}) {
+    return MissionsDailyServiceWithDetails(
         date: (date != null ? date.value : this.date),
-        price: (price != null ? price.value : this.price));
+        services: (services != null ? services.value : this.services));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class MissionDTO {
-  const MissionDTO({
-    this.id,
-    required this.startDate,
-    required this.endDate,
-    required this.$client,
-    this.vetAssistant,
-    required this.dailyServices,
-    required this.missionStatus,
-    this.paymentIntentClientSecret,
-    this.notes,
-    required this.price,
-    required this.location,
+class MissionsErrorResponse {
+  const MissionsErrorResponse({
+    this.message,
   });
 
-  factory MissionDTO.fromJson(Map<String, dynamic> json) =>
-      _$MissionDTOFromJson(json);
+  factory MissionsErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$MissionsErrorResponseFromJson(json);
 
-  static const toJsonFactory = _$MissionDTOToJson;
-  Map<String, dynamic> toJson() => _$MissionDTOToJson(this);
+  static const toJsonFactory = _$MissionsErrorResponseToJson;
+  Map<String, dynamic> toJson() => _$MissionsErrorResponseToJson(this);
 
-  @JsonKey(name: 'id')
-  final String? id;
-  @JsonKey(name: 'startDate', toJson: _dateToJson)
-  final DateTime startDate;
-  @JsonKey(name: 'endDate', toJson: _dateToJson)
-  final DateTime endDate;
-  @JsonKey(name: 'client')
-  final UserDTO $client;
-  @JsonKey(name: 'vetAssistant')
-  final UserDTO? vetAssistant;
-  @JsonKey(name: 'dailyServices', defaultValue: <DailyServiceDTO>[])
-  final List<DailyServiceDTO> dailyServices;
-  @JsonKey(
-    name: 'missionStatus',
-    toJson: missionDTOMissionStatusToJson,
-    fromJson: missionDTOMissionStatusFromJson,
-  )
-  final enums.MissionDTOMissionStatus missionStatus;
-  @JsonKey(name: 'paymentIntentClientSecret')
-  final String? paymentIntentClientSecret;
-  @JsonKey(name: 'notes')
-  final String? notes;
-  @JsonKey(name: 'price')
-  final double price;
-  @JsonKey(name: 'location')
-  final PlaceDetailsDTO location;
-  static const fromJsonFactory = _$MissionDTOFromJson;
+  @JsonKey(name: 'message')
+  final String? message;
+  static const fromJsonFactory = _$MissionsErrorResponseFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is MissionDTO &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.startDate, startDate) ||
+        (other is MissionsErrorResponse &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(message) ^ runtimeType.hashCode;
+}
+
+extension $MissionsErrorResponseExtension on MissionsErrorResponse {
+  MissionsErrorResponse copyWith({String? message}) {
+    return MissionsErrorResponse(message: message ?? this.message);
+  }
+
+  MissionsErrorResponse copyWithWrapped({Wrapped<String?>? message}) {
+    return MissionsErrorResponse(
+        message: (message != null ? message.value : this.message));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class MissionsMission {
+  const MissionsMission({
+    this.clientId,
+    this.dailyServices,
+    this.endDate,
+    this.id,
+    this.location,
+    this.notes,
+    this.startDate,
+    this.status,
+    this.vetAssistantId,
+  });
+
+  factory MissionsMission.fromJson(Map<String, dynamic> json) =>
+      _$MissionsMissionFromJson(json);
+
+  static const toJsonFactory = _$MissionsMissionToJson;
+  Map<String, dynamic> toJson() => _$MissionsMissionToJson(this);
+
+  @JsonKey(name: 'clientId')
+  final String? clientId;
+  @JsonKey(name: 'dailyServices', defaultValue: <MissionsDailyService>[])
+  final List<MissionsDailyService>? dailyServices;
+  @JsonKey(name: 'endDate')
+  final String? endDate;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'location')
+  final PlaceDetails? location;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'startDate')
+  final String? startDate;
+  @JsonKey(
+    name: 'status',
+    toJson: missionsStatusNullableToJson,
+    fromJson: missionsStatusNullableFromJson,
+  )
+  final enums.MissionsStatus? status;
+  @JsonKey(name: 'vetAssistantId')
+  final String? vetAssistantId;
+  static const fromJsonFactory = _$MissionsMissionFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MissionsMission &&
+            (identical(other.clientId, clientId) ||
                 const DeepCollectionEquality()
-                    .equals(other.startDate, startDate)) &&
-            (identical(other.endDate, endDate) ||
-                const DeepCollectionEquality()
-                    .equals(other.endDate, endDate)) &&
-            (identical(other.$client, $client) ||
-                const DeepCollectionEquality()
-                    .equals(other.$client, $client)) &&
-            (identical(other.vetAssistant, vetAssistant) ||
-                const DeepCollectionEquality()
-                    .equals(other.vetAssistant, vetAssistant)) &&
+                    .equals(other.clientId, clientId)) &&
             (identical(other.dailyServices, dailyServices) ||
                 const DeepCollectionEquality()
                     .equals(other.dailyServices, dailyServices)) &&
-            (identical(other.missionStatus, missionStatus) ||
+            (identical(other.endDate, endDate) ||
                 const DeepCollectionEquality()
-                    .equals(other.missionStatus, missionStatus)) &&
-            (identical(other.paymentIntentClientSecret,
-                    paymentIntentClientSecret) ||
-                const DeepCollectionEquality().equals(
-                    other.paymentIntentClientSecret,
-                    paymentIntentClientSecret)) &&
-            (identical(other.notes, notes) ||
-                const DeepCollectionEquality().equals(other.notes, notes)) &&
-            (identical(other.price, price) ||
-                const DeepCollectionEquality().equals(other.price, price)) &&
+                    .equals(other.endDate, endDate)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.location, location) ||
                 const DeepCollectionEquality()
-                    .equals(other.location, location)));
+                    .equals(other.location, location)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.startDate, startDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.startDate, startDate)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.vetAssistantId, vetAssistantId) ||
+                const DeepCollectionEquality()
+                    .equals(other.vetAssistantId, vetAssistantId)));
   }
 
   @override
@@ -3139,252 +1836,140 @@ class MissionDTO {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(startDate) ^
-      const DeepCollectionEquality().hash(endDate) ^
-      const DeepCollectionEquality().hash($client) ^
-      const DeepCollectionEquality().hash(vetAssistant) ^
+      const DeepCollectionEquality().hash(clientId) ^
       const DeepCollectionEquality().hash(dailyServices) ^
-      const DeepCollectionEquality().hash(missionStatus) ^
-      const DeepCollectionEquality().hash(paymentIntentClientSecret) ^
-      const DeepCollectionEquality().hash(notes) ^
-      const DeepCollectionEquality().hash(price) ^
+      const DeepCollectionEquality().hash(endDate) ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(location) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(startDate) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(vetAssistantId) ^
       runtimeType.hashCode;
 }
 
-extension $MissionDTOExtension on MissionDTO {
-  MissionDTO copyWith(
-      {String? id,
-      DateTime? startDate,
-      DateTime? endDate,
-      UserDTO? $client,
-      UserDTO? vetAssistant,
-      List<DailyServiceDTO>? dailyServices,
-      enums.MissionDTOMissionStatus? missionStatus,
-      String? paymentIntentClientSecret,
+extension $MissionsMissionExtension on MissionsMission {
+  MissionsMission copyWith(
+      {String? clientId,
+      List<MissionsDailyService>? dailyServices,
+      String? endDate,
+      String? id,
+      PlaceDetails? location,
       String? notes,
-      double? price,
-      PlaceDetailsDTO? location}) {
-    return MissionDTO(
-        id: id ?? this.id,
-        startDate: startDate ?? this.startDate,
-        endDate: endDate ?? this.endDate,
-        $client: $client ?? this.$client,
-        vetAssistant: vetAssistant ?? this.vetAssistant,
+      String? startDate,
+      enums.MissionsStatus? status,
+      String? vetAssistantId}) {
+    return MissionsMission(
+        clientId: clientId ?? this.clientId,
         dailyServices: dailyServices ?? this.dailyServices,
-        missionStatus: missionStatus ?? this.missionStatus,
-        paymentIntentClientSecret:
-            paymentIntentClientSecret ?? this.paymentIntentClientSecret,
+        endDate: endDate ?? this.endDate,
+        id: id ?? this.id,
+        location: location ?? this.location,
         notes: notes ?? this.notes,
-        price: price ?? this.price,
-        location: location ?? this.location);
+        startDate: startDate ?? this.startDate,
+        status: status ?? this.status,
+        vetAssistantId: vetAssistantId ?? this.vetAssistantId);
   }
 
-  MissionDTO copyWithWrapped(
-      {Wrapped<String?>? id,
-      Wrapped<DateTime>? startDate,
-      Wrapped<DateTime>? endDate,
-      Wrapped<UserDTO>? $client,
-      Wrapped<UserDTO?>? vetAssistant,
-      Wrapped<List<DailyServiceDTO>>? dailyServices,
-      Wrapped<enums.MissionDTOMissionStatus>? missionStatus,
-      Wrapped<String?>? paymentIntentClientSecret,
+  MissionsMission copyWithWrapped(
+      {Wrapped<String?>? clientId,
+      Wrapped<List<MissionsDailyService>?>? dailyServices,
+      Wrapped<String?>? endDate,
+      Wrapped<String?>? id,
+      Wrapped<PlaceDetails?>? location,
       Wrapped<String?>? notes,
-      Wrapped<double>? price,
-      Wrapped<PlaceDetailsDTO>? location}) {
-    return MissionDTO(
-        id: (id != null ? id.value : this.id),
-        startDate: (startDate != null ? startDate.value : this.startDate),
-        endDate: (endDate != null ? endDate.value : this.endDate),
-        $client: ($client != null ? $client.value : this.$client),
-        vetAssistant:
-            (vetAssistant != null ? vetAssistant.value : this.vetAssistant),
+      Wrapped<String?>? startDate,
+      Wrapped<enums.MissionsStatus?>? status,
+      Wrapped<String?>? vetAssistantId}) {
+    return MissionsMission(
+        clientId: (clientId != null ? clientId.value : this.clientId),
         dailyServices:
             (dailyServices != null ? dailyServices.value : this.dailyServices),
-        missionStatus:
-            (missionStatus != null ? missionStatus.value : this.missionStatus),
-        paymentIntentClientSecret: (paymentIntentClientSecret != null
-            ? paymentIntentClientSecret.value
-            : this.paymentIntentClientSecret),
+        endDate: (endDate != null ? endDate.value : this.endDate),
+        id: (id != null ? id.value : this.id),
+        location: (location != null ? location.value : this.location),
         notes: (notes != null ? notes.value : this.notes),
-        price: (price != null ? price.value : this.price),
-        location: (location != null ? location.value : this.location));
+        startDate: (startDate != null ? startDate.value : this.startDate),
+        status: (status != null ? status.value : this.status),
+        vetAssistantId: (vetAssistantId != null
+            ? vetAssistantId.value
+            : this.vetAssistantId));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
-class AnimalCreateDTO {
-  const AnimalCreateDTO({
-    required this.name,
-    required this.ownerId,
-    required this.species,
-    this.breed,
-    this.gender,
-    required this.birthDate,
-    this.weight,
-    this.size,
-    this.microchipNumber,
-    this.vaccinationsUpToDate,
-    this.medicalConditions,
-    this.medications,
-    this.allergies,
-    this.specialNeeds,
-    this.feedingInstructions,
-    this.behaviorNotes,
-    this.energyLevel,
-    this.houseTrained,
-    this.petFriendly,
-    this.childFriendly,
-    this.photoUrl,
-    this.veterinarianContact,
-    this.lastVetVisit,
-    this.specialInstructions,
+class MissionsMissionWithDetails {
+  const MissionsMissionWithDetails({
+    this.$client,
+    this.dailyServices,
+    this.endDate,
+    this.id,
+    this.location,
+    this.notes,
+    this.startDate,
+    this.status,
+    this.vetAssistant,
   });
 
-  factory AnimalCreateDTO.fromJson(Map<String, dynamic> json) =>
-      _$AnimalCreateDTOFromJson(json);
+  factory MissionsMissionWithDetails.fromJson(Map<String, dynamic> json) =>
+      _$MissionsMissionWithDetailsFromJson(json);
 
-  static const toJsonFactory = _$AnimalCreateDTOToJson;
-  Map<String, dynamic> toJson() => _$AnimalCreateDTOToJson(this);
+  static const toJsonFactory = _$MissionsMissionWithDetailsToJson;
+  Map<String, dynamic> toJson() => _$MissionsMissionWithDetailsToJson(this);
 
-  @JsonKey(name: 'name')
-  final String name;
-  @JsonKey(name: 'ownerId')
-  final String ownerId;
+  @JsonKey(name: 'client')
+  final UsersUser? $client;
   @JsonKey(
-    name: 'species',
-    toJson: animalCreateDTOSpeciesToJson,
-    fromJson: animalCreateDTOSpeciesFromJson,
-  )
-  final enums.AnimalCreateDTOSpecies species;
-  @JsonKey(name: 'breed')
-  final String? breed;
+      name: 'dailyServices', defaultValue: <MissionsDailyServiceWithDetails>[])
+  final List<MissionsDailyServiceWithDetails>? dailyServices;
+  @JsonKey(name: 'endDate')
+  final String? endDate;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'location')
+  final PlaceDetails? location;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'startDate')
+  final String? startDate;
   @JsonKey(
-    name: 'gender',
-    toJson: animalCreateDTOGenderNullableToJson,
-    fromJson: animalCreateDTOGenderNullableFromJson,
+    name: 'status',
+    toJson: missionsStatusNullableToJson,
+    fromJson: missionsStatusNullableFromJson,
   )
-  final enums.AnimalCreateDTOGender? gender;
-  @JsonKey(name: 'birthDate', toJson: _dateToJson)
-  final DateTime birthDate;
-  @JsonKey(name: 'weight')
-  final double? weight;
-  @JsonKey(
-    name: 'size',
-    toJson: animalCreateDTOSizeNullableToJson,
-    fromJson: animalCreateDTOSizeNullableFromJson,
-  )
-  final enums.AnimalCreateDTOSize? size;
-  @JsonKey(name: 'microchipNumber')
-  final String? microchipNumber;
-  @JsonKey(name: 'vaccinationsUpToDate')
-  final bool? vaccinationsUpToDate;
-  @JsonKey(name: 'medicalConditions')
-  final String? medicalConditions;
-  @JsonKey(name: 'medications', defaultValue: <String>[])
-  final List<String>? medications;
-  @JsonKey(name: 'allergies', defaultValue: <String>[])
-  final List<String>? allergies;
-  @JsonKey(name: 'specialNeeds')
-  final String? specialNeeds;
-  @JsonKey(name: 'feedingInstructions')
-  final String? feedingInstructions;
-  @JsonKey(name: 'behaviorNotes')
-  final String? behaviorNotes;
-  @JsonKey(
-    name: 'energyLevel',
-    toJson: animalCreateDTOEnergyLevelNullableToJson,
-    fromJson: animalCreateDTOEnergyLevelNullableFromJson,
-  )
-  final enums.AnimalCreateDTOEnergyLevel? energyLevel;
-  @JsonKey(name: 'houseTrained')
-  final bool? houseTrained;
-  @JsonKey(name: 'petFriendly')
-  final bool? petFriendly;
-  @JsonKey(name: 'childFriendly')
-  final bool? childFriendly;
-  @JsonKey(name: 'photoUrl')
-  final String? photoUrl;
-  @JsonKey(name: 'veterinarianContact')
-  final String? veterinarianContact;
-  @JsonKey(name: 'lastVetVisit', toJson: _dateToJson)
-  final DateTime? lastVetVisit;
-  @JsonKey(name: 'specialInstructions')
-  final String? specialInstructions;
-  static const fromJsonFactory = _$AnimalCreateDTOFromJson;
+  final enums.MissionsStatus? status;
+  @JsonKey(name: 'vetAssistant')
+  final UsersUser? vetAssistant;
+  static const fromJsonFactory = _$MissionsMissionWithDetailsFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other is AnimalCreateDTO &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.ownerId, ownerId) ||
+        (other is MissionsMissionWithDetails &&
+            (identical(other.$client, $client) ||
                 const DeepCollectionEquality()
-                    .equals(other.ownerId, ownerId)) &&
-            (identical(other.species, species) ||
+                    .equals(other.$client, $client)) &&
+            (identical(other.dailyServices, dailyServices) ||
                 const DeepCollectionEquality()
-                    .equals(other.species, species)) &&
-            (identical(other.breed, breed) ||
-                const DeepCollectionEquality().equals(other.breed, breed)) &&
-            (identical(other.gender, gender) ||
-                const DeepCollectionEquality().equals(other.gender, gender)) &&
-            (identical(other.birthDate, birthDate) ||
+                    .equals(other.dailyServices, dailyServices)) &&
+            (identical(other.endDate, endDate) ||
                 const DeepCollectionEquality()
-                    .equals(other.birthDate, birthDate)) &&
-            (identical(other.weight, weight) ||
-                const DeepCollectionEquality().equals(other.weight, weight)) &&
-            (identical(other.size, size) ||
-                const DeepCollectionEquality().equals(other.size, size)) &&
-            (identical(other.microchipNumber, microchipNumber) ||
+                    .equals(other.endDate, endDate)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.location, location) ||
                 const DeepCollectionEquality()
-                    .equals(other.microchipNumber, microchipNumber)) &&
-            (identical(other.vaccinationsUpToDate, vaccinationsUpToDate) ||
-                const DeepCollectionEquality().equals(
-                    other.vaccinationsUpToDate, vaccinationsUpToDate)) &&
-            (identical(other.medicalConditions, medicalConditions) ||
+                    .equals(other.location, location)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.startDate, startDate) ||
                 const DeepCollectionEquality()
-                    .equals(other.medicalConditions, medicalConditions)) &&
-            (identical(other.medications, medications) ||
+                    .equals(other.startDate, startDate)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.vetAssistant, vetAssistant) ||
                 const DeepCollectionEquality()
-                    .equals(other.medications, medications)) &&
-            (identical(other.allergies, allergies) ||
-                const DeepCollectionEquality()
-                    .equals(other.allergies, allergies)) &&
-            (identical(other.specialNeeds, specialNeeds) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialNeeds, specialNeeds)) &&
-            (identical(other.feedingInstructions, feedingInstructions) ||
-                const DeepCollectionEquality()
-                    .equals(other.feedingInstructions, feedingInstructions)) &&
-            (identical(other.behaviorNotes, behaviorNotes) ||
-                const DeepCollectionEquality()
-                    .equals(other.behaviorNotes, behaviorNotes)) &&
-            (identical(other.energyLevel, energyLevel) ||
-                const DeepCollectionEquality()
-                    .equals(other.energyLevel, energyLevel)) &&
-            (identical(other.houseTrained, houseTrained) ||
-                const DeepCollectionEquality()
-                    .equals(other.houseTrained, houseTrained)) &&
-            (identical(other.petFriendly, petFriendly) ||
-                const DeepCollectionEquality()
-                    .equals(other.petFriendly, petFriendly)) &&
-            (identical(other.childFriendly, childFriendly) ||
-                const DeepCollectionEquality()
-                    .equals(other.childFriendly, childFriendly)) &&
-            (identical(other.photoUrl, photoUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.photoUrl, photoUrl)) &&
-            (identical(other.veterinarianContact, veterinarianContact) ||
-                const DeepCollectionEquality()
-                    .equals(other.veterinarianContact, veterinarianContact)) &&
-            (identical(other.lastVetVisit, lastVetVisit) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastVetVisit, lastVetVisit)) &&
-            (identical(other.specialInstructions, specialInstructions) ||
-                const DeepCollectionEquality()
-                    .equals(other.specialInstructions, specialInstructions)));
+                    .equals(other.vetAssistant, vetAssistant)));
   }
 
   @override
@@ -3392,164 +1977,454 @@ class AnimalCreateDTO {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(ownerId) ^
-      const DeepCollectionEquality().hash(species) ^
-      const DeepCollectionEquality().hash(breed) ^
-      const DeepCollectionEquality().hash(gender) ^
-      const DeepCollectionEquality().hash(birthDate) ^
-      const DeepCollectionEquality().hash(weight) ^
-      const DeepCollectionEquality().hash(size) ^
-      const DeepCollectionEquality().hash(microchipNumber) ^
-      const DeepCollectionEquality().hash(vaccinationsUpToDate) ^
-      const DeepCollectionEquality().hash(medicalConditions) ^
-      const DeepCollectionEquality().hash(medications) ^
-      const DeepCollectionEquality().hash(allergies) ^
-      const DeepCollectionEquality().hash(specialNeeds) ^
-      const DeepCollectionEquality().hash(feedingInstructions) ^
-      const DeepCollectionEquality().hash(behaviorNotes) ^
-      const DeepCollectionEquality().hash(energyLevel) ^
-      const DeepCollectionEquality().hash(houseTrained) ^
-      const DeepCollectionEquality().hash(petFriendly) ^
-      const DeepCollectionEquality().hash(childFriendly) ^
-      const DeepCollectionEquality().hash(photoUrl) ^
-      const DeepCollectionEquality().hash(veterinarianContact) ^
-      const DeepCollectionEquality().hash(lastVetVisit) ^
-      const DeepCollectionEquality().hash(specialInstructions) ^
+      const DeepCollectionEquality().hash($client) ^
+      const DeepCollectionEquality().hash(dailyServices) ^
+      const DeepCollectionEquality().hash(endDate) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(location) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(startDate) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(vetAssistant) ^
       runtimeType.hashCode;
 }
 
-extension $AnimalCreateDTOExtension on AnimalCreateDTO {
-  AnimalCreateDTO copyWith(
-      {String? name,
-      String? ownerId,
-      enums.AnimalCreateDTOSpecies? species,
-      String? breed,
-      enums.AnimalCreateDTOGender? gender,
-      DateTime? birthDate,
-      double? weight,
-      enums.AnimalCreateDTOSize? size,
-      String? microchipNumber,
-      bool? vaccinationsUpToDate,
-      String? medicalConditions,
-      List<String>? medications,
-      List<String>? allergies,
-      String? specialNeeds,
-      String? feedingInstructions,
-      String? behaviorNotes,
-      enums.AnimalCreateDTOEnergyLevel? energyLevel,
-      bool? houseTrained,
-      bool? petFriendly,
-      bool? childFriendly,
-      String? photoUrl,
-      String? veterinarianContact,
-      DateTime? lastVetVisit,
-      String? specialInstructions}) {
-    return AnimalCreateDTO(
-        name: name ?? this.name,
-        ownerId: ownerId ?? this.ownerId,
-        species: species ?? this.species,
-        breed: breed ?? this.breed,
-        gender: gender ?? this.gender,
-        birthDate: birthDate ?? this.birthDate,
-        weight: weight ?? this.weight,
-        size: size ?? this.size,
-        microchipNumber: microchipNumber ?? this.microchipNumber,
-        vaccinationsUpToDate: vaccinationsUpToDate ?? this.vaccinationsUpToDate,
-        medicalConditions: medicalConditions ?? this.medicalConditions,
-        medications: medications ?? this.medications,
-        allergies: allergies ?? this.allergies,
-        specialNeeds: specialNeeds ?? this.specialNeeds,
-        feedingInstructions: feedingInstructions ?? this.feedingInstructions,
-        behaviorNotes: behaviorNotes ?? this.behaviorNotes,
-        energyLevel: energyLevel ?? this.energyLevel,
-        houseTrained: houseTrained ?? this.houseTrained,
-        petFriendly: petFriendly ?? this.petFriendly,
-        childFriendly: childFriendly ?? this.childFriendly,
-        photoUrl: photoUrl ?? this.photoUrl,
-        veterinarianContact: veterinarianContact ?? this.veterinarianContact,
-        lastVetVisit: lastVetVisit ?? this.lastVetVisit,
-        specialInstructions: specialInstructions ?? this.specialInstructions);
+extension $MissionsMissionWithDetailsExtension on MissionsMissionWithDetails {
+  MissionsMissionWithDetails copyWith(
+      {UsersUser? $client,
+      List<MissionsDailyServiceWithDetails>? dailyServices,
+      String? endDate,
+      String? id,
+      PlaceDetails? location,
+      String? notes,
+      String? startDate,
+      enums.MissionsStatus? status,
+      UsersUser? vetAssistant}) {
+    return MissionsMissionWithDetails(
+        $client: $client ?? this.$client,
+        dailyServices: dailyServices ?? this.dailyServices,
+        endDate: endDate ?? this.endDate,
+        id: id ?? this.id,
+        location: location ?? this.location,
+        notes: notes ?? this.notes,
+        startDate: startDate ?? this.startDate,
+        status: status ?? this.status,
+        vetAssistant: vetAssistant ?? this.vetAssistant);
   }
 
-  AnimalCreateDTO copyWithWrapped(
-      {Wrapped<String>? name,
-      Wrapped<String>? ownerId,
-      Wrapped<enums.AnimalCreateDTOSpecies>? species,
-      Wrapped<String?>? breed,
-      Wrapped<enums.AnimalCreateDTOGender?>? gender,
-      Wrapped<DateTime>? birthDate,
-      Wrapped<double?>? weight,
-      Wrapped<enums.AnimalCreateDTOSize?>? size,
-      Wrapped<String?>? microchipNumber,
-      Wrapped<bool?>? vaccinationsUpToDate,
-      Wrapped<String?>? medicalConditions,
-      Wrapped<List<String>?>? medications,
-      Wrapped<List<String>?>? allergies,
-      Wrapped<String?>? specialNeeds,
-      Wrapped<String?>? feedingInstructions,
-      Wrapped<String?>? behaviorNotes,
-      Wrapped<enums.AnimalCreateDTOEnergyLevel?>? energyLevel,
-      Wrapped<bool?>? houseTrained,
-      Wrapped<bool?>? petFriendly,
-      Wrapped<bool?>? childFriendly,
-      Wrapped<String?>? photoUrl,
-      Wrapped<String?>? veterinarianContact,
-      Wrapped<DateTime?>? lastVetVisit,
-      Wrapped<String?>? specialInstructions}) {
-    return AnimalCreateDTO(
-        name: (name != null ? name.value : this.name),
-        ownerId: (ownerId != null ? ownerId.value : this.ownerId),
-        species: (species != null ? species.value : this.species),
-        breed: (breed != null ? breed.value : this.breed),
-        gender: (gender != null ? gender.value : this.gender),
-        birthDate: (birthDate != null ? birthDate.value : this.birthDate),
-        weight: (weight != null ? weight.value : this.weight),
-        size: (size != null ? size.value : this.size),
-        microchipNumber: (microchipNumber != null
-            ? microchipNumber.value
-            : this.microchipNumber),
-        vaccinationsUpToDate: (vaccinationsUpToDate != null
-            ? vaccinationsUpToDate.value
-            : this.vaccinationsUpToDate),
-        medicalConditions: (medicalConditions != null
-            ? medicalConditions.value
-            : this.medicalConditions),
-        medications:
-            (medications != null ? medications.value : this.medications),
-        allergies: (allergies != null ? allergies.value : this.allergies),
-        specialNeeds:
-            (specialNeeds != null ? specialNeeds.value : this.specialNeeds),
-        feedingInstructions: (feedingInstructions != null
-            ? feedingInstructions.value
-            : this.feedingInstructions),
-        behaviorNotes:
-            (behaviorNotes != null ? behaviorNotes.value : this.behaviorNotes),
-        energyLevel:
-            (energyLevel != null ? energyLevel.value : this.energyLevel),
-        houseTrained:
-            (houseTrained != null ? houseTrained.value : this.houseTrained),
-        petFriendly:
-            (petFriendly != null ? petFriendly.value : this.petFriendly),
-        childFriendly:
-            (childFriendly != null ? childFriendly.value : this.childFriendly),
-        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
-        veterinarianContact: (veterinarianContact != null
-            ? veterinarianContact.value
-            : this.veterinarianContact),
-        lastVetVisit:
-            (lastVetVisit != null ? lastVetVisit.value : this.lastVetVisit),
-        specialInstructions: (specialInstructions != null
-            ? specialInstructions.value
-            : this.specialInstructions));
+  MissionsMissionWithDetails copyWithWrapped(
+      {Wrapped<UsersUser?>? $client,
+      Wrapped<List<MissionsDailyServiceWithDetails>?>? dailyServices,
+      Wrapped<String?>? endDate,
+      Wrapped<String?>? id,
+      Wrapped<PlaceDetails?>? location,
+      Wrapped<String?>? notes,
+      Wrapped<String?>? startDate,
+      Wrapped<enums.MissionsStatus?>? status,
+      Wrapped<UsersUser?>? vetAssistant}) {
+    return MissionsMissionWithDetails(
+        $client: ($client != null ? $client.value : this.$client),
+        dailyServices:
+            (dailyServices != null ? dailyServices.value : this.dailyServices),
+        endDate: (endDate != null ? endDate.value : this.endDate),
+        id: (id != null ? id.value : this.id),
+        location: (location != null ? location.value : this.location),
+        notes: (notes != null ? notes.value : this.notes),
+        startDate: (startDate != null ? startDate.value : this.startDate),
+        status: (status != null ? status.value : this.status),
+        vetAssistant:
+            (vetAssistant != null ? vetAssistant.value : this.vetAssistant));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class MissionsUpdateMissionStatusRequest {
+  const MissionsUpdateMissionStatusRequest({
+    required this.status,
+  });
+
+  factory MissionsUpdateMissionStatusRequest.fromJson(
+          Map<String, dynamic> json) =>
+      _$MissionsUpdateMissionStatusRequestFromJson(json);
+
+  static const toJsonFactory = _$MissionsUpdateMissionStatusRequestToJson;
+  Map<String, dynamic> toJson() =>
+      _$MissionsUpdateMissionStatusRequestToJson(this);
+
+  @JsonKey(
+    name: 'status',
+    toJson: missionsStatusToJson,
+    fromJson: missionsStatusFromJson,
+  )
+  final enums.MissionsStatus status;
+  static const fromJsonFactory = _$MissionsUpdateMissionStatusRequestFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MissionsUpdateMissionStatusRequest &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(status) ^ runtimeType.hashCode;
+}
+
+extension $MissionsUpdateMissionStatusRequestExtension
+    on MissionsUpdateMissionStatusRequest {
+  MissionsUpdateMissionStatusRequest copyWith({enums.MissionsStatus? status}) {
+    return MissionsUpdateMissionStatusRequest(status: status ?? this.status);
+  }
+
+  MissionsUpdateMissionStatusRequest copyWithWrapped(
+      {Wrapped<enums.MissionsStatus>? status}) {
+    return MissionsUpdateMissionStatusRequest(
+        status: (status != null ? status.value : this.status));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PetServicesErrorResponse {
+  const PetServicesErrorResponse({
+    this.message,
+  });
+
+  factory PetServicesErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$PetServicesErrorResponseFromJson(json);
+
+  static const toJsonFactory = _$PetServicesErrorResponseToJson;
+  Map<String, dynamic> toJson() => _$PetServicesErrorResponseToJson(this);
+
+  @JsonKey(name: 'message')
+  final String? message;
+  static const fromJsonFactory = _$PetServicesErrorResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PetServicesErrorResponse &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(message) ^ runtimeType.hashCode;
+}
+
+extension $PetServicesErrorResponseExtension on PetServicesErrorResponse {
+  PetServicesErrorResponse copyWith({String? message}) {
+    return PetServicesErrorResponse(message: message ?? this.message);
+  }
+
+  PetServicesErrorResponse copyWithWrapped({Wrapped<String?>? message}) {
+    return PetServicesErrorResponse(
+        message: (message != null ? message.value : this.message));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PetServicesPetService {
+  const PetServicesPetService({
+    this.animalTypes,
+    this.basePrice,
+    this.category,
+    this.description,
+    this.durationMinutes,
+    this.id,
+    this.includedItems,
+    this.isCustomDurationAllowed,
+    this.isCustomPriceAllowed,
+    this.name,
+  });
+
+  factory PetServicesPetService.fromJson(Map<String, dynamic> json) =>
+      _$PetServicesPetServiceFromJson(json);
+
+  static const toJsonFactory = _$PetServicesPetServiceToJson;
+  Map<String, dynamic> toJson() => _$PetServicesPetServiceToJson(this);
+
+  @JsonKey(
+    name: 'animalTypes',
+    toJson: petServicesAnimalTypeListToJson,
+    fromJson: petServicesAnimalTypeListFromJson,
+  )
+  final List<enums.PetServicesAnimalType>? animalTypes;
+  @JsonKey(name: 'basePrice')
+  final double? basePrice;
+  @JsonKey(
+    name: 'category',
+    toJson: petServicesCategoryNullableToJson,
+    fromJson: petServicesCategoryNullableFromJson,
+  )
+  final enums.PetServicesCategory? category;
+  @JsonKey(name: 'description')
+  final String? description;
+  @JsonKey(name: 'durationMinutes')
+  final int? durationMinutes;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'includedItems', defaultValue: <String>[])
+  final List<String>? includedItems;
+  @JsonKey(name: 'isCustomDurationAllowed')
+  final bool? isCustomDurationAllowed;
+  @JsonKey(name: 'isCustomPriceAllowed')
+  final bool? isCustomPriceAllowed;
+  @JsonKey(name: 'name')
+  final String? name;
+  static const fromJsonFactory = _$PetServicesPetServiceFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PetServicesPetService &&
+            (identical(other.animalTypes, animalTypes) ||
+                const DeepCollectionEquality()
+                    .equals(other.animalTypes, animalTypes)) &&
+            (identical(other.basePrice, basePrice) ||
+                const DeepCollectionEquality()
+                    .equals(other.basePrice, basePrice)) &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.durationMinutes, durationMinutes) ||
+                const DeepCollectionEquality()
+                    .equals(other.durationMinutes, durationMinutes)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.includedItems, includedItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.includedItems, includedItems)) &&
+            (identical(
+                    other.isCustomDurationAllowed, isCustomDurationAllowed) ||
+                const DeepCollectionEquality().equals(
+                    other.isCustomDurationAllowed, isCustomDurationAllowed)) &&
+            (identical(other.isCustomPriceAllowed, isCustomPriceAllowed) ||
+                const DeepCollectionEquality().equals(
+                    other.isCustomPriceAllowed, isCustomPriceAllowed)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(animalTypes) ^
+      const DeepCollectionEquality().hash(basePrice) ^
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(durationMinutes) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(includedItems) ^
+      const DeepCollectionEquality().hash(isCustomDurationAllowed) ^
+      const DeepCollectionEquality().hash(isCustomPriceAllowed) ^
+      const DeepCollectionEquality().hash(name) ^
+      runtimeType.hashCode;
+}
+
+extension $PetServicesPetServiceExtension on PetServicesPetService {
+  PetServicesPetService copyWith(
+      {List<enums.PetServicesAnimalType>? animalTypes,
+      double? basePrice,
+      enums.PetServicesCategory? category,
+      String? description,
+      int? durationMinutes,
+      String? id,
+      List<String>? includedItems,
+      bool? isCustomDurationAllowed,
+      bool? isCustomPriceAllowed,
+      String? name}) {
+    return PetServicesPetService(
+        animalTypes: animalTypes ?? this.animalTypes,
+        basePrice: basePrice ?? this.basePrice,
+        category: category ?? this.category,
+        description: description ?? this.description,
+        durationMinutes: durationMinutes ?? this.durationMinutes,
+        id: id ?? this.id,
+        includedItems: includedItems ?? this.includedItems,
+        isCustomDurationAllowed:
+            isCustomDurationAllowed ?? this.isCustomDurationAllowed,
+        isCustomPriceAllowed: isCustomPriceAllowed ?? this.isCustomPriceAllowed,
+        name: name ?? this.name);
+  }
+
+  PetServicesPetService copyWithWrapped(
+      {Wrapped<List<enums.PetServicesAnimalType>?>? animalTypes,
+      Wrapped<double?>? basePrice,
+      Wrapped<enums.PetServicesCategory?>? category,
+      Wrapped<String?>? description,
+      Wrapped<int?>? durationMinutes,
+      Wrapped<String?>? id,
+      Wrapped<List<String>?>? includedItems,
+      Wrapped<bool?>? isCustomDurationAllowed,
+      Wrapped<bool?>? isCustomPriceAllowed,
+      Wrapped<String?>? name}) {
+    return PetServicesPetService(
+        animalTypes:
+            (animalTypes != null ? animalTypes.value : this.animalTypes),
+        basePrice: (basePrice != null ? basePrice.value : this.basePrice),
+        category: (category != null ? category.value : this.category),
+        description:
+            (description != null ? description.value : this.description),
+        durationMinutes: (durationMinutes != null
+            ? durationMinutes.value
+            : this.durationMinutes),
+        id: (id != null ? id.value : this.id),
+        includedItems:
+            (includedItems != null ? includedItems.value : this.includedItems),
+        isCustomDurationAllowed: (isCustomDurationAllowed != null
+            ? isCustomDurationAllowed.value
+            : this.isCustomDurationAllowed),
+        isCustomPriceAllowed: (isCustomPriceAllowed != null
+            ? isCustomPriceAllowed.value
+            : this.isCustomPriceAllowed),
+        name: (name != null ? name.value : this.name));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PlaceDetails {
+  const PlaceDetails({
+    this.formattedAddress,
+    this.latitude,
+    this.longitude,
+    this.name,
+  });
+
+  factory PlaceDetails.fromJson(Map<String, dynamic> json) =>
+      _$PlaceDetailsFromJson(json);
+
+  static const toJsonFactory = _$PlaceDetailsToJson;
+  Map<String, dynamic> toJson() => _$PlaceDetailsToJson(this);
+
+  @JsonKey(name: 'formattedAddress')
+  final String? formattedAddress;
+  @JsonKey(name: 'latitude')
+  final double? latitude;
+  @JsonKey(name: 'longitude')
+  final double? longitude;
+  @JsonKey(name: 'name')
+  final String? name;
+  static const fromJsonFactory = _$PlaceDetailsFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PlaceDetails &&
+            (identical(other.formattedAddress, formattedAddress) ||
+                const DeepCollectionEquality()
+                    .equals(other.formattedAddress, formattedAddress)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(formattedAddress) ^
+      const DeepCollectionEquality().hash(latitude) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(name) ^
+      runtimeType.hashCode;
+}
+
+extension $PlaceDetailsExtension on PlaceDetails {
+  PlaceDetails copyWith(
+      {String? formattedAddress,
+      double? latitude,
+      double? longitude,
+      String? name}) {
+    return PlaceDetails(
+        formattedAddress: formattedAddress ?? this.formattedAddress,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        name: name ?? this.name);
+  }
+
+  PlaceDetails copyWithWrapped(
+      {Wrapped<String?>? formattedAddress,
+      Wrapped<double?>? latitude,
+      Wrapped<double?>? longitude,
+      Wrapped<String?>? name}) {
+    return PlaceDetails(
+        formattedAddress: (formattedAddress != null
+            ? formattedAddress.value
+            : this.formattedAddress),
+        latitude: (latitude != null ? latitude.value : this.latitude),
+        longitude: (longitude != null ? longitude.value : this.longitude),
+        name: (name != null ? name.value : this.name));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class PlaceErrorResponse {
+  const PlaceErrorResponse({
+    this.message,
+  });
+
+  factory PlaceErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$PlaceErrorResponseFromJson(json);
+
+  static const toJsonFactory = _$PlaceErrorResponseToJson;
+  Map<String, dynamic> toJson() => _$PlaceErrorResponseToJson(this);
+
+  @JsonKey(name: 'message')
+  final String? message;
+  static const fromJsonFactory = _$PlaceErrorResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PlaceErrorResponse &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(message) ^ runtimeType.hashCode;
+}
+
+extension $PlaceErrorResponseExtension on PlaceErrorResponse {
+  PlaceErrorResponse copyWith({String? message}) {
+    return PlaceErrorResponse(message: message ?? this.message);
+  }
+
+  PlaceErrorResponse copyWithWrapped({Wrapped<String?>? message}) {
+    return PlaceErrorResponse(
+        message: (message != null ? message.value : this.message));
   }
 }
 
 @JsonSerializable(explicitToJson: true)
 class PlaceSuggestion {
   const PlaceSuggestion({
-    required this.placeId,
-    required this.description,
+    this.description,
+    this.placeId,
   });
 
   factory PlaceSuggestion.fromJson(Map<String, dynamic> json) =>
@@ -3558,22 +2433,21 @@ class PlaceSuggestion {
   static const toJsonFactory = _$PlaceSuggestionToJson;
   Map<String, dynamic> toJson() => _$PlaceSuggestionToJson(this);
 
-  @JsonKey(name: 'placeId')
-  final String placeId;
   @JsonKey(name: 'description')
-  final String description;
+  final String? description;
+  @JsonKey(name: 'placeId')
+  final String? placeId;
   static const fromJsonFactory = _$PlaceSuggestionFromJson;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is PlaceSuggestion &&
-            (identical(other.placeId, placeId) ||
-                const DeepCollectionEquality()
-                    .equals(other.placeId, placeId)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
-                    .equals(other.description, description)));
+                    .equals(other.description, description)) &&
+            (identical(other.placeId, placeId) ||
+                const DeepCollectionEquality().equals(other.placeId, placeId)));
   }
 
   @override
@@ -3581,1866 +2455,1161 @@ class PlaceSuggestion {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(placeId) ^
       const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(placeId) ^
       runtimeType.hashCode;
 }
 
 extension $PlaceSuggestionExtension on PlaceSuggestion {
-  PlaceSuggestion copyWith({String? placeId, String? description}) {
+  PlaceSuggestion copyWith({String? description, String? placeId}) {
     return PlaceSuggestion(
-        placeId: placeId ?? this.placeId,
-        description: description ?? this.description);
+        description: description ?? this.description,
+        placeId: placeId ?? this.placeId);
   }
 
   PlaceSuggestion copyWithWrapped(
-      {Wrapped<String>? placeId, Wrapped<String>? description}) {
+      {Wrapped<String?>? description, Wrapped<String?>? placeId}) {
     return PlaceSuggestion(
-        placeId: (placeId != null ? placeId.value : this.placeId),
         description:
-            (description != null ? description.value : this.description));
+            (description != null ? description.value : this.description),
+        placeId: (placeId != null ? placeId.value : this.placeId));
   }
 }
 
-String? userUpdateDTORoleNullableToJson(
-    enums.UserUpdateDTORole? userUpdateDTORole) {
-  return userUpdateDTORole?.value;
+@JsonSerializable(explicitToJson: true)
+class UsersCreateUserRequest {
+  const UsersCreateUserRequest({
+    required this.address,
+    this.creationDate,
+    required this.email,
+    this.emergencyContact,
+    required this.firebaseUid,
+    required this.firstname,
+    required this.lastname,
+    this.notes,
+    required this.phone,
+    this.photoURL,
+    this.preferredCommunicationMethod,
+    required this.role,
+  });
+
+  factory UsersCreateUserRequest.fromJson(Map<String, dynamic> json) =>
+      _$UsersCreateUserRequestFromJson(json);
+
+  static const toJsonFactory = _$UsersCreateUserRequestToJson;
+  Map<String, dynamic> toJson() => _$UsersCreateUserRequestToJson(this);
+
+  @JsonKey(name: 'address')
+  final PlaceDetails address;
+  @JsonKey(name: 'creationDate')
+  final String? creationDate;
+  @JsonKey(name: 'email')
+  final String email;
+  @JsonKey(name: 'emergencyContact')
+  final String? emergencyContact;
+  @JsonKey(name: 'firebaseUid')
+  final String firebaseUid;
+  @JsonKey(name: 'firstname')
+  final String firstname;
+  @JsonKey(name: 'lastname')
+  final String lastname;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'phone')
+  final String phone;
+  @JsonKey(name: 'photoURL')
+  final String? photoURL;
+  @JsonKey(name: 'preferredCommunicationMethod')
+  final String? preferredCommunicationMethod;
+  @JsonKey(
+    name: 'role',
+    toJson: usersUserRoleToJson,
+    fromJson: usersUserRoleFromJson,
+  )
+  final enums.UsersUserRole role;
+  static const fromJsonFactory = _$UsersCreateUserRequestFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is UsersCreateUserRequest &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.creationDate, creationDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.creationDate, creationDate)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emergencyContact, emergencyContact) ||
+                const DeepCollectionEquality()
+                    .equals(other.emergencyContact, emergencyContact)) &&
+            (identical(other.firebaseUid, firebaseUid) ||
+                const DeepCollectionEquality()
+                    .equals(other.firebaseUid, firebaseUid)) &&
+            (identical(other.firstname, firstname) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstname, firstname)) &&
+            (identical(other.lastname, lastname) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastname, lastname)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.phone, phone) ||
+                const DeepCollectionEquality().equals(other.phone, phone)) &&
+            (identical(other.photoURL, photoURL) ||
+                const DeepCollectionEquality()
+                    .equals(other.photoURL, photoURL)) &&
+            (identical(other.preferredCommunicationMethod,
+                    preferredCommunicationMethod) ||
+                const DeepCollectionEquality().equals(
+                    other.preferredCommunicationMethod,
+                    preferredCommunicationMethod)) &&
+            (identical(other.role, role) ||
+                const DeepCollectionEquality().equals(other.role, role)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(creationDate) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(emergencyContact) ^
+      const DeepCollectionEquality().hash(firebaseUid) ^
+      const DeepCollectionEquality().hash(firstname) ^
+      const DeepCollectionEquality().hash(lastname) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(phone) ^
+      const DeepCollectionEquality().hash(photoURL) ^
+      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
+      const DeepCollectionEquality().hash(role) ^
+      runtimeType.hashCode;
 }
 
-String? userUpdateDTORoleToJson(enums.UserUpdateDTORole userUpdateDTORole) {
-  return userUpdateDTORole.value;
+extension $UsersCreateUserRequestExtension on UsersCreateUserRequest {
+  UsersCreateUserRequest copyWith(
+      {PlaceDetails? address,
+      String? creationDate,
+      String? email,
+      String? emergencyContact,
+      String? firebaseUid,
+      String? firstname,
+      String? lastname,
+      String? notes,
+      String? phone,
+      String? photoURL,
+      String? preferredCommunicationMethod,
+      enums.UsersUserRole? role}) {
+    return UsersCreateUserRequest(
+        address: address ?? this.address,
+        creationDate: creationDate ?? this.creationDate,
+        email: email ?? this.email,
+        emergencyContact: emergencyContact ?? this.emergencyContact,
+        firebaseUid: firebaseUid ?? this.firebaseUid,
+        firstname: firstname ?? this.firstname,
+        lastname: lastname ?? this.lastname,
+        notes: notes ?? this.notes,
+        phone: phone ?? this.phone,
+        photoURL: photoURL ?? this.photoURL,
+        preferredCommunicationMethod:
+            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
+        role: role ?? this.role);
+  }
+
+  UsersCreateUserRequest copyWithWrapped(
+      {Wrapped<PlaceDetails>? address,
+      Wrapped<String?>? creationDate,
+      Wrapped<String>? email,
+      Wrapped<String?>? emergencyContact,
+      Wrapped<String>? firebaseUid,
+      Wrapped<String>? firstname,
+      Wrapped<String>? lastname,
+      Wrapped<String?>? notes,
+      Wrapped<String>? phone,
+      Wrapped<String?>? photoURL,
+      Wrapped<String?>? preferredCommunicationMethod,
+      Wrapped<enums.UsersUserRole>? role}) {
+    return UsersCreateUserRequest(
+        address: (address != null ? address.value : this.address),
+        creationDate:
+            (creationDate != null ? creationDate.value : this.creationDate),
+        email: (email != null ? email.value : this.email),
+        emergencyContact: (emergencyContact != null
+            ? emergencyContact.value
+            : this.emergencyContact),
+        firebaseUid:
+            (firebaseUid != null ? firebaseUid.value : this.firebaseUid),
+        firstname: (firstname != null ? firstname.value : this.firstname),
+        lastname: (lastname != null ? lastname.value : this.lastname),
+        notes: (notes != null ? notes.value : this.notes),
+        phone: (phone != null ? phone.value : this.phone),
+        photoURL: (photoURL != null ? photoURL.value : this.photoURL),
+        preferredCommunicationMethod: (preferredCommunicationMethod != null
+            ? preferredCommunicationMethod.value
+            : this.preferredCommunicationMethod),
+        role: (role != null ? role.value : this.role));
+  }
 }
 
-enums.UserUpdateDTORole userUpdateDTORoleFromJson(
-  Object? userUpdateDTORole, [
-  enums.UserUpdateDTORole? defaultValue,
+@JsonSerializable(explicitToJson: true)
+class UsersErrorResponse {
+  const UsersErrorResponse({
+    this.message,
+  });
+
+  factory UsersErrorResponse.fromJson(Map<String, dynamic> json) =>
+      _$UsersErrorResponseFromJson(json);
+
+  static const toJsonFactory = _$UsersErrorResponseToJson;
+  Map<String, dynamic> toJson() => _$UsersErrorResponseToJson(this);
+
+  @JsonKey(name: 'message')
+  final String? message;
+  static const fromJsonFactory = _$UsersErrorResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is UsersErrorResponse &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(message) ^ runtimeType.hashCode;
+}
+
+extension $UsersErrorResponseExtension on UsersErrorResponse {
+  UsersErrorResponse copyWith({String? message}) {
+    return UsersErrorResponse(message: message ?? this.message);
+  }
+
+  UsersErrorResponse copyWithWrapped({Wrapped<String?>? message}) {
+    return UsersErrorResponse(
+        message: (message != null ? message.value : this.message));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class UsersUpdateUserRequest {
+  const UsersUpdateUserRequest({
+    this.address,
+    this.email,
+    this.emergencyContact,
+    this.firebaseUid,
+    this.firstname,
+    this.id,
+    this.lastname,
+    this.notes,
+    this.phone,
+    this.photoURL,
+    this.preferredCommunicationMethod,
+    this.updateDate,
+  });
+
+  factory UsersUpdateUserRequest.fromJson(Map<String, dynamic> json) =>
+      _$UsersUpdateUserRequestFromJson(json);
+
+  static const toJsonFactory = _$UsersUpdateUserRequestToJson;
+  Map<String, dynamic> toJson() => _$UsersUpdateUserRequestToJson(this);
+
+  @JsonKey(name: 'address')
+  final PlaceDetails? address;
+  @JsonKey(name: 'email')
+  final String? email;
+  @JsonKey(name: 'emergencyContact')
+  final String? emergencyContact;
+  @JsonKey(name: 'firebaseUid')
+  final String? firebaseUid;
+  @JsonKey(name: 'firstname')
+  final String? firstname;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'lastname')
+  final String? lastname;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'phone')
+  final String? phone;
+  @JsonKey(name: 'photoURL')
+  final String? photoURL;
+  @JsonKey(name: 'preferredCommunicationMethod')
+  final String? preferredCommunicationMethod;
+  @JsonKey(name: 'updateDate')
+  final String? updateDate;
+  static const fromJsonFactory = _$UsersUpdateUserRequestFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is UsersUpdateUserRequest &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emergencyContact, emergencyContact) ||
+                const DeepCollectionEquality()
+                    .equals(other.emergencyContact, emergencyContact)) &&
+            (identical(other.firebaseUid, firebaseUid) ||
+                const DeepCollectionEquality()
+                    .equals(other.firebaseUid, firebaseUid)) &&
+            (identical(other.firstname, firstname) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstname, firstname)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.lastname, lastname) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastname, lastname)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.phone, phone) ||
+                const DeepCollectionEquality().equals(other.phone, phone)) &&
+            (identical(other.photoURL, photoURL) ||
+                const DeepCollectionEquality()
+                    .equals(other.photoURL, photoURL)) &&
+            (identical(other.preferredCommunicationMethod,
+                    preferredCommunicationMethod) ||
+                const DeepCollectionEquality().equals(
+                    other.preferredCommunicationMethod,
+                    preferredCommunicationMethod)) &&
+            (identical(other.updateDate, updateDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.updateDate, updateDate)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(emergencyContact) ^
+      const DeepCollectionEquality().hash(firebaseUid) ^
+      const DeepCollectionEquality().hash(firstname) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(lastname) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(phone) ^
+      const DeepCollectionEquality().hash(photoURL) ^
+      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
+      const DeepCollectionEquality().hash(updateDate) ^
+      runtimeType.hashCode;
+}
+
+extension $UsersUpdateUserRequestExtension on UsersUpdateUserRequest {
+  UsersUpdateUserRequest copyWith(
+      {PlaceDetails? address,
+      String? email,
+      String? emergencyContact,
+      String? firebaseUid,
+      String? firstname,
+      String? id,
+      String? lastname,
+      String? notes,
+      String? phone,
+      String? photoURL,
+      String? preferredCommunicationMethod,
+      String? updateDate}) {
+    return UsersUpdateUserRequest(
+        address: address ?? this.address,
+        email: email ?? this.email,
+        emergencyContact: emergencyContact ?? this.emergencyContact,
+        firebaseUid: firebaseUid ?? this.firebaseUid,
+        firstname: firstname ?? this.firstname,
+        id: id ?? this.id,
+        lastname: lastname ?? this.lastname,
+        notes: notes ?? this.notes,
+        phone: phone ?? this.phone,
+        photoURL: photoURL ?? this.photoURL,
+        preferredCommunicationMethod:
+            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
+        updateDate: updateDate ?? this.updateDate);
+  }
+
+  UsersUpdateUserRequest copyWithWrapped(
+      {Wrapped<PlaceDetails?>? address,
+      Wrapped<String?>? email,
+      Wrapped<String?>? emergencyContact,
+      Wrapped<String?>? firebaseUid,
+      Wrapped<String?>? firstname,
+      Wrapped<String?>? id,
+      Wrapped<String?>? lastname,
+      Wrapped<String?>? notes,
+      Wrapped<String?>? phone,
+      Wrapped<String?>? photoURL,
+      Wrapped<String?>? preferredCommunicationMethod,
+      Wrapped<String?>? updateDate}) {
+    return UsersUpdateUserRequest(
+        address: (address != null ? address.value : this.address),
+        email: (email != null ? email.value : this.email),
+        emergencyContact: (emergencyContact != null
+            ? emergencyContact.value
+            : this.emergencyContact),
+        firebaseUid:
+            (firebaseUid != null ? firebaseUid.value : this.firebaseUid),
+        firstname: (firstname != null ? firstname.value : this.firstname),
+        id: (id != null ? id.value : this.id),
+        lastname: (lastname != null ? lastname.value : this.lastname),
+        notes: (notes != null ? notes.value : this.notes),
+        phone: (phone != null ? phone.value : this.phone),
+        photoURL: (photoURL != null ? photoURL.value : this.photoURL),
+        preferredCommunicationMethod: (preferredCommunicationMethod != null
+            ? preferredCommunicationMethod.value
+            : this.preferredCommunicationMethod),
+        updateDate: (updateDate != null ? updateDate.value : this.updateDate));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class UsersUser {
+  const UsersUser({
+    this.address,
+    this.email,
+    this.emergencyContact,
+    this.firebaseId,
+    this.firstname,
+    this.id,
+    this.isVerified,
+    this.lastname,
+    this.notes,
+    this.phone,
+    this.photoUrl,
+    this.preferredCommunicationMethod,
+    this.registrationDate,
+    this.role,
+  });
+
+  factory UsersUser.fromJson(Map<String, dynamic> json) =>
+      _$UsersUserFromJson(json);
+
+  static const toJsonFactory = _$UsersUserToJson;
+  Map<String, dynamic> toJson() => _$UsersUserToJson(this);
+
+  @JsonKey(name: 'address')
+  final PlaceDetails? address;
+  @JsonKey(name: 'email')
+  final String? email;
+  @JsonKey(name: 'emergencyContact')
+  final String? emergencyContact;
+  @JsonKey(name: 'firebaseId')
+  final String? firebaseId;
+  @JsonKey(name: 'firstname')
+  final String? firstname;
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'isVerified')
+  final bool? isVerified;
+  @JsonKey(name: 'lastname')
+  final String? lastname;
+  @JsonKey(name: 'notes')
+  final String? notes;
+  @JsonKey(name: 'phone')
+  final String? phone;
+  @JsonKey(name: 'photoUrl')
+  final String? photoUrl;
+  @JsonKey(name: 'preferredCommunicationMethod')
+  final String? preferredCommunicationMethod;
+  @JsonKey(name: 'registrationDate')
+  final String? registrationDate;
+  @JsonKey(
+    name: 'role',
+    toJson: usersUserRoleNullableToJson,
+    fromJson: usersUserRoleNullableFromJson,
+  )
+  final enums.UsersUserRole? role;
+  static const fromJsonFactory = _$UsersUserFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is UsersUser &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.emergencyContact, emergencyContact) ||
+                const DeepCollectionEquality()
+                    .equals(other.emergencyContact, emergencyContact)) &&
+            (identical(other.firebaseId, firebaseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.firebaseId, firebaseId)) &&
+            (identical(other.firstname, firstname) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstname, firstname)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.isVerified, isVerified) ||
+                const DeepCollectionEquality()
+                    .equals(other.isVerified, isVerified)) &&
+            (identical(other.lastname, lastname) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastname, lastname)) &&
+            (identical(other.notes, notes) ||
+                const DeepCollectionEquality().equals(other.notes, notes)) &&
+            (identical(other.phone, phone) ||
+                const DeepCollectionEquality().equals(other.phone, phone)) &&
+            (identical(other.photoUrl, photoUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.photoUrl, photoUrl)) &&
+            (identical(other.preferredCommunicationMethod,
+                    preferredCommunicationMethod) ||
+                const DeepCollectionEquality().equals(
+                    other.preferredCommunicationMethod,
+                    preferredCommunicationMethod)) &&
+            (identical(other.registrationDate, registrationDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.registrationDate, registrationDate)) &&
+            (identical(other.role, role) ||
+                const DeepCollectionEquality().equals(other.role, role)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(emergencyContact) ^
+      const DeepCollectionEquality().hash(firebaseId) ^
+      const DeepCollectionEquality().hash(firstname) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(isVerified) ^
+      const DeepCollectionEquality().hash(lastname) ^
+      const DeepCollectionEquality().hash(notes) ^
+      const DeepCollectionEquality().hash(phone) ^
+      const DeepCollectionEquality().hash(photoUrl) ^
+      const DeepCollectionEquality().hash(preferredCommunicationMethod) ^
+      const DeepCollectionEquality().hash(registrationDate) ^
+      const DeepCollectionEquality().hash(role) ^
+      runtimeType.hashCode;
+}
+
+extension $UsersUserExtension on UsersUser {
+  UsersUser copyWith(
+      {PlaceDetails? address,
+      String? email,
+      String? emergencyContact,
+      String? firebaseId,
+      String? firstname,
+      String? id,
+      bool? isVerified,
+      String? lastname,
+      String? notes,
+      String? phone,
+      String? photoUrl,
+      String? preferredCommunicationMethod,
+      String? registrationDate,
+      enums.UsersUserRole? role}) {
+    return UsersUser(
+        address: address ?? this.address,
+        email: email ?? this.email,
+        emergencyContact: emergencyContact ?? this.emergencyContact,
+        firebaseId: firebaseId ?? this.firebaseId,
+        firstname: firstname ?? this.firstname,
+        id: id ?? this.id,
+        isVerified: isVerified ?? this.isVerified,
+        lastname: lastname ?? this.lastname,
+        notes: notes ?? this.notes,
+        phone: phone ?? this.phone,
+        photoUrl: photoUrl ?? this.photoUrl,
+        preferredCommunicationMethod:
+            preferredCommunicationMethod ?? this.preferredCommunicationMethod,
+        registrationDate: registrationDate ?? this.registrationDate,
+        role: role ?? this.role);
+  }
+
+  UsersUser copyWithWrapped(
+      {Wrapped<PlaceDetails?>? address,
+      Wrapped<String?>? email,
+      Wrapped<String?>? emergencyContact,
+      Wrapped<String?>? firebaseId,
+      Wrapped<String?>? firstname,
+      Wrapped<String?>? id,
+      Wrapped<bool?>? isVerified,
+      Wrapped<String?>? lastname,
+      Wrapped<String?>? notes,
+      Wrapped<String?>? phone,
+      Wrapped<String?>? photoUrl,
+      Wrapped<String?>? preferredCommunicationMethod,
+      Wrapped<String?>? registrationDate,
+      Wrapped<enums.UsersUserRole?>? role}) {
+    return UsersUser(
+        address: (address != null ? address.value : this.address),
+        email: (email != null ? email.value : this.email),
+        emergencyContact: (emergencyContact != null
+            ? emergencyContact.value
+            : this.emergencyContact),
+        firebaseId: (firebaseId != null ? firebaseId.value : this.firebaseId),
+        firstname: (firstname != null ? firstname.value : this.firstname),
+        id: (id != null ? id.value : this.id),
+        isVerified: (isVerified != null ? isVerified.value : this.isVerified),
+        lastname: (lastname != null ? lastname.value : this.lastname),
+        notes: (notes != null ? notes.value : this.notes),
+        phone: (phone != null ? phone.value : this.phone),
+        photoUrl: (photoUrl != null ? photoUrl.value : this.photoUrl),
+        preferredCommunicationMethod: (preferredCommunicationMethod != null
+            ? preferredCommunicationMethod.value
+            : this.preferredCommunicationMethod),
+        registrationDate: (registrationDate != null
+            ? registrationDate.value
+            : this.registrationDate),
+        role: (role != null ? role.value : this.role));
+  }
+}
+
+String? animalEnergyLevelNullableToJson(
+    enums.AnimalEnergyLevel? animalEnergyLevel) {
+  return animalEnergyLevel?.value;
+}
+
+String? animalEnergyLevelToJson(enums.AnimalEnergyLevel animalEnergyLevel) {
+  return animalEnergyLevel.value;
+}
+
+enums.AnimalEnergyLevel animalEnergyLevelFromJson(
+  Object? animalEnergyLevel, [
+  enums.AnimalEnergyLevel? defaultValue,
 ]) {
-  return enums.UserUpdateDTORole.values
-          .firstWhereOrNull((e) => e.value == userUpdateDTORole) ??
+  return enums.AnimalEnergyLevel.values
+          .firstWhereOrNull((e) => e.value == animalEnergyLevel) ??
       defaultValue ??
-      enums.UserUpdateDTORole.swaggerGeneratedUnknown;
+      enums.AnimalEnergyLevel.swaggerGeneratedUnknown;
 }
 
-enums.UserUpdateDTORole? userUpdateDTORoleNullableFromJson(
-  Object? userUpdateDTORole, [
-  enums.UserUpdateDTORole? defaultValue,
+enums.AnimalEnergyLevel? animalEnergyLevelNullableFromJson(
+  Object? animalEnergyLevel, [
+  enums.AnimalEnergyLevel? defaultValue,
 ]) {
-  if (userUpdateDTORole == null) {
+  if (animalEnergyLevel == null) {
     return null;
   }
-  return enums.UserUpdateDTORole.values
-          .firstWhereOrNull((e) => e.value == userUpdateDTORole) ??
+  return enums.AnimalEnergyLevel.values
+          .firstWhereOrNull((e) => e.value == animalEnergyLevel) ??
       defaultValue;
 }
 
-String userUpdateDTORoleExplodedListToJson(
-    List<enums.UserUpdateDTORole>? userUpdateDTORole) {
-  return userUpdateDTORole?.map((e) => e.value!).join(',') ?? '';
+String animalEnergyLevelExplodedListToJson(
+    List<enums.AnimalEnergyLevel>? animalEnergyLevel) {
+  return animalEnergyLevel?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> userUpdateDTORoleListToJson(
-    List<enums.UserUpdateDTORole>? userUpdateDTORole) {
-  if (userUpdateDTORole == null) {
+List<String> animalEnergyLevelListToJson(
+    List<enums.AnimalEnergyLevel>? animalEnergyLevel) {
+  if (animalEnergyLevel == null) {
     return [];
   }
 
-  return userUpdateDTORole.map((e) => e.value!).toList();
+  return animalEnergyLevel.map((e) => e.value!).toList();
 }
 
-List<enums.UserUpdateDTORole> userUpdateDTORoleListFromJson(
-  List? userUpdateDTORole, [
-  List<enums.UserUpdateDTORole>? defaultValue,
+List<enums.AnimalEnergyLevel> animalEnergyLevelListFromJson(
+  List? animalEnergyLevel, [
+  List<enums.AnimalEnergyLevel>? defaultValue,
 ]) {
-  if (userUpdateDTORole == null) {
+  if (animalEnergyLevel == null) {
     return defaultValue ?? [];
   }
 
-  return userUpdateDTORole
-      .map((e) => userUpdateDTORoleFromJson(e.toString()))
+  return animalEnergyLevel
+      .map((e) => animalEnergyLevelFromJson(e.toString()))
       .toList();
 }
 
-List<enums.UserUpdateDTORole>? userUpdateDTORoleNullableListFromJson(
-  List? userUpdateDTORole, [
-  List<enums.UserUpdateDTORole>? defaultValue,
+List<enums.AnimalEnergyLevel>? animalEnergyLevelNullableListFromJson(
+  List? animalEnergyLevel, [
+  List<enums.AnimalEnergyLevel>? defaultValue,
 ]) {
-  if (userUpdateDTORole == null) {
+  if (animalEnergyLevel == null) {
     return defaultValue;
   }
 
-  return userUpdateDTORole
-      .map((e) => userUpdateDTORoleFromJson(e.toString()))
+  return animalEnergyLevel
+      .map((e) => animalEnergyLevelFromJson(e.toString()))
       .toList();
 }
 
-String? userDTORoleNullableToJson(enums.UserDTORole? userDTORole) {
-  return userDTORole?.value;
+String? animalGenderNullableToJson(enums.AnimalGender? animalGender) {
+  return animalGender?.value;
 }
 
-String? userDTORoleToJson(enums.UserDTORole userDTORole) {
-  return userDTORole.value;
+String? animalGenderToJson(enums.AnimalGender animalGender) {
+  return animalGender.value;
 }
 
-enums.UserDTORole userDTORoleFromJson(
-  Object? userDTORole, [
-  enums.UserDTORole? defaultValue,
+enums.AnimalGender animalGenderFromJson(
+  Object? animalGender, [
+  enums.AnimalGender? defaultValue,
 ]) {
-  return enums.UserDTORole.values
-          .firstWhereOrNull((e) => e.value == userDTORole) ??
+  return enums.AnimalGender.values
+          .firstWhereOrNull((e) => e.value == animalGender) ??
       defaultValue ??
-      enums.UserDTORole.swaggerGeneratedUnknown;
+      enums.AnimalGender.swaggerGeneratedUnknown;
 }
 
-enums.UserDTORole? userDTORoleNullableFromJson(
-  Object? userDTORole, [
-  enums.UserDTORole? defaultValue,
+enums.AnimalGender? animalGenderNullableFromJson(
+  Object? animalGender, [
+  enums.AnimalGender? defaultValue,
 ]) {
-  if (userDTORole == null) {
+  if (animalGender == null) {
     return null;
   }
-  return enums.UserDTORole.values
-          .firstWhereOrNull((e) => e.value == userDTORole) ??
+  return enums.AnimalGender.values
+          .firstWhereOrNull((e) => e.value == animalGender) ??
       defaultValue;
 }
 
-String userDTORoleExplodedListToJson(List<enums.UserDTORole>? userDTORole) {
-  return userDTORole?.map((e) => e.value!).join(',') ?? '';
+String animalGenderExplodedListToJson(List<enums.AnimalGender>? animalGender) {
+  return animalGender?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> userDTORoleListToJson(List<enums.UserDTORole>? userDTORole) {
-  if (userDTORole == null) {
+List<String> animalGenderListToJson(List<enums.AnimalGender>? animalGender) {
+  if (animalGender == null) {
     return [];
   }
 
-  return userDTORole.map((e) => e.value!).toList();
+  return animalGender.map((e) => e.value!).toList();
 }
 
-List<enums.UserDTORole> userDTORoleListFromJson(
-  List? userDTORole, [
-  List<enums.UserDTORole>? defaultValue,
+List<enums.AnimalGender> animalGenderListFromJson(
+  List? animalGender, [
+  List<enums.AnimalGender>? defaultValue,
 ]) {
-  if (userDTORole == null) {
+  if (animalGender == null) {
     return defaultValue ?? [];
   }
 
-  return userDTORole.map((e) => userDTORoleFromJson(e.toString())).toList();
+  return animalGender.map((e) => animalGenderFromJson(e.toString())).toList();
 }
 
-List<enums.UserDTORole>? userDTORoleNullableListFromJson(
-  List? userDTORole, [
-  List<enums.UserDTORole>? defaultValue,
+List<enums.AnimalGender>? animalGenderNullableListFromJson(
+  List? animalGender, [
+  List<enums.AnimalGender>? defaultValue,
 ]) {
-  if (userDTORole == null) {
+  if (animalGender == null) {
     return defaultValue;
   }
 
-  return userDTORole.map((e) => userDTORoleFromJson(e.toString())).toList();
+  return animalGender.map((e) => animalGenderFromJson(e.toString())).toList();
 }
 
-String? recurringScheduleDTODayOfWeekNullableToJson(
-    enums.RecurringScheduleDTODayOfWeek? recurringScheduleDTODayOfWeek) {
-  return recurringScheduleDTODayOfWeek?.value;
+String? animalSizeNullableToJson(enums.AnimalSize? animalSize) {
+  return animalSize?.value;
 }
 
-String? recurringScheduleDTODayOfWeekToJson(
-    enums.RecurringScheduleDTODayOfWeek recurringScheduleDTODayOfWeek) {
-  return recurringScheduleDTODayOfWeek.value;
+String? animalSizeToJson(enums.AnimalSize animalSize) {
+  return animalSize.value;
 }
 
-enums.RecurringScheduleDTODayOfWeek recurringScheduleDTODayOfWeekFromJson(
-  Object? recurringScheduleDTODayOfWeek, [
-  enums.RecurringScheduleDTODayOfWeek? defaultValue,
+enums.AnimalSize animalSizeFromJson(
+  Object? animalSize, [
+  enums.AnimalSize? defaultValue,
 ]) {
-  return enums.RecurringScheduleDTODayOfWeek.values
-          .firstWhereOrNull((e) => e.value == recurringScheduleDTODayOfWeek) ??
+  return enums.AnimalSize.values
+          .firstWhereOrNull((e) => e.value == animalSize) ??
       defaultValue ??
-      enums.RecurringScheduleDTODayOfWeek.swaggerGeneratedUnknown;
+      enums.AnimalSize.swaggerGeneratedUnknown;
 }
 
-enums.RecurringScheduleDTODayOfWeek?
-    recurringScheduleDTODayOfWeekNullableFromJson(
-  Object? recurringScheduleDTODayOfWeek, [
-  enums.RecurringScheduleDTODayOfWeek? defaultValue,
+enums.AnimalSize? animalSizeNullableFromJson(
+  Object? animalSize, [
+  enums.AnimalSize? defaultValue,
 ]) {
-  if (recurringScheduleDTODayOfWeek == null) {
+  if (animalSize == null) {
     return null;
   }
-  return enums.RecurringScheduleDTODayOfWeek.values
-          .firstWhereOrNull((e) => e.value == recurringScheduleDTODayOfWeek) ??
+  return enums.AnimalSize.values
+          .firstWhereOrNull((e) => e.value == animalSize) ??
       defaultValue;
 }
 
-String recurringScheduleDTODayOfWeekExplodedListToJson(
-    List<enums.RecurringScheduleDTODayOfWeek>? recurringScheduleDTODayOfWeek) {
-  return recurringScheduleDTODayOfWeek?.map((e) => e.value!).join(',') ?? '';
+String animalSizeExplodedListToJson(List<enums.AnimalSize>? animalSize) {
+  return animalSize?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> recurringScheduleDTODayOfWeekListToJson(
-    List<enums.RecurringScheduleDTODayOfWeek>? recurringScheduleDTODayOfWeek) {
-  if (recurringScheduleDTODayOfWeek == null) {
+List<String> animalSizeListToJson(List<enums.AnimalSize>? animalSize) {
+  if (animalSize == null) {
     return [];
   }
 
-  return recurringScheduleDTODayOfWeek.map((e) => e.value!).toList();
+  return animalSize.map((e) => e.value!).toList();
 }
 
-List<enums.RecurringScheduleDTODayOfWeek>
-    recurringScheduleDTODayOfWeekListFromJson(
-  List? recurringScheduleDTODayOfWeek, [
-  List<enums.RecurringScheduleDTODayOfWeek>? defaultValue,
+List<enums.AnimalSize> animalSizeListFromJson(
+  List? animalSize, [
+  List<enums.AnimalSize>? defaultValue,
 ]) {
-  if (recurringScheduleDTODayOfWeek == null) {
+  if (animalSize == null) {
     return defaultValue ?? [];
   }
 
-  return recurringScheduleDTODayOfWeek
-      .map((e) => recurringScheduleDTODayOfWeekFromJson(e.toString()))
-      .toList();
+  return animalSize.map((e) => animalSizeFromJson(e.toString())).toList();
 }
 
-List<enums.RecurringScheduleDTODayOfWeek>?
-    recurringScheduleDTODayOfWeekNullableListFromJson(
-  List? recurringScheduleDTODayOfWeek, [
-  List<enums.RecurringScheduleDTODayOfWeek>? defaultValue,
+List<enums.AnimalSize>? animalSizeNullableListFromJson(
+  List? animalSize, [
+  List<enums.AnimalSize>? defaultValue,
 ]) {
-  if (recurringScheduleDTODayOfWeek == null) {
+  if (animalSize == null) {
     return defaultValue;
   }
 
-  return recurringScheduleDTODayOfWeek
-      .map((e) => recurringScheduleDTODayOfWeekFromJson(e.toString()))
-      .toList();
+  return animalSize.map((e) => animalSizeFromJson(e.toString())).toList();
 }
 
-String? userRoleNullableToJson(enums.UserRole? userRole) {
-  return userRole?.value;
+String? animalSpeciesNullableToJson(enums.AnimalSpecies? animalSpecies) {
+  return animalSpecies?.value;
 }
 
-String? userRoleToJson(enums.UserRole userRole) {
-  return userRole.value;
+String? animalSpeciesToJson(enums.AnimalSpecies animalSpecies) {
+  return animalSpecies.value;
 }
 
-enums.UserRole userRoleFromJson(
-  Object? userRole, [
-  enums.UserRole? defaultValue,
+enums.AnimalSpecies animalSpeciesFromJson(
+  Object? animalSpecies, [
+  enums.AnimalSpecies? defaultValue,
 ]) {
-  return enums.UserRole.values.firstWhereOrNull((e) => e.value == userRole) ??
+  return enums.AnimalSpecies.values
+          .firstWhereOrNull((e) => e.value == animalSpecies) ??
       defaultValue ??
-      enums.UserRole.swaggerGeneratedUnknown;
+      enums.AnimalSpecies.swaggerGeneratedUnknown;
 }
 
-enums.UserRole? userRoleNullableFromJson(
-  Object? userRole, [
-  enums.UserRole? defaultValue,
+enums.AnimalSpecies? animalSpeciesNullableFromJson(
+  Object? animalSpecies, [
+  enums.AnimalSpecies? defaultValue,
 ]) {
-  if (userRole == null) {
+  if (animalSpecies == null) {
     return null;
   }
-  return enums.UserRole.values.firstWhereOrNull((e) => e.value == userRole) ??
+  return enums.AnimalSpecies.values
+          .firstWhereOrNull((e) => e.value == animalSpecies) ??
       defaultValue;
 }
 
-String userRoleExplodedListToJson(List<enums.UserRole>? userRole) {
-  return userRole?.map((e) => e.value!).join(',') ?? '';
+String animalSpeciesExplodedListToJson(
+    List<enums.AnimalSpecies>? animalSpecies) {
+  return animalSpecies?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> userRoleListToJson(List<enums.UserRole>? userRole) {
-  if (userRole == null) {
+List<String> animalSpeciesListToJson(List<enums.AnimalSpecies>? animalSpecies) {
+  if (animalSpecies == null) {
     return [];
   }
 
-  return userRole.map((e) => e.value!).toList();
+  return animalSpecies.map((e) => e.value!).toList();
 }
 
-List<enums.UserRole> userRoleListFromJson(
-  List? userRole, [
-  List<enums.UserRole>? defaultValue,
+List<enums.AnimalSpecies> animalSpeciesListFromJson(
+  List? animalSpecies, [
+  List<enums.AnimalSpecies>? defaultValue,
 ]) {
-  if (userRole == null) {
+  if (animalSpecies == null) {
     return defaultValue ?? [];
   }
 
-  return userRole.map((e) => userRoleFromJson(e.toString())).toList();
+  return animalSpecies.map((e) => animalSpeciesFromJson(e.toString())).toList();
 }
 
-List<enums.UserRole>? userRoleNullableListFromJson(
-  List? userRole, [
-  List<enums.UserRole>? defaultValue,
+List<enums.AnimalSpecies>? animalSpeciesNullableListFromJson(
+  List? animalSpecies, [
+  List<enums.AnimalSpecies>? defaultValue,
 ]) {
-  if (userRole == null) {
+  if (animalSpecies == null) {
     return defaultValue;
   }
 
-  return userRole.map((e) => userRoleFromJson(e.toString())).toList();
+  return animalSpecies.map((e) => animalSpeciesFromJson(e.toString())).toList();
 }
 
-String? petServiceDTOCategoryNullableToJson(
-    enums.PetServiceDTOCategory? petServiceDTOCategory) {
-  return petServiceDTOCategory?.value;
+String? missionsStatusNullableToJson(enums.MissionsStatus? missionsStatus) {
+  return missionsStatus?.value;
 }
 
-String? petServiceDTOCategoryToJson(
-    enums.PetServiceDTOCategory petServiceDTOCategory) {
-  return petServiceDTOCategory.value;
+String? missionsStatusToJson(enums.MissionsStatus missionsStatus) {
+  return missionsStatus.value;
 }
 
-enums.PetServiceDTOCategory petServiceDTOCategoryFromJson(
-  Object? petServiceDTOCategory, [
-  enums.PetServiceDTOCategory? defaultValue,
+enums.MissionsStatus missionsStatusFromJson(
+  Object? missionsStatus, [
+  enums.MissionsStatus? defaultValue,
 ]) {
-  return enums.PetServiceDTOCategory.values
-          .firstWhereOrNull((e) => e.value == petServiceDTOCategory) ??
+  return enums.MissionsStatus.values
+          .firstWhereOrNull((e) => e.value == missionsStatus) ??
       defaultValue ??
-      enums.PetServiceDTOCategory.swaggerGeneratedUnknown;
+      enums.MissionsStatus.swaggerGeneratedUnknown;
 }
 
-enums.PetServiceDTOCategory? petServiceDTOCategoryNullableFromJson(
-  Object? petServiceDTOCategory, [
-  enums.PetServiceDTOCategory? defaultValue,
+enums.MissionsStatus? missionsStatusNullableFromJson(
+  Object? missionsStatus, [
+  enums.MissionsStatus? defaultValue,
 ]) {
-  if (petServiceDTOCategory == null) {
+  if (missionsStatus == null) {
     return null;
   }
-  return enums.PetServiceDTOCategory.values
-          .firstWhereOrNull((e) => e.value == petServiceDTOCategory) ??
+  return enums.MissionsStatus.values
+          .firstWhereOrNull((e) => e.value == missionsStatus) ??
       defaultValue;
 }
 
-String petServiceDTOCategoryExplodedListToJson(
-    List<enums.PetServiceDTOCategory>? petServiceDTOCategory) {
-  return petServiceDTOCategory?.map((e) => e.value!).join(',') ?? '';
+String missionsStatusExplodedListToJson(
+    List<enums.MissionsStatus>? missionsStatus) {
+  return missionsStatus?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> petServiceDTOCategoryListToJson(
-    List<enums.PetServiceDTOCategory>? petServiceDTOCategory) {
-  if (petServiceDTOCategory == null) {
+List<String> missionsStatusListToJson(
+    List<enums.MissionsStatus>? missionsStatus) {
+  if (missionsStatus == null) {
     return [];
   }
 
-  return petServiceDTOCategory.map((e) => e.value!).toList();
+  return missionsStatus.map((e) => e.value!).toList();
 }
 
-List<enums.PetServiceDTOCategory> petServiceDTOCategoryListFromJson(
-  List? petServiceDTOCategory, [
-  List<enums.PetServiceDTOCategory>? defaultValue,
+List<enums.MissionsStatus> missionsStatusListFromJson(
+  List? missionsStatus, [
+  List<enums.MissionsStatus>? defaultValue,
 ]) {
-  if (petServiceDTOCategory == null) {
+  if (missionsStatus == null) {
     return defaultValue ?? [];
   }
 
-  return petServiceDTOCategory
-      .map((e) => petServiceDTOCategoryFromJson(e.toString()))
+  return missionsStatus
+      .map((e) => missionsStatusFromJson(e.toString()))
       .toList();
 }
 
-List<enums.PetServiceDTOCategory>? petServiceDTOCategoryNullableListFromJson(
-  List? petServiceDTOCategory, [
-  List<enums.PetServiceDTOCategory>? defaultValue,
+List<enums.MissionsStatus>? missionsStatusNullableListFromJson(
+  List? missionsStatus, [
+  List<enums.MissionsStatus>? defaultValue,
 ]) {
-  if (petServiceDTOCategory == null) {
+  if (missionsStatus == null) {
     return defaultValue;
   }
 
-  return petServiceDTOCategory
-      .map((e) => petServiceDTOCategoryFromJson(e.toString()))
+  return missionsStatus
+      .map((e) => missionsStatusFromJson(e.toString()))
       .toList();
 }
 
-String? petServiceDTOAnimalTypesNullableToJson(
-    enums.PetServiceDTOAnimalTypes? petServiceDTOAnimalTypes) {
-  return petServiceDTOAnimalTypes?.value;
+String? petServicesAnimalTypeNullableToJson(
+    enums.PetServicesAnimalType? petServicesAnimalType) {
+  return petServicesAnimalType?.value;
 }
 
-String? petServiceDTOAnimalTypesToJson(
-    enums.PetServiceDTOAnimalTypes petServiceDTOAnimalTypes) {
-  return petServiceDTOAnimalTypes.value;
+String? petServicesAnimalTypeToJson(
+    enums.PetServicesAnimalType petServicesAnimalType) {
+  return petServicesAnimalType.value;
 }
 
-enums.PetServiceDTOAnimalTypes petServiceDTOAnimalTypesFromJson(
-  Object? petServiceDTOAnimalTypes, [
-  enums.PetServiceDTOAnimalTypes? defaultValue,
+enums.PetServicesAnimalType petServicesAnimalTypeFromJson(
+  Object? petServicesAnimalType, [
+  enums.PetServicesAnimalType? defaultValue,
 ]) {
-  return enums.PetServiceDTOAnimalTypes.values
-          .firstWhereOrNull((e) => e.value == petServiceDTOAnimalTypes) ??
+  return enums.PetServicesAnimalType.values
+          .firstWhereOrNull((e) => e.value == petServicesAnimalType) ??
       defaultValue ??
-      enums.PetServiceDTOAnimalTypes.swaggerGeneratedUnknown;
+      enums.PetServicesAnimalType.swaggerGeneratedUnknown;
 }
 
-enums.PetServiceDTOAnimalTypes? petServiceDTOAnimalTypesNullableFromJson(
-  Object? petServiceDTOAnimalTypes, [
-  enums.PetServiceDTOAnimalTypes? defaultValue,
+enums.PetServicesAnimalType? petServicesAnimalTypeNullableFromJson(
+  Object? petServicesAnimalType, [
+  enums.PetServicesAnimalType? defaultValue,
 ]) {
-  if (petServiceDTOAnimalTypes == null) {
+  if (petServicesAnimalType == null) {
     return null;
   }
-  return enums.PetServiceDTOAnimalTypes.values
-          .firstWhereOrNull((e) => e.value == petServiceDTOAnimalTypes) ??
+  return enums.PetServicesAnimalType.values
+          .firstWhereOrNull((e) => e.value == petServicesAnimalType) ??
       defaultValue;
 }
 
-String petServiceDTOAnimalTypesExplodedListToJson(
-    List<enums.PetServiceDTOAnimalTypes>? petServiceDTOAnimalTypes) {
-  return petServiceDTOAnimalTypes?.map((e) => e.value!).join(',') ?? '';
+String petServicesAnimalTypeExplodedListToJson(
+    List<enums.PetServicesAnimalType>? petServicesAnimalType) {
+  return petServicesAnimalType?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> petServiceDTOAnimalTypesListToJson(
-    List<enums.PetServiceDTOAnimalTypes>? petServiceDTOAnimalTypes) {
-  if (petServiceDTOAnimalTypes == null) {
+List<String> petServicesAnimalTypeListToJson(
+    List<enums.PetServicesAnimalType>? petServicesAnimalType) {
+  if (petServicesAnimalType == null) {
     return [];
   }
 
-  return petServiceDTOAnimalTypes.map((e) => e.value!).toList();
+  return petServicesAnimalType.map((e) => e.value!).toList();
 }
 
-List<enums.PetServiceDTOAnimalTypes> petServiceDTOAnimalTypesListFromJson(
-  List? petServiceDTOAnimalTypes, [
-  List<enums.PetServiceDTOAnimalTypes>? defaultValue,
+List<enums.PetServicesAnimalType> petServicesAnimalTypeListFromJson(
+  List? petServicesAnimalType, [
+  List<enums.PetServicesAnimalType>? defaultValue,
 ]) {
-  if (petServiceDTOAnimalTypes == null) {
+  if (petServicesAnimalType == null) {
     return defaultValue ?? [];
   }
 
-  return petServiceDTOAnimalTypes
-      .map((e) => petServiceDTOAnimalTypesFromJson(e.toString()))
+  return petServicesAnimalType
+      .map((e) => petServicesAnimalTypeFromJson(e.toString()))
       .toList();
 }
 
-List<enums.PetServiceDTOAnimalTypes>?
-    petServiceDTOAnimalTypesNullableListFromJson(
-  List? petServiceDTOAnimalTypes, [
-  List<enums.PetServiceDTOAnimalTypes>? defaultValue,
+List<enums.PetServicesAnimalType>? petServicesAnimalTypeNullableListFromJson(
+  List? petServicesAnimalType, [
+  List<enums.PetServicesAnimalType>? defaultValue,
 ]) {
-  if (petServiceDTOAnimalTypes == null) {
+  if (petServicesAnimalType == null) {
     return defaultValue;
   }
 
-  return petServiceDTOAnimalTypes
-      .map((e) => petServiceDTOAnimalTypesFromJson(e.toString()))
+  return petServicesAnimalType
+      .map((e) => petServicesAnimalTypeFromJson(e.toString()))
       .toList();
 }
 
-String? animalUpdateDTOSpeciesNullableToJson(
-    enums.AnimalUpdateDTOSpecies? animalUpdateDTOSpecies) {
-  return animalUpdateDTOSpecies?.value;
+String? petServicesCategoryNullableToJson(
+    enums.PetServicesCategory? petServicesCategory) {
+  return petServicesCategory?.value;
 }
 
-String? animalUpdateDTOSpeciesToJson(
-    enums.AnimalUpdateDTOSpecies animalUpdateDTOSpecies) {
-  return animalUpdateDTOSpecies.value;
+String? petServicesCategoryToJson(
+    enums.PetServicesCategory petServicesCategory) {
+  return petServicesCategory.value;
 }
 
-enums.AnimalUpdateDTOSpecies animalUpdateDTOSpeciesFromJson(
-  Object? animalUpdateDTOSpecies, [
-  enums.AnimalUpdateDTOSpecies? defaultValue,
+enums.PetServicesCategory petServicesCategoryFromJson(
+  Object? petServicesCategory, [
+  enums.PetServicesCategory? defaultValue,
 ]) {
-  return enums.AnimalUpdateDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOSpecies) ??
+  return enums.PetServicesCategory.values
+          .firstWhereOrNull((e) => e.value == petServicesCategory) ??
       defaultValue ??
-      enums.AnimalUpdateDTOSpecies.swaggerGeneratedUnknown;
+      enums.PetServicesCategory.swaggerGeneratedUnknown;
 }
 
-enums.AnimalUpdateDTOSpecies? animalUpdateDTOSpeciesNullableFromJson(
-  Object? animalUpdateDTOSpecies, [
-  enums.AnimalUpdateDTOSpecies? defaultValue,
+enums.PetServicesCategory? petServicesCategoryNullableFromJson(
+  Object? petServicesCategory, [
+  enums.PetServicesCategory? defaultValue,
 ]) {
-  if (animalUpdateDTOSpecies == null) {
+  if (petServicesCategory == null) {
     return null;
   }
-  return enums.AnimalUpdateDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOSpecies) ??
+  return enums.PetServicesCategory.values
+          .firstWhereOrNull((e) => e.value == petServicesCategory) ??
       defaultValue;
 }
 
-String animalUpdateDTOSpeciesExplodedListToJson(
-    List<enums.AnimalUpdateDTOSpecies>? animalUpdateDTOSpecies) {
-  return animalUpdateDTOSpecies?.map((e) => e.value!).join(',') ?? '';
+String petServicesCategoryExplodedListToJson(
+    List<enums.PetServicesCategory>? petServicesCategory) {
+  return petServicesCategory?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> animalUpdateDTOSpeciesListToJson(
-    List<enums.AnimalUpdateDTOSpecies>? animalUpdateDTOSpecies) {
-  if (animalUpdateDTOSpecies == null) {
+List<String> petServicesCategoryListToJson(
+    List<enums.PetServicesCategory>? petServicesCategory) {
+  if (petServicesCategory == null) {
     return [];
   }
 
-  return animalUpdateDTOSpecies.map((e) => e.value!).toList();
+  return petServicesCategory.map((e) => e.value!).toList();
 }
 
-List<enums.AnimalUpdateDTOSpecies> animalUpdateDTOSpeciesListFromJson(
-  List? animalUpdateDTOSpecies, [
-  List<enums.AnimalUpdateDTOSpecies>? defaultValue,
+List<enums.PetServicesCategory> petServicesCategoryListFromJson(
+  List? petServicesCategory, [
+  List<enums.PetServicesCategory>? defaultValue,
 ]) {
-  if (animalUpdateDTOSpecies == null) {
+  if (petServicesCategory == null) {
     return defaultValue ?? [];
   }
 
-  return animalUpdateDTOSpecies
-      .map((e) => animalUpdateDTOSpeciesFromJson(e.toString()))
+  return petServicesCategory
+      .map((e) => petServicesCategoryFromJson(e.toString()))
       .toList();
 }
 
-List<enums.AnimalUpdateDTOSpecies>? animalUpdateDTOSpeciesNullableListFromJson(
-  List? animalUpdateDTOSpecies, [
-  List<enums.AnimalUpdateDTOSpecies>? defaultValue,
+List<enums.PetServicesCategory>? petServicesCategoryNullableListFromJson(
+  List? petServicesCategory, [
+  List<enums.PetServicesCategory>? defaultValue,
 ]) {
-  if (animalUpdateDTOSpecies == null) {
+  if (petServicesCategory == null) {
     return defaultValue;
   }
 
-  return animalUpdateDTOSpecies
-      .map((e) => animalUpdateDTOSpeciesFromJson(e.toString()))
+  return petServicesCategory
+      .map((e) => petServicesCategoryFromJson(e.toString()))
       .toList();
 }
 
-String? animalUpdateDTOGenderNullableToJson(
-    enums.AnimalUpdateDTOGender? animalUpdateDTOGender) {
-  return animalUpdateDTOGender?.value;
+String? usersUserRoleNullableToJson(enums.UsersUserRole? usersUserRole) {
+  return usersUserRole?.value;
 }
 
-String? animalUpdateDTOGenderToJson(
-    enums.AnimalUpdateDTOGender animalUpdateDTOGender) {
-  return animalUpdateDTOGender.value;
+String? usersUserRoleToJson(enums.UsersUserRole usersUserRole) {
+  return usersUserRole.value;
 }
 
-enums.AnimalUpdateDTOGender animalUpdateDTOGenderFromJson(
-  Object? animalUpdateDTOGender, [
-  enums.AnimalUpdateDTOGender? defaultValue,
+enums.UsersUserRole usersUserRoleFromJson(
+  Object? usersUserRole, [
+  enums.UsersUserRole? defaultValue,
 ]) {
-  return enums.AnimalUpdateDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOGender) ??
+  return enums.UsersUserRole.values
+          .firstWhereOrNull((e) => e.value == usersUserRole) ??
       defaultValue ??
-      enums.AnimalUpdateDTOGender.swaggerGeneratedUnknown;
+      enums.UsersUserRole.swaggerGeneratedUnknown;
 }
 
-enums.AnimalUpdateDTOGender? animalUpdateDTOGenderNullableFromJson(
-  Object? animalUpdateDTOGender, [
-  enums.AnimalUpdateDTOGender? defaultValue,
+enums.UsersUserRole? usersUserRoleNullableFromJson(
+  Object? usersUserRole, [
+  enums.UsersUserRole? defaultValue,
 ]) {
-  if (animalUpdateDTOGender == null) {
+  if (usersUserRole == null) {
     return null;
   }
-  return enums.AnimalUpdateDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOGender) ??
+  return enums.UsersUserRole.values
+          .firstWhereOrNull((e) => e.value == usersUserRole) ??
       defaultValue;
 }
 
-String animalUpdateDTOGenderExplodedListToJson(
-    List<enums.AnimalUpdateDTOGender>? animalUpdateDTOGender) {
-  return animalUpdateDTOGender?.map((e) => e.value!).join(',') ?? '';
+String usersUserRoleExplodedListToJson(
+    List<enums.UsersUserRole>? usersUserRole) {
+  return usersUserRole?.map((e) => e.value!).join(',') ?? '';
 }
 
-List<String> animalUpdateDTOGenderListToJson(
-    List<enums.AnimalUpdateDTOGender>? animalUpdateDTOGender) {
-  if (animalUpdateDTOGender == null) {
+List<String> usersUserRoleListToJson(List<enums.UsersUserRole>? usersUserRole) {
+  if (usersUserRole == null) {
     return [];
   }
 
-  return animalUpdateDTOGender.map((e) => e.value!).toList();
+  return usersUserRole.map((e) => e.value!).toList();
 }
 
-List<enums.AnimalUpdateDTOGender> animalUpdateDTOGenderListFromJson(
-  List? animalUpdateDTOGender, [
-  List<enums.AnimalUpdateDTOGender>? defaultValue,
+List<enums.UsersUserRole> usersUserRoleListFromJson(
+  List? usersUserRole, [
+  List<enums.UsersUserRole>? defaultValue,
 ]) {
-  if (animalUpdateDTOGender == null) {
+  if (usersUserRole == null) {
     return defaultValue ?? [];
   }
 
-  return animalUpdateDTOGender
-      .map((e) => animalUpdateDTOGenderFromJson(e.toString()))
-      .toList();
+  return usersUserRole.map((e) => usersUserRoleFromJson(e.toString())).toList();
 }
 
-List<enums.AnimalUpdateDTOGender>? animalUpdateDTOGenderNullableListFromJson(
-  List? animalUpdateDTOGender, [
-  List<enums.AnimalUpdateDTOGender>? defaultValue,
+List<enums.UsersUserRole>? usersUserRoleNullableListFromJson(
+  List? usersUserRole, [
+  List<enums.UsersUserRole>? defaultValue,
 ]) {
-  if (animalUpdateDTOGender == null) {
+  if (usersUserRole == null) {
     return defaultValue;
   }
 
-  return animalUpdateDTOGender
-      .map((e) => animalUpdateDTOGenderFromJson(e.toString()))
-      .toList();
-}
-
-String? animalUpdateDTOSizeNullableToJson(
-    enums.AnimalUpdateDTOSize? animalUpdateDTOSize) {
-  return animalUpdateDTOSize?.value;
-}
-
-String? animalUpdateDTOSizeToJson(
-    enums.AnimalUpdateDTOSize animalUpdateDTOSize) {
-  return animalUpdateDTOSize.value;
-}
-
-enums.AnimalUpdateDTOSize animalUpdateDTOSizeFromJson(
-  Object? animalUpdateDTOSize, [
-  enums.AnimalUpdateDTOSize? defaultValue,
-]) {
-  return enums.AnimalUpdateDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOSize) ??
-      defaultValue ??
-      enums.AnimalUpdateDTOSize.swaggerGeneratedUnknown;
-}
-
-enums.AnimalUpdateDTOSize? animalUpdateDTOSizeNullableFromJson(
-  Object? animalUpdateDTOSize, [
-  enums.AnimalUpdateDTOSize? defaultValue,
-]) {
-  if (animalUpdateDTOSize == null) {
-    return null;
-  }
-  return enums.AnimalUpdateDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOSize) ??
-      defaultValue;
-}
-
-String animalUpdateDTOSizeExplodedListToJson(
-    List<enums.AnimalUpdateDTOSize>? animalUpdateDTOSize) {
-  return animalUpdateDTOSize?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalUpdateDTOSizeListToJson(
-    List<enums.AnimalUpdateDTOSize>? animalUpdateDTOSize) {
-  if (animalUpdateDTOSize == null) {
-    return [];
-  }
-
-  return animalUpdateDTOSize.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalUpdateDTOSize> animalUpdateDTOSizeListFromJson(
-  List? animalUpdateDTOSize, [
-  List<enums.AnimalUpdateDTOSize>? defaultValue,
-]) {
-  if (animalUpdateDTOSize == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalUpdateDTOSize
-      .map((e) => animalUpdateDTOSizeFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalUpdateDTOSize>? animalUpdateDTOSizeNullableListFromJson(
-  List? animalUpdateDTOSize, [
-  List<enums.AnimalUpdateDTOSize>? defaultValue,
-]) {
-  if (animalUpdateDTOSize == null) {
-    return defaultValue;
-  }
-
-  return animalUpdateDTOSize
-      .map((e) => animalUpdateDTOSizeFromJson(e.toString()))
-      .toList();
-}
-
-String? animalUpdateDTOEnergyLevelNullableToJson(
-    enums.AnimalUpdateDTOEnergyLevel? animalUpdateDTOEnergyLevel) {
-  return animalUpdateDTOEnergyLevel?.value;
-}
-
-String? animalUpdateDTOEnergyLevelToJson(
-    enums.AnimalUpdateDTOEnergyLevel animalUpdateDTOEnergyLevel) {
-  return animalUpdateDTOEnergyLevel.value;
-}
-
-enums.AnimalUpdateDTOEnergyLevel animalUpdateDTOEnergyLevelFromJson(
-  Object? animalUpdateDTOEnergyLevel, [
-  enums.AnimalUpdateDTOEnergyLevel? defaultValue,
-]) {
-  return enums.AnimalUpdateDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOEnergyLevel) ??
-      defaultValue ??
-      enums.AnimalUpdateDTOEnergyLevel.swaggerGeneratedUnknown;
-}
-
-enums.AnimalUpdateDTOEnergyLevel? animalUpdateDTOEnergyLevelNullableFromJson(
-  Object? animalUpdateDTOEnergyLevel, [
-  enums.AnimalUpdateDTOEnergyLevel? defaultValue,
-]) {
-  if (animalUpdateDTOEnergyLevel == null) {
-    return null;
-  }
-  return enums.AnimalUpdateDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalUpdateDTOEnergyLevel) ??
-      defaultValue;
-}
-
-String animalUpdateDTOEnergyLevelExplodedListToJson(
-    List<enums.AnimalUpdateDTOEnergyLevel>? animalUpdateDTOEnergyLevel) {
-  return animalUpdateDTOEnergyLevel?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalUpdateDTOEnergyLevelListToJson(
-    List<enums.AnimalUpdateDTOEnergyLevel>? animalUpdateDTOEnergyLevel) {
-  if (animalUpdateDTOEnergyLevel == null) {
-    return [];
-  }
-
-  return animalUpdateDTOEnergyLevel.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalUpdateDTOEnergyLevel> animalUpdateDTOEnergyLevelListFromJson(
-  List? animalUpdateDTOEnergyLevel, [
-  List<enums.AnimalUpdateDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalUpdateDTOEnergyLevel == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalUpdateDTOEnergyLevel
-      .map((e) => animalUpdateDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalUpdateDTOEnergyLevel>?
-    animalUpdateDTOEnergyLevelNullableListFromJson(
-  List? animalUpdateDTOEnergyLevel, [
-  List<enums.AnimalUpdateDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalUpdateDTOEnergyLevel == null) {
-    return defaultValue;
-  }
-
-  return animalUpdateDTOEnergyLevel
-      .map((e) => animalUpdateDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-String? animalDTOSpeciesNullableToJson(
-    enums.AnimalDTOSpecies? animalDTOSpecies) {
-  return animalDTOSpecies?.value;
-}
-
-String? animalDTOSpeciesToJson(enums.AnimalDTOSpecies animalDTOSpecies) {
-  return animalDTOSpecies.value;
-}
-
-enums.AnimalDTOSpecies animalDTOSpeciesFromJson(
-  Object? animalDTOSpecies, [
-  enums.AnimalDTOSpecies? defaultValue,
-]) {
-  return enums.AnimalDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalDTOSpecies) ??
-      defaultValue ??
-      enums.AnimalDTOSpecies.swaggerGeneratedUnknown;
-}
-
-enums.AnimalDTOSpecies? animalDTOSpeciesNullableFromJson(
-  Object? animalDTOSpecies, [
-  enums.AnimalDTOSpecies? defaultValue,
-]) {
-  if (animalDTOSpecies == null) {
-    return null;
-  }
-  return enums.AnimalDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalDTOSpecies) ??
-      defaultValue;
-}
-
-String animalDTOSpeciesExplodedListToJson(
-    List<enums.AnimalDTOSpecies>? animalDTOSpecies) {
-  return animalDTOSpecies?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalDTOSpeciesListToJson(
-    List<enums.AnimalDTOSpecies>? animalDTOSpecies) {
-  if (animalDTOSpecies == null) {
-    return [];
-  }
-
-  return animalDTOSpecies.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalDTOSpecies> animalDTOSpeciesListFromJson(
-  List? animalDTOSpecies, [
-  List<enums.AnimalDTOSpecies>? defaultValue,
-]) {
-  if (animalDTOSpecies == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalDTOSpecies
-      .map((e) => animalDTOSpeciesFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalDTOSpecies>? animalDTOSpeciesNullableListFromJson(
-  List? animalDTOSpecies, [
-  List<enums.AnimalDTOSpecies>? defaultValue,
-]) {
-  if (animalDTOSpecies == null) {
-    return defaultValue;
-  }
-
-  return animalDTOSpecies
-      .map((e) => animalDTOSpeciesFromJson(e.toString()))
-      .toList();
-}
-
-String? animalDTOGenderNullableToJson(enums.AnimalDTOGender? animalDTOGender) {
-  return animalDTOGender?.value;
-}
-
-String? animalDTOGenderToJson(enums.AnimalDTOGender animalDTOGender) {
-  return animalDTOGender.value;
-}
-
-enums.AnimalDTOGender animalDTOGenderFromJson(
-  Object? animalDTOGender, [
-  enums.AnimalDTOGender? defaultValue,
-]) {
-  return enums.AnimalDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalDTOGender) ??
-      defaultValue ??
-      enums.AnimalDTOGender.swaggerGeneratedUnknown;
-}
-
-enums.AnimalDTOGender? animalDTOGenderNullableFromJson(
-  Object? animalDTOGender, [
-  enums.AnimalDTOGender? defaultValue,
-]) {
-  if (animalDTOGender == null) {
-    return null;
-  }
-  return enums.AnimalDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalDTOGender) ??
-      defaultValue;
-}
-
-String animalDTOGenderExplodedListToJson(
-    List<enums.AnimalDTOGender>? animalDTOGender) {
-  return animalDTOGender?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalDTOGenderListToJson(
-    List<enums.AnimalDTOGender>? animalDTOGender) {
-  if (animalDTOGender == null) {
-    return [];
-  }
-
-  return animalDTOGender.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalDTOGender> animalDTOGenderListFromJson(
-  List? animalDTOGender, [
-  List<enums.AnimalDTOGender>? defaultValue,
-]) {
-  if (animalDTOGender == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalDTOGender
-      .map((e) => animalDTOGenderFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalDTOGender>? animalDTOGenderNullableListFromJson(
-  List? animalDTOGender, [
-  List<enums.AnimalDTOGender>? defaultValue,
-]) {
-  if (animalDTOGender == null) {
-    return defaultValue;
-  }
-
-  return animalDTOGender
-      .map((e) => animalDTOGenderFromJson(e.toString()))
-      .toList();
-}
-
-String? animalDTOSizeNullableToJson(enums.AnimalDTOSize? animalDTOSize) {
-  return animalDTOSize?.value;
-}
-
-String? animalDTOSizeToJson(enums.AnimalDTOSize animalDTOSize) {
-  return animalDTOSize.value;
-}
-
-enums.AnimalDTOSize animalDTOSizeFromJson(
-  Object? animalDTOSize, [
-  enums.AnimalDTOSize? defaultValue,
-]) {
-  return enums.AnimalDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalDTOSize) ??
-      defaultValue ??
-      enums.AnimalDTOSize.swaggerGeneratedUnknown;
-}
-
-enums.AnimalDTOSize? animalDTOSizeNullableFromJson(
-  Object? animalDTOSize, [
-  enums.AnimalDTOSize? defaultValue,
-]) {
-  if (animalDTOSize == null) {
-    return null;
-  }
-  return enums.AnimalDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalDTOSize) ??
-      defaultValue;
-}
-
-String animalDTOSizeExplodedListToJson(
-    List<enums.AnimalDTOSize>? animalDTOSize) {
-  return animalDTOSize?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalDTOSizeListToJson(List<enums.AnimalDTOSize>? animalDTOSize) {
-  if (animalDTOSize == null) {
-    return [];
-  }
-
-  return animalDTOSize.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalDTOSize> animalDTOSizeListFromJson(
-  List? animalDTOSize, [
-  List<enums.AnimalDTOSize>? defaultValue,
-]) {
-  if (animalDTOSize == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalDTOSize.map((e) => animalDTOSizeFromJson(e.toString())).toList();
-}
-
-List<enums.AnimalDTOSize>? animalDTOSizeNullableListFromJson(
-  List? animalDTOSize, [
-  List<enums.AnimalDTOSize>? defaultValue,
-]) {
-  if (animalDTOSize == null) {
-    return defaultValue;
-  }
-
-  return animalDTOSize.map((e) => animalDTOSizeFromJson(e.toString())).toList();
-}
-
-String? animalDTOEnergyLevelNullableToJson(
-    enums.AnimalDTOEnergyLevel? animalDTOEnergyLevel) {
-  return animalDTOEnergyLevel?.value;
-}
-
-String? animalDTOEnergyLevelToJson(
-    enums.AnimalDTOEnergyLevel animalDTOEnergyLevel) {
-  return animalDTOEnergyLevel.value;
-}
-
-enums.AnimalDTOEnergyLevel animalDTOEnergyLevelFromJson(
-  Object? animalDTOEnergyLevel, [
-  enums.AnimalDTOEnergyLevel? defaultValue,
-]) {
-  return enums.AnimalDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalDTOEnergyLevel) ??
-      defaultValue ??
-      enums.AnimalDTOEnergyLevel.swaggerGeneratedUnknown;
-}
-
-enums.AnimalDTOEnergyLevel? animalDTOEnergyLevelNullableFromJson(
-  Object? animalDTOEnergyLevel, [
-  enums.AnimalDTOEnergyLevel? defaultValue,
-]) {
-  if (animalDTOEnergyLevel == null) {
-    return null;
-  }
-  return enums.AnimalDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalDTOEnergyLevel) ??
-      defaultValue;
-}
-
-String animalDTOEnergyLevelExplodedListToJson(
-    List<enums.AnimalDTOEnergyLevel>? animalDTOEnergyLevel) {
-  return animalDTOEnergyLevel?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalDTOEnergyLevelListToJson(
-    List<enums.AnimalDTOEnergyLevel>? animalDTOEnergyLevel) {
-  if (animalDTOEnergyLevel == null) {
-    return [];
-  }
-
-  return animalDTOEnergyLevel.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalDTOEnergyLevel> animalDTOEnergyLevelListFromJson(
-  List? animalDTOEnergyLevel, [
-  List<enums.AnimalDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalDTOEnergyLevel == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalDTOEnergyLevel
-      .map((e) => animalDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalDTOEnergyLevel>? animalDTOEnergyLevelNullableListFromJson(
-  List? animalDTOEnergyLevel, [
-  List<enums.AnimalDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalDTOEnergyLevel == null) {
-    return defaultValue;
-  }
-
-  return animalDTOEnergyLevel
-      .map((e) => animalDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-String? userCreationDTORoleNullableToJson(
-    enums.UserCreationDTORole? userCreationDTORole) {
-  return userCreationDTORole?.value;
-}
-
-String? userCreationDTORoleToJson(
-    enums.UserCreationDTORole userCreationDTORole) {
-  return userCreationDTORole.value;
-}
-
-enums.UserCreationDTORole userCreationDTORoleFromJson(
-  Object? userCreationDTORole, [
-  enums.UserCreationDTORole? defaultValue,
-]) {
-  return enums.UserCreationDTORole.values
-          .firstWhereOrNull((e) => e.value == userCreationDTORole) ??
-      defaultValue ??
-      enums.UserCreationDTORole.swaggerGeneratedUnknown;
-}
-
-enums.UserCreationDTORole? userCreationDTORoleNullableFromJson(
-  Object? userCreationDTORole, [
-  enums.UserCreationDTORole? defaultValue,
-]) {
-  if (userCreationDTORole == null) {
-    return null;
-  }
-  return enums.UserCreationDTORole.values
-          .firstWhereOrNull((e) => e.value == userCreationDTORole) ??
-      defaultValue;
-}
-
-String userCreationDTORoleExplodedListToJson(
-    List<enums.UserCreationDTORole>? userCreationDTORole) {
-  return userCreationDTORole?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> userCreationDTORoleListToJson(
-    List<enums.UserCreationDTORole>? userCreationDTORole) {
-  if (userCreationDTORole == null) {
-    return [];
-  }
-
-  return userCreationDTORole.map((e) => e.value!).toList();
-}
-
-List<enums.UserCreationDTORole> userCreationDTORoleListFromJson(
-  List? userCreationDTORole, [
-  List<enums.UserCreationDTORole>? defaultValue,
-]) {
-  if (userCreationDTORole == null) {
-    return defaultValue ?? [];
-  }
-
-  return userCreationDTORole
-      .map((e) => userCreationDTORoleFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.UserCreationDTORole>? userCreationDTORoleNullableListFromJson(
-  List? userCreationDTORole, [
-  List<enums.UserCreationDTORole>? defaultValue,
-]) {
-  if (userCreationDTORole == null) {
-    return defaultValue;
-  }
-
-  return userCreationDTORole
-      .map((e) => userCreationDTORoleFromJson(e.toString()))
-      .toList();
-}
-
-String? missionDTOMissionStatusNullableToJson(
-    enums.MissionDTOMissionStatus? missionDTOMissionStatus) {
-  return missionDTOMissionStatus?.value;
-}
-
-String? missionDTOMissionStatusToJson(
-    enums.MissionDTOMissionStatus missionDTOMissionStatus) {
-  return missionDTOMissionStatus.value;
-}
-
-enums.MissionDTOMissionStatus missionDTOMissionStatusFromJson(
-  Object? missionDTOMissionStatus, [
-  enums.MissionDTOMissionStatus? defaultValue,
-]) {
-  return enums.MissionDTOMissionStatus.values
-          .firstWhereOrNull((e) => e.value == missionDTOMissionStatus) ??
-      defaultValue ??
-      enums.MissionDTOMissionStatus.swaggerGeneratedUnknown;
-}
-
-enums.MissionDTOMissionStatus? missionDTOMissionStatusNullableFromJson(
-  Object? missionDTOMissionStatus, [
-  enums.MissionDTOMissionStatus? defaultValue,
-]) {
-  if (missionDTOMissionStatus == null) {
-    return null;
-  }
-  return enums.MissionDTOMissionStatus.values
-          .firstWhereOrNull((e) => e.value == missionDTOMissionStatus) ??
-      defaultValue;
-}
-
-String missionDTOMissionStatusExplodedListToJson(
-    List<enums.MissionDTOMissionStatus>? missionDTOMissionStatus) {
-  return missionDTOMissionStatus?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> missionDTOMissionStatusListToJson(
-    List<enums.MissionDTOMissionStatus>? missionDTOMissionStatus) {
-  if (missionDTOMissionStatus == null) {
-    return [];
-  }
-
-  return missionDTOMissionStatus.map((e) => e.value!).toList();
-}
-
-List<enums.MissionDTOMissionStatus> missionDTOMissionStatusListFromJson(
-  List? missionDTOMissionStatus, [
-  List<enums.MissionDTOMissionStatus>? defaultValue,
-]) {
-  if (missionDTOMissionStatus == null) {
-    return defaultValue ?? [];
-  }
-
-  return missionDTOMissionStatus
-      .map((e) => missionDTOMissionStatusFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.MissionDTOMissionStatus>?
-    missionDTOMissionStatusNullableListFromJson(
-  List? missionDTOMissionStatus, [
-  List<enums.MissionDTOMissionStatus>? defaultValue,
-]) {
-  if (missionDTOMissionStatus == null) {
-    return defaultValue;
-  }
-
-  return missionDTOMissionStatus
-      .map((e) => missionDTOMissionStatusFromJson(e.toString()))
-      .toList();
-}
-
-String? animalCreateDTOSpeciesNullableToJson(
-    enums.AnimalCreateDTOSpecies? animalCreateDTOSpecies) {
-  return animalCreateDTOSpecies?.value;
-}
-
-String? animalCreateDTOSpeciesToJson(
-    enums.AnimalCreateDTOSpecies animalCreateDTOSpecies) {
-  return animalCreateDTOSpecies.value;
-}
-
-enums.AnimalCreateDTOSpecies animalCreateDTOSpeciesFromJson(
-  Object? animalCreateDTOSpecies, [
-  enums.AnimalCreateDTOSpecies? defaultValue,
-]) {
-  return enums.AnimalCreateDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOSpecies) ??
-      defaultValue ??
-      enums.AnimalCreateDTOSpecies.swaggerGeneratedUnknown;
-}
-
-enums.AnimalCreateDTOSpecies? animalCreateDTOSpeciesNullableFromJson(
-  Object? animalCreateDTOSpecies, [
-  enums.AnimalCreateDTOSpecies? defaultValue,
-]) {
-  if (animalCreateDTOSpecies == null) {
-    return null;
-  }
-  return enums.AnimalCreateDTOSpecies.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOSpecies) ??
-      defaultValue;
-}
-
-String animalCreateDTOSpeciesExplodedListToJson(
-    List<enums.AnimalCreateDTOSpecies>? animalCreateDTOSpecies) {
-  return animalCreateDTOSpecies?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalCreateDTOSpeciesListToJson(
-    List<enums.AnimalCreateDTOSpecies>? animalCreateDTOSpecies) {
-  if (animalCreateDTOSpecies == null) {
-    return [];
-  }
-
-  return animalCreateDTOSpecies.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalCreateDTOSpecies> animalCreateDTOSpeciesListFromJson(
-  List? animalCreateDTOSpecies, [
-  List<enums.AnimalCreateDTOSpecies>? defaultValue,
-]) {
-  if (animalCreateDTOSpecies == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalCreateDTOSpecies
-      .map((e) => animalCreateDTOSpeciesFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalCreateDTOSpecies>? animalCreateDTOSpeciesNullableListFromJson(
-  List? animalCreateDTOSpecies, [
-  List<enums.AnimalCreateDTOSpecies>? defaultValue,
-]) {
-  if (animalCreateDTOSpecies == null) {
-    return defaultValue;
-  }
-
-  return animalCreateDTOSpecies
-      .map((e) => animalCreateDTOSpeciesFromJson(e.toString()))
-      .toList();
-}
-
-String? animalCreateDTOGenderNullableToJson(
-    enums.AnimalCreateDTOGender? animalCreateDTOGender) {
-  return animalCreateDTOGender?.value;
-}
-
-String? animalCreateDTOGenderToJson(
-    enums.AnimalCreateDTOGender animalCreateDTOGender) {
-  return animalCreateDTOGender.value;
-}
-
-enums.AnimalCreateDTOGender animalCreateDTOGenderFromJson(
-  Object? animalCreateDTOGender, [
-  enums.AnimalCreateDTOGender? defaultValue,
-]) {
-  return enums.AnimalCreateDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOGender) ??
-      defaultValue ??
-      enums.AnimalCreateDTOGender.swaggerGeneratedUnknown;
-}
-
-enums.AnimalCreateDTOGender? animalCreateDTOGenderNullableFromJson(
-  Object? animalCreateDTOGender, [
-  enums.AnimalCreateDTOGender? defaultValue,
-]) {
-  if (animalCreateDTOGender == null) {
-    return null;
-  }
-  return enums.AnimalCreateDTOGender.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOGender) ??
-      defaultValue;
-}
-
-String animalCreateDTOGenderExplodedListToJson(
-    List<enums.AnimalCreateDTOGender>? animalCreateDTOGender) {
-  return animalCreateDTOGender?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalCreateDTOGenderListToJson(
-    List<enums.AnimalCreateDTOGender>? animalCreateDTOGender) {
-  if (animalCreateDTOGender == null) {
-    return [];
-  }
-
-  return animalCreateDTOGender.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalCreateDTOGender> animalCreateDTOGenderListFromJson(
-  List? animalCreateDTOGender, [
-  List<enums.AnimalCreateDTOGender>? defaultValue,
-]) {
-  if (animalCreateDTOGender == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalCreateDTOGender
-      .map((e) => animalCreateDTOGenderFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalCreateDTOGender>? animalCreateDTOGenderNullableListFromJson(
-  List? animalCreateDTOGender, [
-  List<enums.AnimalCreateDTOGender>? defaultValue,
-]) {
-  if (animalCreateDTOGender == null) {
-    return defaultValue;
-  }
-
-  return animalCreateDTOGender
-      .map((e) => animalCreateDTOGenderFromJson(e.toString()))
-      .toList();
-}
-
-String? animalCreateDTOSizeNullableToJson(
-    enums.AnimalCreateDTOSize? animalCreateDTOSize) {
-  return animalCreateDTOSize?.value;
-}
-
-String? animalCreateDTOSizeToJson(
-    enums.AnimalCreateDTOSize animalCreateDTOSize) {
-  return animalCreateDTOSize.value;
-}
-
-enums.AnimalCreateDTOSize animalCreateDTOSizeFromJson(
-  Object? animalCreateDTOSize, [
-  enums.AnimalCreateDTOSize? defaultValue,
-]) {
-  return enums.AnimalCreateDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOSize) ??
-      defaultValue ??
-      enums.AnimalCreateDTOSize.swaggerGeneratedUnknown;
-}
-
-enums.AnimalCreateDTOSize? animalCreateDTOSizeNullableFromJson(
-  Object? animalCreateDTOSize, [
-  enums.AnimalCreateDTOSize? defaultValue,
-]) {
-  if (animalCreateDTOSize == null) {
-    return null;
-  }
-  return enums.AnimalCreateDTOSize.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOSize) ??
-      defaultValue;
-}
-
-String animalCreateDTOSizeExplodedListToJson(
-    List<enums.AnimalCreateDTOSize>? animalCreateDTOSize) {
-  return animalCreateDTOSize?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalCreateDTOSizeListToJson(
-    List<enums.AnimalCreateDTOSize>? animalCreateDTOSize) {
-  if (animalCreateDTOSize == null) {
-    return [];
-  }
-
-  return animalCreateDTOSize.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalCreateDTOSize> animalCreateDTOSizeListFromJson(
-  List? animalCreateDTOSize, [
-  List<enums.AnimalCreateDTOSize>? defaultValue,
-]) {
-  if (animalCreateDTOSize == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalCreateDTOSize
-      .map((e) => animalCreateDTOSizeFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalCreateDTOSize>? animalCreateDTOSizeNullableListFromJson(
-  List? animalCreateDTOSize, [
-  List<enums.AnimalCreateDTOSize>? defaultValue,
-]) {
-  if (animalCreateDTOSize == null) {
-    return defaultValue;
-  }
-
-  return animalCreateDTOSize
-      .map((e) => animalCreateDTOSizeFromJson(e.toString()))
-      .toList();
-}
-
-String? animalCreateDTOEnergyLevelNullableToJson(
-    enums.AnimalCreateDTOEnergyLevel? animalCreateDTOEnergyLevel) {
-  return animalCreateDTOEnergyLevel?.value;
-}
-
-String? animalCreateDTOEnergyLevelToJson(
-    enums.AnimalCreateDTOEnergyLevel animalCreateDTOEnergyLevel) {
-  return animalCreateDTOEnergyLevel.value;
-}
-
-enums.AnimalCreateDTOEnergyLevel animalCreateDTOEnergyLevelFromJson(
-  Object? animalCreateDTOEnergyLevel, [
-  enums.AnimalCreateDTOEnergyLevel? defaultValue,
-]) {
-  return enums.AnimalCreateDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOEnergyLevel) ??
-      defaultValue ??
-      enums.AnimalCreateDTOEnergyLevel.swaggerGeneratedUnknown;
-}
-
-enums.AnimalCreateDTOEnergyLevel? animalCreateDTOEnergyLevelNullableFromJson(
-  Object? animalCreateDTOEnergyLevel, [
-  enums.AnimalCreateDTOEnergyLevel? defaultValue,
-]) {
-  if (animalCreateDTOEnergyLevel == null) {
-    return null;
-  }
-  return enums.AnimalCreateDTOEnergyLevel.values
-          .firstWhereOrNull((e) => e.value == animalCreateDTOEnergyLevel) ??
-      defaultValue;
-}
-
-String animalCreateDTOEnergyLevelExplodedListToJson(
-    List<enums.AnimalCreateDTOEnergyLevel>? animalCreateDTOEnergyLevel) {
-  return animalCreateDTOEnergyLevel?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<String> animalCreateDTOEnergyLevelListToJson(
-    List<enums.AnimalCreateDTOEnergyLevel>? animalCreateDTOEnergyLevel) {
-  if (animalCreateDTOEnergyLevel == null) {
-    return [];
-  }
-
-  return animalCreateDTOEnergyLevel.map((e) => e.value!).toList();
-}
-
-List<enums.AnimalCreateDTOEnergyLevel> animalCreateDTOEnergyLevelListFromJson(
-  List? animalCreateDTOEnergyLevel, [
-  List<enums.AnimalCreateDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalCreateDTOEnergyLevel == null) {
-    return defaultValue ?? [];
-  }
-
-  return animalCreateDTOEnergyLevel
-      .map((e) => animalCreateDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AnimalCreateDTOEnergyLevel>?
-    animalCreateDTOEnergyLevelNullableListFromJson(
-  List? animalCreateDTOEnergyLevel, [
-  List<enums.AnimalCreateDTOEnergyLevel>? defaultValue,
-]) {
-  if (animalCreateDTOEnergyLevel == null) {
-    return defaultValue;
-  }
-
-  return animalCreateDTOEnergyLevel
-      .map((e) => animalCreateDTOEnergyLevelFromJson(e.toString()))
-      .toList();
-}
-
-String? apiRecurringSchedulesGetDayOfWeekNullableToJson(
-    enums.ApiRecurringSchedulesGetDayOfWeek?
-        apiRecurringSchedulesGetDayOfWeek) {
-  return apiRecurringSchedulesGetDayOfWeek?.value;
-}
-
-String? apiRecurringSchedulesGetDayOfWeekToJson(
-    enums.ApiRecurringSchedulesGetDayOfWeek apiRecurringSchedulesGetDayOfWeek) {
-  return apiRecurringSchedulesGetDayOfWeek.value;
-}
-
-enums.ApiRecurringSchedulesGetDayOfWeek
-    apiRecurringSchedulesGetDayOfWeekFromJson(
-  Object? apiRecurringSchedulesGetDayOfWeek, [
-  enums.ApiRecurringSchedulesGetDayOfWeek? defaultValue,
-]) {
-  return enums.ApiRecurringSchedulesGetDayOfWeek.values.firstWhereOrNull(
-          (e) => e.value == apiRecurringSchedulesGetDayOfWeek) ??
-      defaultValue ??
-      enums.ApiRecurringSchedulesGetDayOfWeek.swaggerGeneratedUnknown;
-}
-
-enums.ApiRecurringSchedulesGetDayOfWeek?
-    apiRecurringSchedulesGetDayOfWeekNullableFromJson(
-  Object? apiRecurringSchedulesGetDayOfWeek, [
-  enums.ApiRecurringSchedulesGetDayOfWeek? defaultValue,
-]) {
-  if (apiRecurringSchedulesGetDayOfWeek == null) {
-    return null;
-  }
-  return enums.ApiRecurringSchedulesGetDayOfWeek.values.firstWhereOrNull(
-          (e) => e.value == apiRecurringSchedulesGetDayOfWeek) ??
-      defaultValue;
-}
-
-String apiRecurringSchedulesGetDayOfWeekExplodedListToJson(
-    List<enums.ApiRecurringSchedulesGetDayOfWeek>?
-        apiRecurringSchedulesGetDayOfWeek) {
-  return apiRecurringSchedulesGetDayOfWeek?.map((e) => e.value!).join(',') ??
-      '';
-}
-
-List<String> apiRecurringSchedulesGetDayOfWeekListToJson(
-    List<enums.ApiRecurringSchedulesGetDayOfWeek>?
-        apiRecurringSchedulesGetDayOfWeek) {
-  if (apiRecurringSchedulesGetDayOfWeek == null) {
-    return [];
-  }
-
-  return apiRecurringSchedulesGetDayOfWeek.map((e) => e.value!).toList();
-}
-
-List<enums.ApiRecurringSchedulesGetDayOfWeek>
-    apiRecurringSchedulesGetDayOfWeekListFromJson(
-  List? apiRecurringSchedulesGetDayOfWeek, [
-  List<enums.ApiRecurringSchedulesGetDayOfWeek>? defaultValue,
-]) {
-  if (apiRecurringSchedulesGetDayOfWeek == null) {
-    return defaultValue ?? [];
-  }
-
-  return apiRecurringSchedulesGetDayOfWeek
-      .map((e) => apiRecurringSchedulesGetDayOfWeekFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.ApiRecurringSchedulesGetDayOfWeek>?
-    apiRecurringSchedulesGetDayOfWeekNullableListFromJson(
-  List? apiRecurringSchedulesGetDayOfWeek, [
-  List<enums.ApiRecurringSchedulesGetDayOfWeek>? defaultValue,
-]) {
-  if (apiRecurringSchedulesGetDayOfWeek == null) {
-    return defaultValue;
-  }
-
-  return apiRecurringSchedulesGetDayOfWeek
-      .map((e) => apiRecurringSchedulesGetDayOfWeekFromJson(e.toString()))
-      .toList();
-}
-
-String? apiRecurringSchedulesPostDayOfWeekNullableToJson(
-    enums.ApiRecurringSchedulesPostDayOfWeek?
-        apiRecurringSchedulesPostDayOfWeek) {
-  return apiRecurringSchedulesPostDayOfWeek?.value;
-}
-
-String? apiRecurringSchedulesPostDayOfWeekToJson(
-    enums.ApiRecurringSchedulesPostDayOfWeek
-        apiRecurringSchedulesPostDayOfWeek) {
-  return apiRecurringSchedulesPostDayOfWeek.value;
-}
-
-enums.ApiRecurringSchedulesPostDayOfWeek
-    apiRecurringSchedulesPostDayOfWeekFromJson(
-  Object? apiRecurringSchedulesPostDayOfWeek, [
-  enums.ApiRecurringSchedulesPostDayOfWeek? defaultValue,
-]) {
-  return enums.ApiRecurringSchedulesPostDayOfWeek.values.firstWhereOrNull(
-          (e) => e.value == apiRecurringSchedulesPostDayOfWeek) ??
-      defaultValue ??
-      enums.ApiRecurringSchedulesPostDayOfWeek.swaggerGeneratedUnknown;
-}
-
-enums.ApiRecurringSchedulesPostDayOfWeek?
-    apiRecurringSchedulesPostDayOfWeekNullableFromJson(
-  Object? apiRecurringSchedulesPostDayOfWeek, [
-  enums.ApiRecurringSchedulesPostDayOfWeek? defaultValue,
-]) {
-  if (apiRecurringSchedulesPostDayOfWeek == null) {
-    return null;
-  }
-  return enums.ApiRecurringSchedulesPostDayOfWeek.values.firstWhereOrNull(
-          (e) => e.value == apiRecurringSchedulesPostDayOfWeek) ??
-      defaultValue;
-}
-
-String apiRecurringSchedulesPostDayOfWeekExplodedListToJson(
-    List<enums.ApiRecurringSchedulesPostDayOfWeek>?
-        apiRecurringSchedulesPostDayOfWeek) {
-  return apiRecurringSchedulesPostDayOfWeek?.map((e) => e.value!).join(',') ??
-      '';
-}
-
-List<String> apiRecurringSchedulesPostDayOfWeekListToJson(
-    List<enums.ApiRecurringSchedulesPostDayOfWeek>?
-        apiRecurringSchedulesPostDayOfWeek) {
-  if (apiRecurringSchedulesPostDayOfWeek == null) {
-    return [];
-  }
-
-  return apiRecurringSchedulesPostDayOfWeek.map((e) => e.value!).toList();
-}
-
-List<enums.ApiRecurringSchedulesPostDayOfWeek>
-    apiRecurringSchedulesPostDayOfWeekListFromJson(
-  List? apiRecurringSchedulesPostDayOfWeek, [
-  List<enums.ApiRecurringSchedulesPostDayOfWeek>? defaultValue,
-]) {
-  if (apiRecurringSchedulesPostDayOfWeek == null) {
-    return defaultValue ?? [];
-  }
-
-  return apiRecurringSchedulesPostDayOfWeek
-      .map((e) => apiRecurringSchedulesPostDayOfWeekFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.ApiRecurringSchedulesPostDayOfWeek>?
-    apiRecurringSchedulesPostDayOfWeekNullableListFromJson(
-  List? apiRecurringSchedulesPostDayOfWeek, [
-  List<enums.ApiRecurringSchedulesPostDayOfWeek>? defaultValue,
-]) {
-  if (apiRecurringSchedulesPostDayOfWeek == null) {
-    return defaultValue;
-  }
-
-  return apiRecurringSchedulesPostDayOfWeek
-      .map((e) => apiRecurringSchedulesPostDayOfWeekFromJson(e.toString()))
-      .toList();
-}
-
-String? apiPetServicesCategoryCategoryGetCategoryNullableToJson(
-    enums.ApiPetServicesCategoryCategoryGetCategory?
-        apiPetServicesCategoryCategoryGetCategory) {
-  return apiPetServicesCategoryCategoryGetCategory?.value;
-}
-
-String? apiPetServicesCategoryCategoryGetCategoryToJson(
-    enums.ApiPetServicesCategoryCategoryGetCategory
-        apiPetServicesCategoryCategoryGetCategory) {
-  return apiPetServicesCategoryCategoryGetCategory.value;
-}
-
-enums.ApiPetServicesCategoryCategoryGetCategory
-    apiPetServicesCategoryCategoryGetCategoryFromJson(
-  Object? apiPetServicesCategoryCategoryGetCategory, [
-  enums.ApiPetServicesCategoryCategoryGetCategory? defaultValue,
-]) {
-  return enums.ApiPetServicesCategoryCategoryGetCategory.values
-          .firstWhereOrNull(
-              (e) => e.value == apiPetServicesCategoryCategoryGetCategory) ??
-      defaultValue ??
-      enums.ApiPetServicesCategoryCategoryGetCategory.swaggerGeneratedUnknown;
-}
-
-enums.ApiPetServicesCategoryCategoryGetCategory?
-    apiPetServicesCategoryCategoryGetCategoryNullableFromJson(
-  Object? apiPetServicesCategoryCategoryGetCategory, [
-  enums.ApiPetServicesCategoryCategoryGetCategory? defaultValue,
-]) {
-  if (apiPetServicesCategoryCategoryGetCategory == null) {
-    return null;
-  }
-  return enums.ApiPetServicesCategoryCategoryGetCategory.values
-          .firstWhereOrNull(
-              (e) => e.value == apiPetServicesCategoryCategoryGetCategory) ??
-      defaultValue;
-}
-
-String apiPetServicesCategoryCategoryGetCategoryExplodedListToJson(
-    List<enums.ApiPetServicesCategoryCategoryGetCategory>?
-        apiPetServicesCategoryCategoryGetCategory) {
-  return apiPetServicesCategoryCategoryGetCategory
-          ?.map((e) => e.value!)
-          .join(',') ??
-      '';
-}
-
-List<String> apiPetServicesCategoryCategoryGetCategoryListToJson(
-    List<enums.ApiPetServicesCategoryCategoryGetCategory>?
-        apiPetServicesCategoryCategoryGetCategory) {
-  if (apiPetServicesCategoryCategoryGetCategory == null) {
-    return [];
-  }
-
-  return apiPetServicesCategoryCategoryGetCategory
-      .map((e) => e.value!)
-      .toList();
-}
-
-List<enums.ApiPetServicesCategoryCategoryGetCategory>
-    apiPetServicesCategoryCategoryGetCategoryListFromJson(
-  List? apiPetServicesCategoryCategoryGetCategory, [
-  List<enums.ApiPetServicesCategoryCategoryGetCategory>? defaultValue,
-]) {
-  if (apiPetServicesCategoryCategoryGetCategory == null) {
-    return defaultValue ?? [];
-  }
-
-  return apiPetServicesCategoryCategoryGetCategory
-      .map((e) =>
-          apiPetServicesCategoryCategoryGetCategoryFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.ApiPetServicesCategoryCategoryGetCategory>?
-    apiPetServicesCategoryCategoryGetCategoryNullableListFromJson(
-  List? apiPetServicesCategoryCategoryGetCategory, [
-  List<enums.ApiPetServicesCategoryCategoryGetCategory>? defaultValue,
-]) {
-  if (apiPetServicesCategoryCategoryGetCategory == null) {
-    return defaultValue;
-  }
-
-  return apiPetServicesCategoryCategoryGetCategory
-      .map((e) =>
-          apiPetServicesCategoryCategoryGetCategoryFromJson(e.toString()))
-      .toList();
-}
-
-String? apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeNullableToJson(
-    enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType?
-        apiPetServicesAnimalTypeAnimalTypeGetAnimalType) {
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType?.value;
-}
-
-String? apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeToJson(
-    enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType
-        apiPetServicesAnimalTypeAnimalTypeGetAnimalType) {
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType.value;
-}
-
-enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType
-    apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeFromJson(
-  Object? apiPetServicesAnimalTypeAnimalTypeGetAnimalType, [
-  enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType? defaultValue,
-]) {
-  return enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType.values
-          .firstWhereOrNull((e) =>
-              e.value == apiPetServicesAnimalTypeAnimalTypeGetAnimalType) ??
-      defaultValue ??
-      enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType
-          .swaggerGeneratedUnknown;
-}
-
-enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType?
-    apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeNullableFromJson(
-  Object? apiPetServicesAnimalTypeAnimalTypeGetAnimalType, [
-  enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType? defaultValue,
-]) {
-  if (apiPetServicesAnimalTypeAnimalTypeGetAnimalType == null) {
-    return null;
-  }
-  return enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType.values
-          .firstWhereOrNull((e) =>
-              e.value == apiPetServicesAnimalTypeAnimalTypeGetAnimalType) ??
-      defaultValue;
-}
-
-String apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeExplodedListToJson(
-    List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>?
-        apiPetServicesAnimalTypeAnimalTypeGetAnimalType) {
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType
-          ?.map((e) => e.value!)
-          .join(',') ??
-      '';
-}
-
-List<String> apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeListToJson(
-    List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>?
-        apiPetServicesAnimalTypeAnimalTypeGetAnimalType) {
-  if (apiPetServicesAnimalTypeAnimalTypeGetAnimalType == null) {
-    return [];
-  }
-
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType
-      .map((e) => e.value!)
-      .toList();
-}
-
-List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>
-    apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeListFromJson(
-  List? apiPetServicesAnimalTypeAnimalTypeGetAnimalType, [
-  List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>? defaultValue,
-]) {
-  if (apiPetServicesAnimalTypeAnimalTypeGetAnimalType == null) {
-    return defaultValue ?? [];
-  }
-
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType
-      .map((e) =>
-          apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>?
-    apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeNullableListFromJson(
-  List? apiPetServicesAnimalTypeAnimalTypeGetAnimalType, [
-  List<enums.ApiPetServicesAnimalTypeAnimalTypeGetAnimalType>? defaultValue,
-]) {
-  if (apiPetServicesAnimalTypeAnimalTypeGetAnimalType == null) {
-    return defaultValue;
-  }
-
-  return apiPetServicesAnimalTypeAnimalTypeGetAnimalType
-      .map((e) =>
-          apiPetServicesAnimalTypeAnimalTypeGetAnimalTypeFromJson(e.toString()))
-      .toList();
-}
-
-String? apiMissionsIdPaymentStatusGet$ResponseNullableToJson(
-    enums.ApiMissionsIdPaymentStatusGet$Response?
-        apiMissionsIdPaymentStatusGet$Response) {
-  return apiMissionsIdPaymentStatusGet$Response?.value;
-}
-
-String? apiMissionsIdPaymentStatusGet$ResponseToJson(
-    enums.ApiMissionsIdPaymentStatusGet$Response
-        apiMissionsIdPaymentStatusGet$Response) {
-  return apiMissionsIdPaymentStatusGet$Response.value;
-}
-
-enums.ApiMissionsIdPaymentStatusGet$Response
-    apiMissionsIdPaymentStatusGet$ResponseFromJson(
-  Object? apiMissionsIdPaymentStatusGet$Response, [
-  enums.ApiMissionsIdPaymentStatusGet$Response? defaultValue,
-]) {
-  return enums.ApiMissionsIdPaymentStatusGet$Response.values.firstWhereOrNull(
-          (e) => e.value == apiMissionsIdPaymentStatusGet$Response) ??
-      defaultValue ??
-      enums.ApiMissionsIdPaymentStatusGet$Response.swaggerGeneratedUnknown;
-}
-
-enums.ApiMissionsIdPaymentStatusGet$Response?
-    apiMissionsIdPaymentStatusGet$ResponseNullableFromJson(
-  Object? apiMissionsIdPaymentStatusGet$Response, [
-  enums.ApiMissionsIdPaymentStatusGet$Response? defaultValue,
-]) {
-  if (apiMissionsIdPaymentStatusGet$Response == null) {
-    return null;
-  }
-  return enums.ApiMissionsIdPaymentStatusGet$Response.values.firstWhereOrNull(
-          (e) => e.value == apiMissionsIdPaymentStatusGet$Response) ??
-      defaultValue;
-}
-
-String apiMissionsIdPaymentStatusGet$ResponseExplodedListToJson(
-    List<enums.ApiMissionsIdPaymentStatusGet$Response>?
-        apiMissionsIdPaymentStatusGet$Response) {
-  return apiMissionsIdPaymentStatusGet$Response
-          ?.map((e) => e.value!)
-          .join(',') ??
-      '';
-}
-
-List<String> apiMissionsIdPaymentStatusGet$ResponseListToJson(
-    List<enums.ApiMissionsIdPaymentStatusGet$Response>?
-        apiMissionsIdPaymentStatusGet$Response) {
-  if (apiMissionsIdPaymentStatusGet$Response == null) {
-    return [];
-  }
-
-  return apiMissionsIdPaymentStatusGet$Response.map((e) => e.value!).toList();
-}
-
-List<enums.ApiMissionsIdPaymentStatusGet$Response>
-    apiMissionsIdPaymentStatusGet$ResponseListFromJson(
-  List? apiMissionsIdPaymentStatusGet$Response, [
-  List<enums.ApiMissionsIdPaymentStatusGet$Response>? defaultValue,
-]) {
-  if (apiMissionsIdPaymentStatusGet$Response == null) {
-    return defaultValue ?? [];
-  }
-
-  return apiMissionsIdPaymentStatusGet$Response
-      .map((e) => apiMissionsIdPaymentStatusGet$ResponseFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.ApiMissionsIdPaymentStatusGet$Response>?
-    apiMissionsIdPaymentStatusGet$ResponseNullableListFromJson(
-  List? apiMissionsIdPaymentStatusGet$Response, [
-  List<enums.ApiMissionsIdPaymentStatusGet$Response>? defaultValue,
-]) {
-  if (apiMissionsIdPaymentStatusGet$Response == null) {
-    return defaultValue;
-  }
-
-  return apiMissionsIdPaymentStatusGet$Response
-      .map((e) => apiMissionsIdPaymentStatusGet$ResponseFromJson(e.toString()))
-      .toList();
+  return usersUserRole.map((e) => usersUserRoleFromJson(e.toString())).toList();
 }
 
 typedef $JsonFactory<T> = T Function(Map<String, dynamic> json);

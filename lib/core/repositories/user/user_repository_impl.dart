@@ -7,7 +7,7 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._client);
 
   @override
-  Future<UserDTO> getMe() async {
+  Future<UsersUser> getMe() async {
     final response = await _client.apiUsersMeGet();
     if (response.isSuccessful) {
       return response.body!;
@@ -17,7 +17,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserDTO> getUserById(String id) async {
+  Future<UsersUser> getUserById(String id) async {
     final response = await _client.apiUsersIdGet(id: id);
     if (response.isSuccessful) {
       return response.body!;
@@ -27,8 +27,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserDTO> getUserByEmail(String email) async {
-    final response = await _client.apiUsersEmailGet(email: email);
+  Future<UsersUser> getUserByEmail(String email) async {
+    final response = await _client.apiUsersEmailEmailGet(email: email);
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -37,8 +37,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<List<UserDTO>> getAllUsers() async {
-    final response = await _client.apiUsersAllGet();
+  Future<List<UsersUser>> getAllUsers() async {
+    final response = await _client.apiUsersGet();
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -47,8 +47,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserDTO> createUser(UserCreationDTO userCreationDTO) async {
-    final response = await _client.apiUsersPost(body: userCreationDTO);
+  Future<UsersUser> createUser(UsersCreateUserRequest userCreationDTO) async {
+    final response = await _client.apiUsersPost(user: userCreationDTO);
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -56,19 +56,19 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  @override
-  Future<UserDTO> createVetAssistant(UserCreationDTO userCreationDTO) async {
-    final response = await _client.apiUsersVetAssistantPost(body: userCreationDTO);
-    if (response.isSuccessful) {
-      return response.body!;
-    } else {
-      throw Exception('Failed to create vet assistant: ${response.error}');
-    }
-  }
+  // @override
+  // Future<UsersUser> createVetAssistant(UsersCreateUserRequest userCreationDTO) async {
+  //   final response = await _client.apiUsersVetAssistantPost(body: userCreationDTO);
+  //   if (response.isSuccessful) {
+  //     return response.body!;
+  //   } else {
+  //     throw Exception('Failed to create vet assistant: ${response.error}');
+  //   }
+  // }
 
   @override
-  Future<UserDTO> createUserWithoutPassword(UserCreationDTO userCreationDTO) async {
-    final response = await _client.apiUsersPost(body: userCreationDTO);
+  Future<UsersUser> createUserWithoutPassword(UsersCreateUserRequest userCreationDTO) async {
+    final response = await _client.apiUsersPost(user: userCreationDTO);
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -77,8 +77,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserDTO> updateUser(String id, UserUpdateDTO user) async {
-    final response = await _client.apiUsersIdPut(body: user);
+  Future<UsersUser> updateUser(String id, UsersUpdateUserRequest user) async {
+    final response = await _client.apiUsersIdPut(id: user.id, user: user);
     if (response.isSuccessful) {
       return response.body!;
     } else {

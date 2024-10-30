@@ -22,13 +22,13 @@ class AsvCreateMissionScreen extends HookWidget {
         'endDate': FormControl<DateTime>(validators: [Validators.required]),
         'notes': FormControl<String>(),
         'price': FormControl<double>(validators: [Validators.required, Validators.min(0)]),
-        'services': FormControl<List<MissionAnimalServiceCreationDTO>>(value: []),
+        'services': FormControl<List<MissionsAnimalServiceWithDetails>>(value: []),
       });
 
   @override
   Widget build(BuildContext context) {
     final form = useMemoized(() => buildForm());
-    final selectedUser = useState<UserDTO?>(null);
+    final selectedUser = useState<UsersUser?>(null);
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -62,10 +62,10 @@ class AsvCreateMissionScreen extends HookWidget {
                         builder: (context, state) {
                           final users = state.maybeWhen(
                             loaded: (users) => users,
-                            orElse: () => <UserDTO>[],
+                            orElse: () => <UsersUser>[],
                           );
                           return UserSearchField(
-                            onUserSelected: (UserDTO user) {
+                            onUserSelected: (UsersUser user) {
                               selectedUser.value = user;
                               form.control('clientId').value = user.id;
                             },

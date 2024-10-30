@@ -28,10 +28,11 @@ Map<String, dynamic> _$$LoadingImplToJson(_$LoadingImpl instance) =>
 
 _$LoadedImpl _$$LoadedImplFromJson(Map<String, dynamic> json) => _$LoadedImpl(
       (json['petServices'] as List<dynamic>)
-          .map((e) => PetServiceDTO.fromJson(e as Map<String, dynamic>))
+          .map((e) => PetServicesPetService.fromJson(e as Map<String, dynamic>))
           .toList(),
       selectedServices: (json['selectedServices'] as List<dynamic>?)
-              ?.map((e) => PetServiceDTO.fromJson(e as Map<String, dynamic>))
+              ?.map((e) =>
+                  PetServicesPetService.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       $type: json['runtimeType'] as String?,

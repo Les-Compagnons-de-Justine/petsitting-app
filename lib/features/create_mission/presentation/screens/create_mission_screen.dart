@@ -45,7 +45,7 @@ class CreateMissionScreen extends HookWidget {
               type: QuickAlertType.success,
               confirmBtnText: "OK",
               onConfirmBtnTap: () {
-                context.read<MissionsCubit>().fetchMissions(mission.$client.id);
+                context.read<MissionsCubit>().fetchMissions(mission.$client!.id!);
                 context.go(RouteNames.home);
               },
             );

@@ -6,11 +6,11 @@ part 'mission_creation.freezed.dart';
 @freezed
 class MissionCreation with _$MissionCreation {
   const factory MissionCreation({
-    UserDTO? customer,
+    UsersUser? customer,
     DateTime? startDate,
     DateTime? endDate,
-    List<DailyServiceCreationDTO>? dailyServices,
+    List<MissionsDailyService>? dailyServices,
     String? notes,
-    PlaceDetailsDTO? location,
+    PlaceDetails? location,
   }) = _MissionCreation;
 }

@@ -4,11 +4,11 @@ import 'package:petsitting/core/widgets/custom_app_bar.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
 class AddServiceForm extends HookWidget {
-  final ValueNotifier<List<DailyServiceDTO>> dailyServicesNotifier;
+  final ValueNotifier<List<MissionsDailyServiceWithDetails>> dailyServicesNotifier;
   final DateTime missionStartDate;
   final DateTime missionEndDate;
-  final List<AnimalDTO> animals;
-  final List<PetServiceDTO> petServices;
+  final List<AnimalWithOwner> animals;
+  final List<PetServicesPetService> petServices;
 
   const AddServiceForm({
     super.key,
@@ -24,8 +24,8 @@ class AddServiceForm extends HookWidget {
     final selectedDates = useState<List<DateTime>>([]);
     final selectAllDays = useState<bool>(false);
     final priceController = useTextEditingController();
-    final selectedAnimal = useState<AnimalDTO?>(null);
-    final selectedService = useState<PetServiceDTO?>(null); // Gérer la sélection du service
+    final selectedAnimal = useState<AnimalWithOwner?>(null);
+    final selectedService = useState<PetServicesPetService?>(null); // Gérer la sélection du service
 
     useEffect(() {
       if (selectAllDays.value) {
@@ -39,7 +39,7 @@ class AddServiceForm extends HookWidget {
       if (selectedService.value != null) {
         final basePrice = selectedService.value!.basePrice;
         final totalDays = selectedDates.value.length;
-        final totalPrice = basePrice * totalDays;
+        final totalPrice = basePrice! * totalDays;
         priceController.text = totalPrice.toString();
       }
       return null;
@@ -55,30 +55,30 @@ class AddServiceForm extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Dropdown pour sélectionner l'animal
-            DropdownButtonFormField<AnimalDTO>(
+            DropdownButtonFormField<AnimalWithOwner>(
               value: selectedAnimal.value,
               items: animals.map((animal) {
-                return DropdownMenuItem<AnimalDTO>(
+                return DropdownMenuItem<AnimalWithOwner>(
                   value: animal,
-                  child: Text(animal.name),
+                  child: Text(animal.name!),
                 );
               }).toList(),
-              onChanged: (AnimalDTO? value) {
+              onChanged: (AnimalWithOwner? value) {
                 selectedAnimal.value = value;
               },
               decoration: const InputDecoration(labelText: 'Sélectionner un animal'),
             ),
             const SizedBox(height: 16),
             // Dropdown pour sélectionner le type de service
-            DropdownButtonFormField<PetServiceDTO>(
+            DropdownButtonFormField<PetServicesPetService>(
               value: selectedService.value,
               items: petServices.map((service) {
-                return DropdownMenuItem<PetServiceDTO>(
+                return DropdownMenuItem<PetServicesPetService>(
                   value: service,
-                  child: Text(service.name),
+                  child: Text(service.name!),
                 );
               }).toList(),
-              onChanged: (PetServiceDTO? value) {
+              onChanged: (PetServicesPetService? value) {
                 selectedService.value = value;
                 final basePrice = value?.basePrice ?? 0;
                 final totalDays = selectedDates.value.length;
@@ -167,28 +167,34 @@ class AddServiceForm extends HookWidget {
 
   // Ajouter le service aux dates sélectionnées
   void _addServiceToSelectedDates(
-      ValueNotifier<List<DailyServiceDTO>> dailyServicesNotifier, List<DateTime> selectedDates, AnimalDTO animal, PetServiceDTO petService, double price) {
+    ValueNotifier<List<MissionsDailyServiceWithDetails>> dailyServicesNotifier,
+    List<DateTime> selectedDates,
+    AnimalWithOwner animal,
+    PetServicesPetService petService,
+    double price,
+  ) {
     final pricePerDay = price / selectedDates.length;
     for (DateTime date in selectedDates) {
-      final service = MissionAnimalServiceDTO(
+      final service = MissionsAnimalServiceWithDetails(
         animal: animal,
         petService: petService,
         price: pricePerDay,
-        date: date,
+        date: date.toIso8601String(),
       );
       _addServiceToList(service, date, dailyServicesNotifier);
     }
   }
 
   // Méthode existante pour ajouter un service à une date spécifique
-  void _addServiceToList(MissionAnimalServiceDTO service, DateTime missionDate, ValueNotifier<List<DailyServiceDTO>> dailyServicesNotifier) {
-    final existingDayIndex = dailyServicesNotifier.value.indexWhere((dailyService) => dailyService.date == missionDate);
+  void _addServiceToList(
+      MissionsAnimalServiceWithDetails service, DateTime missionDate, ValueNotifier<List<MissionsDailyServiceWithDetails>> dailyServicesNotifier) {
+    final existingDayIndex = dailyServicesNotifier.value.indexWhere((dailyService) => DateTime.parse(dailyService.date!) == missionDate);
 
     if (existingDayIndex != -1) {
       // Jour déjà existant, ajouter le service à cette date
       final existingDay = dailyServicesNotifier.value[existingDayIndex];
-      final updatedServices = [...existingDay.services, service];
-      final updatedDailyService = DailyServiceDTO(date: existingDay.date, services: updatedServices);
+      final updatedServices = <MissionsAnimalServiceWithDetails>[...existingDay.services ?? [], service];
+      final updatedDailyService = MissionsDailyServiceWithDetails(date: existingDay.date, services: updatedServices);
 
       dailyServicesNotifier.value = [
         for (var i = 0; i < dailyServicesNotifier.value.length; i++)
@@ -196,7 +202,7 @@ class AddServiceForm extends HookWidget {
       ];
     } else {
       // Nouveau jour, ajouter un nouveau jour avec le service
-      final newDailyService = DailyServiceDTO(date: missionDate, services: [service]);
+      final newDailyService = MissionsDailyServiceWithDetails(date: missionDate.toIso8601String(), services: [service]);
       dailyServicesNotifier.value = [...dailyServicesNotifier.value, newDailyService];
     }
   }

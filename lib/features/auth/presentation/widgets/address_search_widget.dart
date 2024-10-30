@@ -42,7 +42,7 @@ class AddressSearchWidget extends StatelessWidget {
                       focusNode: addressFocusNode,
                       suggestions: state.suggestions
                           .map((suggestion) => SearchFieldListItem<PlaceSuggestion>(
-                                suggestion.description,
+                                suggestion.description!,
                                 item: suggestion,
                               ))
                           .toList(),

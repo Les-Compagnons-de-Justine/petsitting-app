@@ -12,18 +12,18 @@ class UserManager {
 
   UserManager._internal();
 
-  client.UserDTO? _currentUser;
-  final _userController = StreamController<client.UserDTO?>.broadcast();
+  client.UsersUser? _currentUser;
+  final _userController = StreamController<client.UsersUser?>.broadcast();
 
-  Stream<client.UserDTO?> get userStream => _userController.stream;
+  Stream<client.UsersUser?> get userStream => _userController.stream;
 
-  client.UserDTO? get currentUser => _currentUser;
+  client.UsersUser? get currentUser => _currentUser;
 
   bool get isAuthenticated => _currentUser != null;
 
-  bool get isVetAssistant => _currentUser?.role == UserDTORole.vetAssistant;
+  bool get isVetAssistant => _currentUser?.role == UsersUserRole.roleadmin;
 
-  void setUser(client.UserDTO user) {
+  void setUser(client.UsersUser user) {
     _currentUser = user;
     _userController.add(_currentUser);
   }
@@ -33,7 +33,7 @@ class UserManager {
     _userController.add(_currentUser);
   }
 
-  void updateUser(Function(client.UserDTO) updateFunction) {
+  void updateUser(Function(client.UsersUser) updateFunction) {
     if (_currentUser != null) {
       _currentUser = updateFunction(_currentUser!);
       _userController.add(_currentUser);

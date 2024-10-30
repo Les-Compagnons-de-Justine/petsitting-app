@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
 class StatusStepper extends StatelessWidget {
-  final MissionDTO mission;
+  final MissionsMission mission;
 
   const StatusStepper({
     super.key,
@@ -13,13 +13,13 @@ class StatusStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> steps = [
-      {'status': MissionDTOMissionStatus.pending, 'label': 'En attente'},
-      {'status': MissionDTOMissionStatus.confirmed, 'label': 'Confirmé'},
-      {'status': MissionDTOMissionStatus.inProgress, 'label': 'En cours'},
-      {'status': MissionDTOMissionStatus.completed, 'label': 'Terminé'},
+      {'status': MissionsStatus.statuspending, 'label': 'En attente'},
+      {'status': MissionsStatus.statusconfirmed, 'label': 'Confirmé'},
+      {'status': MissionsStatus.statusinprogress, 'label': 'En cours'},
+      {'status': MissionsStatus.statuscompleted, 'label': 'Terminé'},
     ];
 
-    int currentStep = steps.indexWhere((step) => step['status'] == mission.missionStatus);
+    int currentStep = steps.indexWhere((step) => step['status'] == mission.status);
     if (currentStep == -1) {
       currentStep = 0;
     }

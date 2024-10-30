@@ -6,596 +6,541 @@ part of 'pet_sitting_client.swagger.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlaceDetailsDTO _$PlaceDetailsDTOFromJson(Map<String, dynamic> json) =>
-    PlaceDetailsDTO(
-      name: json['name'] as String,
-      formattedAddress: json['formattedAddress'] as String,
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$PlaceDetailsDTOToJson(PlaceDetailsDTO instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'formattedAddress': instance.formattedAddress,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-    };
-
-UserUpdateDTO _$UserUpdateDTOFromJson(Map<String, dynamic> json) =>
-    UserUpdateDTO(
-      id: json['id'] as String,
-      firebaseUid: json['firebaseUid'] as String,
-      lastname: json['lastname'] as String,
-      firstname: json['firstname'] as String,
-      email: json['email'] as String,
-      address:
-          PlaceDetailsDTO.fromJson(json['address'] as Map<String, dynamic>),
-      phone: json['phone'] as String,
-      role: userUpdateDTORoleFromJson(json['role']),
-      photoUrl: json['photoUrl'] as String?,
-      emergencyContact: json['emergencyContact'] as String?,
-      preferredCommunicationMethod:
-          json['preferredCommunicationMethod'] as String?,
-      isVerified: json['isVerified'] as bool,
-      registrationDate: DateTime.parse(json['registrationDate'] as String),
-      notes: json['notes'] as String?,
-    );
-
-Map<String, dynamic> _$UserUpdateDTOToJson(UserUpdateDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'firebaseUid': instance.firebaseUid,
-      'lastname': instance.lastname,
-      'firstname': instance.firstname,
-      'email': instance.email,
-      'address': instance.address.toJson(),
-      'phone': instance.phone,
-      'role': userUpdateDTORoleToJson(instance.role),
-      'photoUrl': instance.photoUrl,
-      'emergencyContact': instance.emergencyContact,
-      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
-      'isVerified': instance.isVerified,
-      'registrationDate': _dateToJson(instance.registrationDate),
-      'notes': instance.notes,
-    };
-
-UserDTO _$UserDTOFromJson(Map<String, dynamic> json) => UserDTO(
-      id: json['id'] as String,
-      firebaseId: json['firebaseId'] as String?,
-      lastname: json['lastname'] as String,
-      firstname: json['firstname'] as String,
-      email: json['email'] as String,
-      address:
-          PlaceDetailsDTO.fromJson(json['address'] as Map<String, dynamic>),
-      phone: json['phone'] as String,
-      role: userDTORoleFromJson(json['role']),
-      photoUrl: json['photoUrl'] as String?,
-      emergencyContact: json['emergencyContact'] as String?,
-      preferredCommunicationMethod:
-          json['preferredCommunicationMethod'] as String?,
-      isVerified: json['isVerified'] as bool,
-      registrationDate: DateTime.parse(json['registrationDate'] as String),
-      notes: json['notes'] as String?,
-    );
-
-Map<String, dynamic> _$UserDTOToJson(UserDTO instance) => <String, dynamic>{
-      'id': instance.id,
-      'firebaseId': instance.firebaseId,
-      'lastname': instance.lastname,
-      'firstname': instance.firstname,
-      'email': instance.email,
-      'address': instance.address.toJson(),
-      'phone': instance.phone,
-      'role': userDTORoleToJson(instance.role),
-      'photoUrl': instance.photoUrl,
-      'emergencyContact': instance.emergencyContact,
-      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
-      'isVerified': instance.isVerified,
-      'registrationDate': _dateToJson(instance.registrationDate),
-      'notes': instance.notes,
-    };
-
-LocalTime _$LocalTimeFromJson(Map<String, dynamic> json) => LocalTime(
-      hour: (json['hour'] as num?)?.toInt(),
-      minute: (json['minute'] as num?)?.toInt(),
-      second: (json['second'] as num?)?.toInt(),
-      nano: (json['nano'] as num?)?.toInt(),
-    );
-
-Map<String, dynamic> _$LocalTimeToJson(LocalTime instance) => <String, dynamic>{
-      'hour': instance.hour,
-      'minute': instance.minute,
-      'second': instance.second,
-      'nano': instance.nano,
-    };
-
-PlaceDetails _$PlaceDetailsFromJson(Map<String, dynamic> json) => PlaceDetails(
-      name: json['name'] as String,
-      formattedAddress: json['formattedAddress'] as String,
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$PlaceDetailsToJson(PlaceDetails instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'formattedAddress': instance.formattedAddress,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-    };
-
-RecurringScheduleDTO _$RecurringScheduleDTOFromJson(
-        Map<String, dynamic> json) =>
-    RecurringScheduleDTO(
-      id: json['id'] as String?,
-      vetAssistant: User.fromJson(json['vetAssistant'] as Map<String, dynamic>),
-      dayOfWeek: recurringScheduleDTODayOfWeekFromJson(json['dayOfWeek']),
-      startTime: LocalTime.fromJson(json['startTime'] as Map<String, dynamic>),
-      endTime: LocalTime.fromJson(json['endTime'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$RecurringScheduleDTOToJson(
-        RecurringScheduleDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'vetAssistant': instance.vetAssistant.toJson(),
-      'dayOfWeek': recurringScheduleDTODayOfWeekToJson(instance.dayOfWeek),
-      'startTime': instance.startTime.toJson(),
-      'endTime': instance.endTime.toJson(),
-    };
-
-Timestamp _$TimestampFromJson(Map<String, dynamic> json) => Timestamp(
-      seconds: (json['seconds'] as num?)?.toInt(),
-      nanos: (json['nanos'] as num?)?.toInt(),
-    );
-
-Map<String, dynamic> _$TimestampToJson(Timestamp instance) => <String, dynamic>{
-      'seconds': instance.seconds,
-      'nanos': instance.nanos,
-    };
-
-User _$UserFromJson(Map<String, dynamic> json) => User(
-      id: json['id'] as String?,
-      firebaseId: json['firebaseId'] as String?,
-      lastname: json['lastname'] as String,
-      firstname: json['firstname'] as String,
-      email: json['email'] as String,
-      address: PlaceDetails.fromJson(json['address'] as Map<String, dynamic>),
-      phone: json['phone'] as String,
-      role: userRoleFromJson(json['role']),
-      photoUrl: json['photoUrl'] as String?,
-      emergencyContact: json['emergencyContact'] as String?,
-      preferredCommunicationMethod:
-          json['preferredCommunicationMethod'] as String?,
-      isVerified: json['isVerified'] as bool,
-      registrationDate:
-          Timestamp.fromJson(json['registrationDate'] as Map<String, dynamic>),
-      notes: json['notes'] as String?,
-    );
-
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'id': instance.id,
-      'firebaseId': instance.firebaseId,
-      'lastname': instance.lastname,
-      'firstname': instance.firstname,
-      'email': instance.email,
-      'address': instance.address.toJson(),
-      'phone': instance.phone,
-      'role': userRoleToJson(instance.role),
-      'photoUrl': instance.photoUrl,
-      'emergencyContact': instance.emergencyContact,
-      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
-      'isVerified': instance.isVerified,
-      'registrationDate': instance.registrationDate.toJson(),
-      'notes': instance.notes,
-    };
-
-PetServiceDTO _$PetServiceDTOFromJson(Map<String, dynamic> json) =>
-    PetServiceDTO(
-      id: json['id'] as String?,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      durationMinutes: (json['durationMinutes'] as num).toInt(),
-      basePrice: (json['basePrice'] as num).toDouble(),
-      category: petServiceDTOCategoryFromJson(json['category']),
-      animalTypes:
-          petServiceDTOAnimalTypesListFromJson(json['animalTypes'] as List?),
-      isCustomPriceAllowed: json['isCustomPriceAllowed'] as bool,
-      isCustomDurationAllowed: json['isCustomDurationAllowed'] as bool,
-      includedItems: (json['includedItems'] as List<dynamic>?)
+AnimalAnimal _$AnimalAnimalFromJson(Map<String, dynamic> json) => AnimalAnimal(
+      allergies: (json['allergies'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
-    );
-
-Map<String, dynamic> _$PetServiceDTOToJson(PetServiceDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-      'durationMinutes': instance.durationMinutes,
-      'basePrice': instance.basePrice,
-      'category': petServiceDTOCategoryToJson(instance.category),
-      'animalTypes': petServiceDTOAnimalTypesListToJson(instance.animalTypes),
-      'isCustomPriceAllowed': instance.isCustomPriceAllowed,
-      'isCustomDurationAllowed': instance.isCustomDurationAllowed,
-      'includedItems': instance.includedItems,
-    };
-
-AnimalUpdateDTO _$AnimalUpdateDTOFromJson(Map<String, dynamic> json) =>
-    AnimalUpdateDTO(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      ownerId: json['ownerId'] as String,
-      species: animalUpdateDTOSpeciesFromJson(json['species']),
+      behaviorNotes: json['behaviorNotes'] as String?,
+      birthDate: json['birthDate'] as String?,
       breed: json['breed'] as String?,
-      gender: animalUpdateDTOGenderNullableFromJson(json['gender']),
-      birthDate: DateTime.parse(json['birthDate'] as String),
-      weight: (json['weight'] as num?)?.toDouble(),
-      size: animalUpdateDTOSizeNullableFromJson(json['size']),
-      microchipNumber: json['microchipNumber'] as String?,
-      vaccinationsUpToDate: json['vaccinationsUpToDate'] as bool?,
+      childFriendly: json['childFriendly'] as bool?,
+      energyLevel: animalEnergyLevelNullableFromJson(json['energyLevel']),
+      feedingInstructions: json['feedingInstructions'] as String?,
+      gender: animalGenderNullableFromJson(json['gender']),
+      houseTrained: json['houseTrained'] as bool?,
+      id: json['id'] as String?,
+      lastVetVisit: json['lastVetVisit'] as String?,
       medicalConditions: json['medicalConditions'] as String?,
       medications: (json['medications'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
-      allergies: (json['allergies'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      specialNeeds: json['specialNeeds'] as String?,
-      feedingInstructions: json['feedingInstructions'] as String?,
-      behaviorNotes: json['behaviorNotes'] as String?,
-      energyLevel:
-          animalUpdateDTOEnergyLevelNullableFromJson(json['energyLevel']),
-      houseTrained: json['houseTrained'] as bool?,
+      microchipNumber: json['microchipNumber'] as String?,
+      name: json['name'] as String?,
+      ownerId: json['ownerId'] as String?,
       petFriendly: json['petFriendly'] as bool?,
-      childFriendly: json['childFriendly'] as bool?,
       photoUrl: json['photoUrl'] as String?,
-      veterinarianContact: json['veterinarianContact'] as String?,
-      lastVetVisit: json['lastVetVisit'] == null
-          ? null
-          : DateTime.parse(json['lastVetVisit'] as String),
+      size: animalSizeNullableFromJson(json['size']),
       specialInstructions: json['specialInstructions'] as String?,
+      specialNeeds: json['specialNeeds'] as String?,
+      species: animalSpeciesNullableFromJson(json['species']),
+      vaccinationsUpToDate: json['vaccinationsUpToDate'] as bool?,
+      veterinarianContact: json['veterinarianContact'] as String?,
+      weight: (json['weight'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$AnimalUpdateDTOToJson(AnimalUpdateDTO instance) =>
+Map<String, dynamic> _$AnimalAnimalToJson(AnimalAnimal instance) =>
     <String, dynamic>{
+      'allergies': instance.allergies,
+      'behaviorNotes': instance.behaviorNotes,
+      'birthDate': instance.birthDate,
+      'breed': instance.breed,
+      'childFriendly': instance.childFriendly,
+      'energyLevel': animalEnergyLevelNullableToJson(instance.energyLevel),
+      'feedingInstructions': instance.feedingInstructions,
+      'gender': animalGenderNullableToJson(instance.gender),
+      'houseTrained': instance.houseTrained,
       'id': instance.id,
+      'lastVetVisit': instance.lastVetVisit,
+      'medicalConditions': instance.medicalConditions,
+      'medications': instance.medications,
+      'microchipNumber': instance.microchipNumber,
       'name': instance.name,
       'ownerId': instance.ownerId,
-      'species': animalUpdateDTOSpeciesToJson(instance.species),
-      'breed': instance.breed,
-      'gender': animalUpdateDTOGenderNullableToJson(instance.gender),
-      'birthDate': _dateToJson(instance.birthDate),
-      'weight': instance.weight,
-      'size': animalUpdateDTOSizeNullableToJson(instance.size),
-      'microchipNumber': instance.microchipNumber,
-      'vaccinationsUpToDate': instance.vaccinationsUpToDate,
-      'medicalConditions': instance.medicalConditions,
-      'medications': instance.medications,
-      'allergies': instance.allergies,
-      'specialNeeds': instance.specialNeeds,
-      'feedingInstructions': instance.feedingInstructions,
-      'behaviorNotes': instance.behaviorNotes,
-      'energyLevel':
-          animalUpdateDTOEnergyLevelNullableToJson(instance.energyLevel),
-      'houseTrained': instance.houseTrained,
       'petFriendly': instance.petFriendly,
-      'childFriendly': instance.childFriendly,
       'photoUrl': instance.photoUrl,
-      'veterinarianContact': instance.veterinarianContact,
-      'lastVetVisit': _dateToJson(instance.lastVetVisit),
+      'size': animalSizeNullableToJson(instance.size),
       'specialInstructions': instance.specialInstructions,
+      'specialNeeds': instance.specialNeeds,
+      'species': animalSpeciesNullableToJson(instance.species),
+      'vaccinationsUpToDate': instance.vaccinationsUpToDate,
+      'veterinarianContact': instance.veterinarianContact,
+      'weight': instance.weight,
     };
 
-AnimalDTO _$AnimalDTOFromJson(Map<String, dynamic> json) => AnimalDTO(
-      id: json['id'] as String?,
-      name: json['name'] as String,
-      species: animalDTOSpeciesFromJson(json['species']),
+AnimalErrorResponse _$AnimalErrorResponseFromJson(Map<String, dynamic> json) =>
+    AnimalErrorResponse(
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$AnimalErrorResponseToJson(
+        AnimalErrorResponse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+    };
+
+AnimalWithOwner _$AnimalWithOwnerFromJson(Map<String, dynamic> json) =>
+    AnimalWithOwner(
+      allergies: (json['allergies'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      behaviorNotes: json['behaviorNotes'] as String?,
+      birthDate: json['birthDate'] as String?,
       breed: json['breed'] as String?,
-      gender: animalDTOGenderNullableFromJson(json['gender']),
-      birthDate: DateTime.parse(json['birthDate'] as String),
-      weight: (json['weight'] as num?)?.toDouble(),
-      size: animalDTOSizeNullableFromJson(json['size']),
-      microchipNumber: json['microchipNumber'] as String?,
-      vaccinationsUpToDate: json['vaccinationsUpToDate'] as bool?,
+      childFriendly: json['childFriendly'] as bool?,
+      energyLevel: animalEnergyLevelNullableFromJson(json['energyLevel']),
+      feedingInstructions: json['feedingInstructions'] as String?,
+      gender: animalGenderNullableFromJson(json['gender']),
+      houseTrained: json['houseTrained'] as bool?,
+      id: json['id'] as String?,
+      lastVetVisit: json['lastVetVisit'] as String?,
       medicalConditions: json['medicalConditions'] as String?,
       medications: (json['medications'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           [],
-      allergies: (json['allergies'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      specialNeeds: json['specialNeeds'] as String?,
-      feedingInstructions: json['feedingInstructions'] as String?,
-      behaviorNotes: json['behaviorNotes'] as String?,
-      energyLevel: animalDTOEnergyLevelNullableFromJson(json['energyLevel']),
-      houseTrained: json['houseTrained'] as bool?,
-      petFriendly: json['petFriendly'] as bool?,
-      childFriendly: json['childFriendly'] as bool?,
-      photoUrl: json['photoUrl'] as String?,
-      veterinarianContact: json['veterinarianContact'] as String?,
-      lastVetVisit: json['lastVetVisit'] == null
+      microchipNumber: json['microchipNumber'] as String?,
+      name: json['name'] as String?,
+      owner: json['owner'] == null
           ? null
-          : DateTime.parse(json['lastVetVisit'] as String),
+          : UsersUser.fromJson(json['owner'] as Map<String, dynamic>),
+      petFriendly: json['petFriendly'] as bool?,
+      photoUrl: json['photoUrl'] as String?,
+      size: animalSizeNullableFromJson(json['size']),
       specialInstructions: json['specialInstructions'] as String?,
-      owner: UserDTO.fromJson(json['owner'] as Map<String, dynamic>),
+      specialNeeds: json['specialNeeds'] as String?,
+      species: animalSpeciesNullableFromJson(json['species']),
+      vaccinationsUpToDate: json['vaccinationsUpToDate'] as bool?,
+      veterinarianContact: json['veterinarianContact'] as String?,
+      weight: (json['weight'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$AnimalDTOToJson(AnimalDTO instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'species': animalDTOSpeciesToJson(instance.species),
+Map<String, dynamic> _$AnimalWithOwnerToJson(AnimalWithOwner instance) =>
+    <String, dynamic>{
+      'allergies': instance.allergies,
+      'behaviorNotes': instance.behaviorNotes,
+      'birthDate': instance.birthDate,
       'breed': instance.breed,
-      'gender': animalDTOGenderNullableToJson(instance.gender),
-      'birthDate': _dateToJson(instance.birthDate),
-      'weight': instance.weight,
-      'size': animalDTOSizeNullableToJson(instance.size),
-      'microchipNumber': instance.microchipNumber,
-      'vaccinationsUpToDate': instance.vaccinationsUpToDate,
+      'childFriendly': instance.childFriendly,
+      'energyLevel': animalEnergyLevelNullableToJson(instance.energyLevel),
+      'feedingInstructions': instance.feedingInstructions,
+      'gender': animalGenderNullableToJson(instance.gender),
+      'houseTrained': instance.houseTrained,
+      'id': instance.id,
+      'lastVetVisit': instance.lastVetVisit,
       'medicalConditions': instance.medicalConditions,
       'medications': instance.medications,
-      'allergies': instance.allergies,
-      'specialNeeds': instance.specialNeeds,
-      'feedingInstructions': instance.feedingInstructions,
-      'behaviorNotes': instance.behaviorNotes,
-      'energyLevel': animalDTOEnergyLevelNullableToJson(instance.energyLevel),
-      'houseTrained': instance.houseTrained,
+      'microchipNumber': instance.microchipNumber,
+      'name': instance.name,
+      'owner': instance.owner?.toJson(),
       'petFriendly': instance.petFriendly,
-      'childFriendly': instance.childFriendly,
       'photoUrl': instance.photoUrl,
-      'veterinarianContact': instance.veterinarianContact,
-      'lastVetVisit': _dateToJson(instance.lastVetVisit),
+      'size': animalSizeNullableToJson(instance.size),
       'specialInstructions': instance.specialInstructions,
-      'owner': instance.owner.toJson(),
+      'specialNeeds': instance.specialNeeds,
+      'species': animalSpeciesNullableToJson(instance.species),
+      'vaccinationsUpToDate': instance.vaccinationsUpToDate,
+      'veterinarianContact': instance.veterinarianContact,
+      'weight': instance.weight,
     };
 
-UserCreationDTO _$UserCreationDTOFromJson(Map<String, dynamic> json) =>
-    UserCreationDTO(
-      firebaseUid: json['firebaseUid'] as String?,
-      lastname: json['lastname'] as String,
-      firstname: json['firstname'] as String,
-      email: json['email'] as String,
-      address:
-          PlaceDetailsDTO.fromJson(json['address'] as Map<String, dynamic>),
-      phone: json['phone'] as String,
-      role: userCreationDTORoleFromJson(json['role']),
-      photoUrl: json['photoUrl'] as String?,
-      emergencyContact: json['emergencyContact'] as String?,
-      preferredCommunicationMethod:
-          json['preferredCommunicationMethod'] as String?,
-      isVerified: json['isVerified'] as bool,
-      registrationDate: DateTime.parse(json['registrationDate'] as String),
-      notes: json['notes'] as String?,
+MissionsAnimalService _$MissionsAnimalServiceFromJson(
+        Map<String, dynamic> json) =>
+    MissionsAnimalService(
+      animalId: json['animalId'] as String?,
+      date: json['date'] as String?,
+      petServiceId: json['petServiceId'] as String?,
+      price: (json['price'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$UserCreationDTOToJson(UserCreationDTO instance) =>
+Map<String, dynamic> _$MissionsAnimalServiceToJson(
+        MissionsAnimalService instance) =>
     <String, dynamic>{
-      'firebaseUid': instance.firebaseUid,
-      'lastname': instance.lastname,
-      'firstname': instance.firstname,
-      'email': instance.email,
-      'address': instance.address.toJson(),
-      'phone': instance.phone,
-      'role': userCreationDTORoleToJson(instance.role),
-      'photoUrl': instance.photoUrl,
-      'emergencyContact': instance.emergencyContact,
-      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
-      'isVerified': instance.isVerified,
-      'registrationDate': _dateToJson(instance.registrationDate),
-      'notes': instance.notes,
+      'animalId': instance.animalId,
+      'date': instance.date,
+      'petServiceId': instance.petServiceId,
+      'price': instance.price,
     };
 
-DailyServiceCreationDTO _$DailyServiceCreationDTOFromJson(
+MissionsAnimalServiceWithDetails _$MissionsAnimalServiceWithDetailsFromJson(
         Map<String, dynamic> json) =>
-    DailyServiceCreationDTO(
-      date: DateTime.parse(json['date'] as String),
+    MissionsAnimalServiceWithDetails(
+      animal: json['animal'] == null
+          ? null
+          : AnimalWithOwner.fromJson(json['animal'] as Map<String, dynamic>),
+      date: json['date'] as String?,
+      petService: json['petService'] == null
+          ? null
+          : PetServicesPetService.fromJson(
+              json['petService'] as Map<String, dynamic>),
+      price: (json['price'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$MissionsAnimalServiceWithDetailsToJson(
+        MissionsAnimalServiceWithDetails instance) =>
+    <String, dynamic>{
+      'animal': instance.animal?.toJson(),
+      'date': instance.date,
+      'petService': instance.petService?.toJson(),
+      'price': instance.price,
+    };
+
+MissionsCreateMissionRequest _$MissionsCreateMissionRequestFromJson(
+        Map<String, dynamic> json) =>
+    MissionsCreateMissionRequest(
+      clientId: json['clientId'] as String,
+      dailyServices: (json['dailyServices'] as List<dynamic>?)
+              ?.map((e) =>
+                  MissionsDailyService.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      endDate: json['endDate'] as String,
+      location: PlaceDetails.fromJson(json['location'] as Map<String, dynamic>),
+      notes: json['notes'] as String?,
+      startDate: json['startDate'] as String,
+    );
+
+Map<String, dynamic> _$MissionsCreateMissionRequestToJson(
+        MissionsCreateMissionRequest instance) =>
+    <String, dynamic>{
+      'clientId': instance.clientId,
+      'dailyServices': instance.dailyServices.map((e) => e.toJson()).toList(),
+      'endDate': instance.endDate,
+      'location': instance.location.toJson(),
+      'notes': instance.notes,
+      'startDate': instance.startDate,
+    };
+
+MissionsDailyService _$MissionsDailyServiceFromJson(
+        Map<String, dynamic> json) =>
+    MissionsDailyService(
+      date: json['date'] as String?,
       services: (json['services'] as List<dynamic>?)
-              ?.map((e) => MissionAnimalServiceCreationDTO.fromJson(
+              ?.map((e) =>
+                  MissionsAnimalService.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$MissionsDailyServiceToJson(
+        MissionsDailyService instance) =>
+    <String, dynamic>{
+      'date': instance.date,
+      'services': instance.services?.map((e) => e.toJson()).toList(),
+    };
+
+MissionsDailyServiceWithDetails _$MissionsDailyServiceWithDetailsFromJson(
+        Map<String, dynamic> json) =>
+    MissionsDailyServiceWithDetails(
+      date: json['date'] as String?,
+      services: (json['services'] as List<dynamic>?)
+              ?.map((e) => MissionsAnimalServiceWithDetails.fromJson(
                   e as Map<String, dynamic>))
               .toList() ??
           [],
     );
 
-Map<String, dynamic> _$DailyServiceCreationDTOToJson(
-        DailyServiceCreationDTO instance) =>
+Map<String, dynamic> _$MissionsDailyServiceWithDetailsToJson(
+        MissionsDailyServiceWithDetails instance) =>
     <String, dynamic>{
-      'date': _dateToJson(instance.date),
-      'services': instance.services.map((e) => e.toJson()).toList(),
+      'date': instance.date,
+      'services': instance.services?.map((e) => e.toJson()).toList(),
     };
 
-MissionAnimalServiceCreationDTO _$MissionAnimalServiceCreationDTOFromJson(
+MissionsErrorResponse _$MissionsErrorResponseFromJson(
         Map<String, dynamic> json) =>
-    MissionAnimalServiceCreationDTO(
-      animalId: json['animalId'] as String,
-      petServiceId: json['petServiceId'] as String,
-      date: DateTime.parse(json['date'] as String),
-      price: (json['price'] as num).toDouble(),
+    MissionsErrorResponse(
+      message: json['message'] as String?,
     );
 
-Map<String, dynamic> _$MissionAnimalServiceCreationDTOToJson(
-        MissionAnimalServiceCreationDTO instance) =>
+Map<String, dynamic> _$MissionsErrorResponseToJson(
+        MissionsErrorResponse instance) =>
     <String, dynamic>{
-      'animalId': instance.animalId,
-      'petServiceId': instance.petServiceId,
-      'date': _dateToJson(instance.date),
-      'price': instance.price,
+      'message': instance.message,
     };
 
-MissionCreationDTO _$MissionCreationDTOFromJson(Map<String, dynamic> json) =>
-    MissionCreationDTO(
-      clientId: json['clientId'] as String,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
+MissionsMission _$MissionsMissionFromJson(Map<String, dynamic> json) =>
+    MissionsMission(
+      clientId: json['clientId'] as String?,
       dailyServices: (json['dailyServices'] as List<dynamic>?)
               ?.map((e) =>
-                  DailyServiceCreationDTO.fromJson(e as Map<String, dynamic>))
+                  MissionsDailyService.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      endDate: json['endDate'] as String?,
+      id: json['id'] as String?,
+      location: json['location'] == null
+          ? null
+          : PlaceDetails.fromJson(json['location'] as Map<String, dynamic>),
       notes: json['notes'] as String?,
-      location:
-          PlaceDetailsDTO.fromJson(json['location'] as Map<String, dynamic>),
+      startDate: json['startDate'] as String?,
+      status: missionsStatusNullableFromJson(json['status']),
+      vetAssistantId: json['vetAssistantId'] as String?,
     );
 
-Map<String, dynamic> _$MissionCreationDTOToJson(MissionCreationDTO instance) =>
+Map<String, dynamic> _$MissionsMissionToJson(MissionsMission instance) =>
     <String, dynamic>{
       'clientId': instance.clientId,
-      'startDate': _dateToJson(instance.startDate),
-      'endDate': _dateToJson(instance.endDate),
-      'dailyServices': instance.dailyServices.map((e) => e.toJson()).toList(),
+      'dailyServices': instance.dailyServices?.map((e) => e.toJson()).toList(),
+      'endDate': instance.endDate,
+      'id': instance.id,
+      'location': instance.location?.toJson(),
       'notes': instance.notes,
-      'location': instance.location.toJson(),
+      'startDate': instance.startDate,
+      'status': missionsStatusNullableToJson(instance.status),
+      'vetAssistantId': instance.vetAssistantId,
     };
 
-DailyServiceDTO _$DailyServiceDTOFromJson(Map<String, dynamic> json) =>
-    DailyServiceDTO(
-      date: DateTime.parse(json['date'] as String),
-      services: (json['services'] as List<dynamic>?)
-              ?.map((e) =>
-                  MissionAnimalServiceDTO.fromJson(e as Map<String, dynamic>))
+MissionsMissionWithDetails _$MissionsMissionWithDetailsFromJson(
+        Map<String, dynamic> json) =>
+    MissionsMissionWithDetails(
+      $client: json['client'] == null
+          ? null
+          : UsersUser.fromJson(json['client'] as Map<String, dynamic>),
+      dailyServices: (json['dailyServices'] as List<dynamic>?)
+              ?.map((e) => MissionsDailyServiceWithDetails.fromJson(
+                  e as Map<String, dynamic>))
               .toList() ??
           [],
-    );
-
-Map<String, dynamic> _$DailyServiceDTOToJson(DailyServiceDTO instance) =>
-    <String, dynamic>{
-      'date': _dateToJson(instance.date),
-      'services': instance.services.map((e) => e.toJson()).toList(),
-    };
-
-MissionAnimalServiceDTO _$MissionAnimalServiceDTOFromJson(
-        Map<String, dynamic> json) =>
-    MissionAnimalServiceDTO(
-      animal: AnimalDTO.fromJson(json['animal'] as Map<String, dynamic>),
-      petService:
-          PetServiceDTO.fromJson(json['petService'] as Map<String, dynamic>),
-      date: DateTime.parse(json['date'] as String),
-      price: (json['price'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$MissionAnimalServiceDTOToJson(
-        MissionAnimalServiceDTO instance) =>
-    <String, dynamic>{
-      'animal': instance.animal.toJson(),
-      'petService': instance.petService.toJson(),
-      'date': instance.date.toIso8601String(),
-      'price': instance.price,
-    };
-
-MissionDTO _$MissionDTOFromJson(Map<String, dynamic> json) => MissionDTO(
+      endDate: json['endDate'] as String?,
       id: json['id'] as String?,
-      startDate: DateTime.parse(json['startDate'] as String),
-      endDate: DateTime.parse(json['endDate'] as String),
-      $client: UserDTO.fromJson(json['client'] as Map<String, dynamic>),
+      location: json['location'] == null
+          ? null
+          : PlaceDetails.fromJson(json['location'] as Map<String, dynamic>),
+      notes: json['notes'] as String?,
+      startDate: json['startDate'] as String?,
+      status: missionsStatusNullableFromJson(json['status']),
       vetAssistant: json['vetAssistant'] == null
           ? null
-          : UserDTO.fromJson(json['vetAssistant'] as Map<String, dynamic>),
-      dailyServices: (json['dailyServices'] as List<dynamic>?)
-              ?.map((e) => DailyServiceDTO.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-      missionStatus: missionDTOMissionStatusFromJson(json['missionStatus']),
-      paymentIntentClientSecret: json['paymentIntentClientSecret'] as String?,
-      notes: json['notes'] as String?,
-      price: (json['price'] as num).toDouble(),
-      location:
-          PlaceDetailsDTO.fromJson(json['location'] as Map<String, dynamic>),
+          : UsersUser.fromJson(json['vetAssistant'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$MissionDTOToJson(MissionDTO instance) =>
+Map<String, dynamic> _$MissionsMissionWithDetailsToJson(
+        MissionsMissionWithDetails instance) =>
     <String, dynamic>{
+      'client': instance.$client?.toJson(),
+      'dailyServices': instance.dailyServices?.map((e) => e.toJson()).toList(),
+      'endDate': instance.endDate,
       'id': instance.id,
-      'startDate': _dateToJson(instance.startDate),
-      'endDate': _dateToJson(instance.endDate),
-      'client': instance.$client.toJson(),
-      'vetAssistant': instance.vetAssistant?.toJson(),
-      'dailyServices': instance.dailyServices.map((e) => e.toJson()).toList(),
-      'missionStatus': missionDTOMissionStatusToJson(instance.missionStatus),
-      'paymentIntentClientSecret': instance.paymentIntentClientSecret,
+      'location': instance.location?.toJson(),
       'notes': instance.notes,
-      'price': instance.price,
-      'location': instance.location.toJson(),
+      'startDate': instance.startDate,
+      'status': missionsStatusNullableToJson(instance.status),
+      'vetAssistant': instance.vetAssistant?.toJson(),
     };
 
-AnimalCreateDTO _$AnimalCreateDTOFromJson(Map<String, dynamic> json) =>
-    AnimalCreateDTO(
-      name: json['name'] as String,
-      ownerId: json['ownerId'] as String,
-      species: animalCreateDTOSpeciesFromJson(json['species']),
-      breed: json['breed'] as String?,
-      gender: animalCreateDTOGenderNullableFromJson(json['gender']),
-      birthDate: DateTime.parse(json['birthDate'] as String),
-      weight: (json['weight'] as num?)?.toDouble(),
-      size: animalCreateDTOSizeNullableFromJson(json['size']),
-      microchipNumber: json['microchipNumber'] as String?,
-      vaccinationsUpToDate: json['vaccinationsUpToDate'] as bool?,
-      medicalConditions: json['medicalConditions'] as String?,
-      medications: (json['medications'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      allergies: (json['allergies'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
-      specialNeeds: json['specialNeeds'] as String?,
-      feedingInstructions: json['feedingInstructions'] as String?,
-      behaviorNotes: json['behaviorNotes'] as String?,
-      energyLevel:
-          animalCreateDTOEnergyLevelNullableFromJson(json['energyLevel']),
-      houseTrained: json['houseTrained'] as bool?,
-      petFriendly: json['petFriendly'] as bool?,
-      childFriendly: json['childFriendly'] as bool?,
-      photoUrl: json['photoUrl'] as String?,
-      veterinarianContact: json['veterinarianContact'] as String?,
-      lastVetVisit: json['lastVetVisit'] == null
-          ? null
-          : DateTime.parse(json['lastVetVisit'] as String),
-      specialInstructions: json['specialInstructions'] as String?,
+MissionsUpdateMissionStatusRequest _$MissionsUpdateMissionStatusRequestFromJson(
+        Map<String, dynamic> json) =>
+    MissionsUpdateMissionStatusRequest(
+      status: missionsStatusFromJson(json['status']),
     );
 
-Map<String, dynamic> _$AnimalCreateDTOToJson(AnimalCreateDTO instance) =>
+Map<String, dynamic> _$MissionsUpdateMissionStatusRequestToJson(
+        MissionsUpdateMissionStatusRequest instance) =>
     <String, dynamic>{
+      'status': missionsStatusToJson(instance.status),
+    };
+
+PetServicesErrorResponse _$PetServicesErrorResponseFromJson(
+        Map<String, dynamic> json) =>
+    PetServicesErrorResponse(
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$PetServicesErrorResponseToJson(
+        PetServicesErrorResponse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+    };
+
+PetServicesPetService _$PetServicesPetServiceFromJson(
+        Map<String, dynamic> json) =>
+    PetServicesPetService(
+      animalTypes:
+          petServicesAnimalTypeListFromJson(json['animalTypes'] as List?),
+      basePrice: (json['basePrice'] as num?)?.toDouble(),
+      category: petServicesCategoryNullableFromJson(json['category']),
+      description: json['description'] as String?,
+      durationMinutes: (json['durationMinutes'] as num?)?.toInt(),
+      id: json['id'] as String?,
+      includedItems: (json['includedItems'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+      isCustomDurationAllowed: json['isCustomDurationAllowed'] as bool?,
+      isCustomPriceAllowed: json['isCustomPriceAllowed'] as bool?,
+      name: json['name'] as String?,
+    );
+
+Map<String, dynamic> _$PetServicesPetServiceToJson(
+        PetServicesPetService instance) =>
+    <String, dynamic>{
+      'animalTypes': petServicesAnimalTypeListToJson(instance.animalTypes),
+      'basePrice': instance.basePrice,
+      'category': petServicesCategoryNullableToJson(instance.category),
+      'description': instance.description,
+      'durationMinutes': instance.durationMinutes,
+      'id': instance.id,
+      'includedItems': instance.includedItems,
+      'isCustomDurationAllowed': instance.isCustomDurationAllowed,
+      'isCustomPriceAllowed': instance.isCustomPriceAllowed,
       'name': instance.name,
-      'ownerId': instance.ownerId,
-      'species': animalCreateDTOSpeciesToJson(instance.species),
-      'breed': instance.breed,
-      'gender': animalCreateDTOGenderNullableToJson(instance.gender),
-      'birthDate': _dateToJson(instance.birthDate),
-      'weight': instance.weight,
-      'size': animalCreateDTOSizeNullableToJson(instance.size),
-      'microchipNumber': instance.microchipNumber,
-      'vaccinationsUpToDate': instance.vaccinationsUpToDate,
-      'medicalConditions': instance.medicalConditions,
-      'medications': instance.medications,
-      'allergies': instance.allergies,
-      'specialNeeds': instance.specialNeeds,
-      'feedingInstructions': instance.feedingInstructions,
-      'behaviorNotes': instance.behaviorNotes,
-      'energyLevel':
-          animalCreateDTOEnergyLevelNullableToJson(instance.energyLevel),
-      'houseTrained': instance.houseTrained,
-      'petFriendly': instance.petFriendly,
-      'childFriendly': instance.childFriendly,
-      'photoUrl': instance.photoUrl,
-      'veterinarianContact': instance.veterinarianContact,
-      'lastVetVisit': _dateToJson(instance.lastVetVisit),
-      'specialInstructions': instance.specialInstructions,
+    };
+
+PlaceDetails _$PlaceDetailsFromJson(Map<String, dynamic> json) => PlaceDetails(
+      formattedAddress: json['formattedAddress'] as String?,
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
+      name: json['name'] as String?,
+    );
+
+Map<String, dynamic> _$PlaceDetailsToJson(PlaceDetails instance) =>
+    <String, dynamic>{
+      'formattedAddress': instance.formattedAddress,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'name': instance.name,
+    };
+
+PlaceErrorResponse _$PlaceErrorResponseFromJson(Map<String, dynamic> json) =>
+    PlaceErrorResponse(
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$PlaceErrorResponseToJson(PlaceErrorResponse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
     };
 
 PlaceSuggestion _$PlaceSuggestionFromJson(Map<String, dynamic> json) =>
     PlaceSuggestion(
-      placeId: json['placeId'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
+      placeId: json['placeId'] as String?,
     );
 
 Map<String, dynamic> _$PlaceSuggestionToJson(PlaceSuggestion instance) =>
     <String, dynamic>{
-      'placeId': instance.placeId,
       'description': instance.description,
+      'placeId': instance.placeId,
+    };
+
+UsersCreateUserRequest _$UsersCreateUserRequestFromJson(
+        Map<String, dynamic> json) =>
+    UsersCreateUserRequest(
+      address: PlaceDetails.fromJson(json['address'] as Map<String, dynamic>),
+      creationDate: json['creationDate'] as String?,
+      email: json['email'] as String,
+      emergencyContact: json['emergencyContact'] as String?,
+      firebaseUid: json['firebaseUid'] as String,
+      firstname: json['firstname'] as String,
+      lastname: json['lastname'] as String,
+      notes: json['notes'] as String?,
+      phone: json['phone'] as String,
+      photoURL: json['photoURL'] as String?,
+      preferredCommunicationMethod:
+          json['preferredCommunicationMethod'] as String?,
+      role: usersUserRoleFromJson(json['role']),
+    );
+
+Map<String, dynamic> _$UsersCreateUserRequestToJson(
+        UsersCreateUserRequest instance) =>
+    <String, dynamic>{
+      'address': instance.address.toJson(),
+      'creationDate': instance.creationDate,
+      'email': instance.email,
+      'emergencyContact': instance.emergencyContact,
+      'firebaseUid': instance.firebaseUid,
+      'firstname': instance.firstname,
+      'lastname': instance.lastname,
+      'notes': instance.notes,
+      'phone': instance.phone,
+      'photoURL': instance.photoURL,
+      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
+      'role': usersUserRoleToJson(instance.role),
+    };
+
+UsersErrorResponse _$UsersErrorResponseFromJson(Map<String, dynamic> json) =>
+    UsersErrorResponse(
+      message: json['message'] as String?,
+    );
+
+Map<String, dynamic> _$UsersErrorResponseToJson(UsersErrorResponse instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+    };
+
+UsersUpdateUserRequest _$UsersUpdateUserRequestFromJson(
+        Map<String, dynamic> json) =>
+    UsersUpdateUserRequest(
+      address: json['address'] == null
+          ? null
+          : PlaceDetails.fromJson(json['address'] as Map<String, dynamic>),
+      email: json['email'] as String?,
+      emergencyContact: json['emergencyContact'] as String?,
+      firebaseUid: json['firebaseUid'] as String?,
+      firstname: json['firstname'] as String?,
+      id: json['id'] as String?,
+      lastname: json['lastname'] as String?,
+      notes: json['notes'] as String?,
+      phone: json['phone'] as String?,
+      photoURL: json['photoURL'] as String?,
+      preferredCommunicationMethod:
+          json['preferredCommunicationMethod'] as String?,
+      updateDate: json['updateDate'] as String?,
+    );
+
+Map<String, dynamic> _$UsersUpdateUserRequestToJson(
+        UsersUpdateUserRequest instance) =>
+    <String, dynamic>{
+      'address': instance.address?.toJson(),
+      'email': instance.email,
+      'emergencyContact': instance.emergencyContact,
+      'firebaseUid': instance.firebaseUid,
+      'firstname': instance.firstname,
+      'id': instance.id,
+      'lastname': instance.lastname,
+      'notes': instance.notes,
+      'phone': instance.phone,
+      'photoURL': instance.photoURL,
+      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
+      'updateDate': instance.updateDate,
+    };
+
+UsersUser _$UsersUserFromJson(Map<String, dynamic> json) => UsersUser(
+      address: json['address'] == null
+          ? null
+          : PlaceDetails.fromJson(json['address'] as Map<String, dynamic>),
+      email: json['email'] as String?,
+      emergencyContact: json['emergencyContact'] as String?,
+      firebaseId: json['firebaseId'] as String?,
+      firstname: json['firstname'] as String?,
+      id: json['id'] as String?,
+      isVerified: json['isVerified'] as bool?,
+      lastname: json['lastname'] as String?,
+      notes: json['notes'] as String?,
+      phone: json['phone'] as String?,
+      photoUrl: json['photoUrl'] as String?,
+      preferredCommunicationMethod:
+          json['preferredCommunicationMethod'] as String?,
+      registrationDate: json['registrationDate'] as String?,
+      role: usersUserRoleNullableFromJson(json['role']),
+    );
+
+Map<String, dynamic> _$UsersUserToJson(UsersUser instance) => <String, dynamic>{
+      'address': instance.address?.toJson(),
+      'email': instance.email,
+      'emergencyContact': instance.emergencyContact,
+      'firebaseId': instance.firebaseId,
+      'firstname': instance.firstname,
+      'id': instance.id,
+      'isVerified': instance.isVerified,
+      'lastname': instance.lastname,
+      'notes': instance.notes,
+      'phone': instance.phone,
+      'photoUrl': instance.photoUrl,
+      'preferredCommunicationMethod': instance.preferredCommunicationMethod,
+      'registrationDate': instance.registrationDate,
+      'role': usersUserRoleNullableToJson(instance.role),
     };

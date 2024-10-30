@@ -40,9 +40,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<client.UserDTO?> getUserFromBff(String email) async {
+  Future<client.UsersUser?> getUserFromBff(String email) async {
     try {
-      final response = await _bffClient.apiUsersEmailGet(email: email);
+      final response = await _bffClient.apiUsersEmailEmailGet(email: email);
       if (response.isSuccessful) {
         return response.body;
       } else if (response.statusCode == 404) {
@@ -56,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<client.UserDTO> createUserInBff(User firebaseUser, client.UserCreationDTO userInfo) async {
+  Future<client.UsersUser> createUserInBff(User firebaseUser, client.UsersCreateUserRequest userInfo) async {
     try {
-      final response = await _bffClient.apiUsersPost(body: userInfo);
+      final response = await _bffClient.apiUsersPost(user: userInfo);
       if (response.isSuccessful) {
         return response.body!;
       } else {
@@ -70,9 +70,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<client.UserDTO> updateUserInBff(client.UserUpdateDTO user) async {
+  Future<client.UsersUser> updateUserInBff(client.UsersUpdateUserRequest user) async {
     try {
-      final response = await _bffClient.apiUsersIdPut(body: user);
+      final response = await _bffClient.apiUsersIdPut(user: user, id: user.firebaseUid);
       if (response.isSuccessful) {
         return response.body!;
       } else {
@@ -94,7 +94,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<client.UserDTO?> getCurrentUser() async {
+  Future<client.UsersUser?> getCurrentUser() async {
     final firebaseUser = FirebaseAuth.instance.currentUser;
     if (firebaseUser == null) {
       return null;

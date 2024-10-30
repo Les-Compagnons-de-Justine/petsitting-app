@@ -5,10 +5,10 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 class MissionServiceCubit extends HydratedCubit<MissionServiceState> {
   MissionServiceCubit() : super(const MissionServiceState.initial());
 
-  void addService(MissionAnimalServiceCreationDTO service) {
+  void addService(MissionsAnimalServiceWithDetails service) {
     final currentServices = state.maybeWhen(
       loaded: (services) => services,
-      orElse: () => <MissionAnimalServiceCreationDTO>[],
+      orElse: () => <MissionsAnimalServiceWithDetails>[],
     );
     emit(MissionServiceState.loaded([...currentServices, service]));
   }
@@ -16,10 +16,10 @@ class MissionServiceCubit extends HydratedCubit<MissionServiceState> {
   void removeService(int index) {
     final currentServices = state.maybeWhen(
       loaded: (services) => services,
-      orElse: () => <MissionAnimalServiceCreationDTO>[],
+      orElse: () => <MissionsAnimalServiceWithDetails>[],
     );
     if (index >= 0 && index < currentServices.length) {
-      final newServices = List<MissionAnimalServiceCreationDTO>.from(currentServices)..removeAt(index);
+      final newServices = List<MissionsAnimalServiceWithDetails>.from(currentServices)..removeAt(index);
       emit(MissionServiceState.loaded(newServices));
     }
   }

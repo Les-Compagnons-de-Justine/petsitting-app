@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:petsitting/core/bloc/animal/list/animal_list_cubit.dart';
 import 'package:petsitting/core/bloc/animal/list/animal_list_state.dart';
 import 'package:petsitting/core/bloc/animal/single/single_animal_cubit.dart';
+import 'package:petsitting/core/mapper/animal_mapper.dart';
 import 'package:petsitting/core/repositories/animal/animal_repository.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
 import 'package:petsitting/core/widgets/custom_app_bar.dart';
@@ -22,17 +23,13 @@ class CreateAnimalScreen extends StatelessWidget {
       ),
       child: BlocListener<AnimalListCubit, AnimalListState>(
         listener: (context, state) {
-          state.maybeWhen(
-            initial: () {},
-            error: (message) {
-              QuickAlert.show(
-                context: context,
-                type: QuickAlertType.error,
-                text: message,
-              );
-            },
-            orElse: () {},
-          );
+          if (state.status == AnimalListStatus.error) {
+            QuickAlert.show(
+              context: context,
+              type: QuickAlertType.error,
+              text: 'Erreur lors du chargement des animaux.',
+            );
+          }
         },
         child: Scaffold(
           appBar: CustomAppBar(
@@ -41,9 +38,9 @@ class CreateAnimalScreen extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: AnimalFormWidget(
-              ownerId: user!.id,
+              ownerId: user!.id!,
               onCreate: (animalCreateDTO) {
-                context.read<SingleAnimalCubit>().addAnimal(animalCreateDTO);
+                context.read<SingleAnimalCubit>().addAnimal(AnimalMapper.mapAnimalWithOwnerToAnimalAnimal(animalCreateDTO));
               },
             ),
           ),

@@ -7,8 +7,8 @@ class MissionRepositoryImpl implements MissionRepository {
   MissionRepositoryImpl(this._client);
 
   @override
-  Future<MissionDTO> createMission(MissionCreationDTO missionCreationDTO) async {
-    final response = await _client.apiMissionsPost(body: missionCreationDTO);
+  Future<MissionsMissionWithDetails> createMission(MissionsCreateMissionRequest mission) async {
+    final response = await _client.apiMissionsPost(mission: mission);
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -17,7 +17,7 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<MissionDTO> getMissionById(String id) async {
+  Future<MissionsMissionWithDetails> getMissionById(String id) async {
     final response = await _client.apiMissionsIdGet(id: id);
     if (response.isSuccessful) {
       return response.body!;
@@ -27,7 +27,7 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<List<MissionDTO>> getMissionsByClientId(String clientId) async {
+  Future<List<MissionsMission>> getMissionsByClientId(String clientId) async {
     final response = await _client.apiMissionsClientClientIdGet(clientId: clientId);
     if (response.isSuccessful) {
       return response.body!;
@@ -37,7 +37,7 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<List<MissionDTO>> getMissionsByVetAssistantId(String vetAssistantId) async {
+  Future<List<MissionsMissionWithDetails>> getMissionsByVetAssistantId(String vetAssistantId) async {
     final response = await _client.apiMissionsVetAssistantVetAssistantIdGet(vetAssistantId: vetAssistantId);
     if (response.isSuccessful) {
       return response.body!;
@@ -47,7 +47,7 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<List<MissionDTO>> getMissionsByDateRange(DateTime startDate, DateTime endDate) async {
+  Future<List<MissionsMissionWithDetails>> getMissionsByDateRange(DateTime startDate, DateTime endDate) async {
     final response = await _client.apiMissionsDateRangeGet(
       startDate: startDate.toIso8601String(),
       endDate: endDate.toIso8601String(),
@@ -60,8 +60,11 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<MissionDTO> startMission(String missionId) async {
-    final response = await _client.apiMissionsStatusMissionIdStartPost(missionId: missionId);
+  Future<MissionsMissionWithDetails> startMission(String missionId) async {
+    final response = await _client.apiMissionsIdStatusPut(
+      id: missionId,
+      status: MissionsUpdateMissionStatusRequest(status: MissionsStatus.statuspending),
+    );
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -70,8 +73,11 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<MissionDTO> confirmMission(String missionId) async {
-    final response = await _client.apiMissionsStatusMissionIdConfirmPost(missionId: missionId);
+  Future<MissionsMissionWithDetails> confirmMission(String missionId) async {
+    final response = await _client.apiMissionsIdStatusPut(
+      id: missionId,
+      status: MissionsUpdateMissionStatusRequest(status: MissionsStatus.statusconfirmed),
+    );
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -80,8 +86,11 @@ class MissionRepositoryImpl implements MissionRepository {
   }
 
   @override
-  Future<MissionDTO> completeMission(String missionId) async {
-    final response = await _client.apiMissionsStatusMissionIdConfirmPost(missionId: missionId);
+  Future<MissionsMissionWithDetails> completeMission(String missionId) async {
+    final response = await _client.apiMissionsIdStatusPut(
+      id: missionId,
+      status: MissionsUpdateMissionStatusRequest(status: MissionsStatus.statuscompleted),
+    );
     if (response.isSuccessful) {
       return response.body!;
     } else {

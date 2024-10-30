@@ -7,7 +7,7 @@ part 'user_search_cubit.freezed.dart';
 
 class UserSearchCubit extends Cubit<UserSearchState> {
   final UserRepository _userRepository;
-  List<UserDTO> _allUsers = [];
+  List<UsersUser> _allUsers = [];
 
   UserSearchCubit(this._userRepository) : super(const UserSearchState.initial());
 
@@ -22,7 +22,7 @@ class UserSearchCubit extends Cubit<UserSearchState> {
     }
   }
 
-  List<UserDTO> filterUsers(String query) {
+  List<UsersUser> filterUsers(String query) {
     if (_allUsers.isEmpty) {
       emit(const UserSearchState.error("Users not loaded. Call fetchAllUsers first."));
       return List.empty();
@@ -30,9 +30,9 @@ class UserSearchCubit extends Cubit<UserSearchState> {
 
     final filteredUsers = _allUsers
         .where((user) =>
-            user.firstname.toLowerCase().contains(query.toLowerCase()) ||
-            user.lastname.toLowerCase().contains(query.toLowerCase()) ||
-            user.email.toLowerCase().contains(query.toLowerCase()))
+            user.firstname!.toLowerCase().contains(query.toLowerCase()) ||
+            user.lastname!.toLowerCase().contains(query.toLowerCase()) ||
+            user.email!.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
     return filteredUsers;
@@ -43,6 +43,6 @@ class UserSearchCubit extends Cubit<UserSearchState> {
 class UserSearchState with _$UserSearchState {
   const factory UserSearchState.initial() = _Initial;
   const factory UserSearchState.loading() = _Loading;
-  const factory UserSearchState.loaded(List<UserDTO> users) = _Loaded;
+  const factory UserSearchState.loaded(List<UsersUser> users) = _Loaded;
   const factory UserSearchState.error(String message) = _Error;
 }

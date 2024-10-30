@@ -25,7 +25,6 @@ import 'package:petsitting/core/repositories/animal/animal_repository.dart';
 import 'package:petsitting/core/repositories/animal/animal_repository_impl.dart';
 import 'package:petsitting/core/repositories/mission/mission_repository.dart';
 import 'package:petsitting/core/repositories/mission/mission_repository_impl.dart';
-import 'package:petsitting/core/repositories/payment/mission_payment_status_repository.dart';
 import 'package:petsitting/core/repositories/pet_service/pet_service_repository.dart';
 import 'package:petsitting/core/repositories/pet_service/pet_service_repository_impl.dart';
 import 'package:petsitting/core/repositories/user/user_repository.dart';
@@ -68,11 +67,9 @@ void mainDelegate(Flavor environment) {
     await dotenv.load(fileName: environment.envFile);
 
     if (!kIsWeb) {
-      FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-      await FirebaseCrashlytics.instance
-          .setCrashlyticsCollectionEnabled(!kDebugMode);
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
 
       PlatformDispatcher.instance.onError = (error, stack) {
         FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -85,9 +82,7 @@ void mainDelegate(Flavor environment) {
     Stripe.publishableKey = dotenv.get('STRIPE_PUBLISHABLE_KEY');
 
     HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: kIsWeb
-          ? HydratedStorage.webStorageDirectory
-          : await getApplicationDocumentsDirectory(),
+      storageDirectory: kIsWeb ? HydratedStorage.webStorageDirectory : await getApplicationDocumentsDirectory(),
     );
 
     await setupInjection();
@@ -115,15 +110,14 @@ void mainDelegate(Flavor environment) {
           RepositoryProvider<MissionDetailRepository>(
             create: (context) => MissionDetailRepositoryImpl(getIt()),
           ),
-          RepositoryProvider<MissionPaymentRepository>(
-            create: (context) => MissionPaymentRepositoryImpl(getIt()),
-          )
         ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider<MissionsCubit>(
               create: (context) => MissionsCubit(context.read())
-                ..fetchMissions(UserManager().currentUser?.id),
+                ..fetchMissions(
+                  UserManager().currentUser?.id,
+                ),
             ),
             BlocProvider<AuthBloc>(
               create: (context) => AuthBloc(

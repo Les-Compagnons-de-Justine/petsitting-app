@@ -30,7 +30,7 @@ class MissionsCubit extends Cubit<MissionsState> {
 class MissionsState with _$MissionsState {
   const factory MissionsState.initial() = _Initial;
   const factory MissionsState.loading() = _Loading;
-  const factory MissionsState.loaded(List<MissionDTO> missions) = _Loaded;
+  const factory MissionsState.loaded(List<MissionsMission> missions) = _Loaded;
   const factory MissionsState.error(String message) = _Error;
   const factory MissionsState.Unauthenticated() = _Unauthenticated;
 }

@@ -10,7 +10,7 @@ class RoleBasedNavigation {
     final userRole = UserManager().currentUser?.role;
 
     switch (userRole) {
-      case UserDTORole.vetAssistant:
+      case UsersUserRole.roleadmin:
         context.navigate(RouteNames.asvCreateMission);
         break;
       default:
@@ -23,7 +23,7 @@ class RoleBasedNavigation {
     final userRole = UserManager().currentUser?.role;
 
     switch (userRole) {
-      case UserDTORole.vetAssistant:
+      case UsersUserRole.roleadmin:
         context.push(RouteNames.petServicesAdmin);
         break;
       default:

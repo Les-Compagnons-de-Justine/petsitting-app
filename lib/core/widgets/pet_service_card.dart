@@ -9,7 +9,7 @@ class PetServiceCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final PetServiceDTO petService;
+  final PetServicesPetService petService;
   final VoidCallback onTap;
 
   @override
@@ -46,7 +46,7 @@ class PetServiceCard extends StatelessWidget {
                 //  ),
                 // const SizedBox(height: 8),
                 Text(
-                  petService.name,
+                  petService.name!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18, // Taille de police plus grande
@@ -56,7 +56,7 @@ class PetServiceCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  petService.description,
+                  petService.description!,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: Colors.grey[600]), // Couleur du texte
@@ -66,7 +66,7 @@ class PetServiceCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '${petService.basePrice.toStringAsFixed(2)} €',
+                      '${petService.basePrice!.toStringAsFixed(2)} €',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
@@ -79,10 +79,10 @@ class PetServiceCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 8),
-                if (petService.animalTypes.isNotEmpty)
+                if (petService.animalTypes!.isNotEmpty)
                   Wrap(
                     spacing: 4.0,
-                    children: petService.animalTypes.map((type) {
+                    children: petService.animalTypes!.map((type) {
                       return Chip(
                         label: Text(type.toReadableString),
                         backgroundColor: Colors.blue[100],

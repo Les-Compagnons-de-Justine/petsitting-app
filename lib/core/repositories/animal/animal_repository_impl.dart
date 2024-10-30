@@ -9,7 +9,7 @@ class AnimalRepositoryImpl implements AnimalRepository {
   AnimalRepositoryImpl(this._client);
 
   @override
-  Future<List<AnimalDTO>> getAnimalsByOwnerId(String ownerId) async {
+  Future<List<AnimalWithOwner>> getAnimalsByOwnerId(String ownerId) async {
     final response = await _client.apiAnimalsOwnerOwnerIdGet(ownerId: ownerId);
     if (response.isSuccessful) {
       return response.body ?? [];
@@ -19,7 +19,7 @@ class AnimalRepositoryImpl implements AnimalRepository {
   }
 
   @override
-  Future<AnimalDTO> getAnimalById(String id) async {
+  Future<AnimalWithOwner> getAnimalById(String id) async {
     final response = await _client.apiAnimalsIdGet(id: id);
     if (response.isSuccessful) {
       return response.body!;
@@ -29,8 +29,8 @@ class AnimalRepositoryImpl implements AnimalRepository {
   }
 
   @override
-  Future<AnimalDTO> createAnimal(AnimalCreateDTO animal) async {
-    final response = await _client.apiAnimalsPost(body: animal);
+  Future<AnimalWithOwner> createAnimal(AnimalAnimal animal) async {
+    final response = await _client.apiAnimalsPost(animal: animal);
     if (response.isSuccessful) {
       return response.body!;
     } else {
@@ -39,8 +39,8 @@ class AnimalRepositoryImpl implements AnimalRepository {
   }
 
   @override
-  Future<AnimalDTO> updateAnimal(AnimalUpdateDTO animal) async {
-    final response = await _client.apiAnimalsIdPut(body: animal);
+  Future<AnimalWithOwner> updateAnimal(AnimalAnimal animal) async {
+    final response = await _client.apiAnimalsPut(animal: animal);
     if (response.isSuccessful) {
       return response.body!;
     } else {

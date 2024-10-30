@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petsitting/core/router/route_names.dart';
-import 'package:petsitting/core/widgets/custom_app_bar.dart';
 import 'package:petsitting/features/home/presentation/bloc/missions/missions_cubit.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
@@ -15,7 +14,6 @@ class MissionListScreen extends HookWidget {
     final selectedFilter = useState<String>('all');
 
     return Scaffold(
-      appBar: CustomAppBar(title: "Mes missions"),
       body: Column(
         children: [
           _buildFilterChips(selectedFilter),
@@ -76,7 +74,7 @@ class MissionListScreen extends HookWidget {
     );
   }
 
-  Widget _buildMissionsList(List<MissionDTO> missions, String filter) {
+  Widget _buildMissionsList(List<MissionsMission> missions, String filter) {
     final filteredMissions = _filterMissions(missions, filter);
 
     if (filteredMissions.isEmpty) {
@@ -92,27 +90,27 @@ class MissionListScreen extends HookWidget {
     );
   }
 
-  List<MissionDTO> _filterMissions(List<MissionDTO> missions, String filter) {
+  List<MissionsMission> _filterMissions(List<MissionsMission> missions, String filter) {
     final now = DateTime.now();
     switch (filter) {
       case 'upcoming':
-        return missions.where((m) => m.startDate.isAfter(now)).toList();
+        return missions.where((m) => DateTime.parse(m.startDate!).isAfter(now)).toList();
       case 'ongoing':
-        return missions.where((m) => m.startDate.isBefore(now) && m.endDate.isAfter(now)).toList();
+        return missions.where((m) => DateTime.parse(m.startDate!).isBefore(now) && DateTime.parse(m.endDate!).isAfter(now)).toList();
       case 'completed':
-        return missions.where((m) => m.endDate.isBefore(now)).toList();
+        return missions.where((m) => DateTime.parse(m.endDate!).isBefore(now)).toList();
       default:
         return missions;
     }
   }
 
-  Widget _buildMissionCard(BuildContext context, MissionDTO mission) {
+  Widget _buildMissionCard(BuildContext context, MissionsMission mission) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: ListTile(
-        title: Text('${mission.$client.firstname} ${mission.$client.lastname}'),
-        subtitle: Text('Du ${_formatDate(mission.startDate)} au ${_formatDate(mission.endDate)}'),
-        trailing: Text('${mission.price.toStringAsFixed(2)}€'),
+        title: Text(mission.location?.formattedAddress ?? 'Adresse inconnue'),
+        subtitle: Text('Du ${_formatDate(DateTime.parse(mission.startDate!))} au ${DateTime.parse(mission.endDate!)}'),
+        // trailing: Text('${mission.price.toStringAsFixed(2)}€'),
         onTap: () {
           context.push(RouteNames.missionDetailId(mission.id!));
         },

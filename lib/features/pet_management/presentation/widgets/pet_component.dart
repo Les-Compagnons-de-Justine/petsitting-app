@@ -8,7 +8,7 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 class PetComponent extends StatelessWidget {
   const PetComponent({super.key, required this.animal, this.onTap});
 
-  final AnimalDTO animal;
+  final AnimalWithOwner animal;
   final VoidCallback? onTap;
 
   @override
@@ -25,14 +25,14 @@ class PetComponent extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: animal.gender == AnimalDTOGender.male ? Colors.lightBlueAccent.shade100 : Colors.pinkAccent.shade100,
+                color: animal.gender == AnimalGender.male ? Colors.lightBlueAccent.shade100 : Colors.pinkAccent.shade100,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Image.asset(
-                    animal.gender == AnimalDTOGender.male ? "assets/images/theme15/dashboard/d3.png" : "assets/images/theme15/dashboard/d4.png",
+                    animal.gender == AnimalGender.male ? "assets/images/theme15/dashboard/d3.png" : "assets/images/theme15/dashboard/d4.png",
                     //"images/theme15/dashboard/d3.png",
                     height: 150,
                   ),
@@ -47,7 +47,7 @@ class PetComponent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      animal.name,
+                      animal.name!,
                       style: boldTextStyle(),
                     ),
                     Row(
@@ -60,13 +60,13 @@ class PetComponent extends StatelessWidget {
                         ),
                         SizedBox(width: 4),
                         Text(
-                          animal.owner.address.name,
+                          animal.owner!.address!.name!,
                           style: secondaryTextStyle(),
                         ),
                       ],
                     ),
                     Text(
-                      'Né le ${Jiffy.parseFromDateTime(animal.birthDate).format(pattern: "dd/MM/yyyy")}',
+                      'Né le ${Jiffy.parse(animal.birthDate!).format(pattern: "dd/MM/yyyy")}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],

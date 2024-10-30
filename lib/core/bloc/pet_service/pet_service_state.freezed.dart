@@ -37,8 +37,8 @@ mixin _$PetServiceState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)
+    required TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -47,8 +47,8 @@ mixin _$PetServiceState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult? Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult? Function(String message)? error,
   }) =>
@@ -57,8 +57,8 @@ mixin _$PetServiceState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -165,8 +165,8 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)
+    required TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -178,8 +178,8 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult? Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -191,8 +191,8 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -304,8 +304,8 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)
+    required TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -317,8 +317,8 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult? Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -330,8 +330,8 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -400,7 +400,8 @@ abstract class _$$LoadedImplCopyWith<$Res> {
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<PetServiceDTO> petServices, List<PetServiceDTO> selectedServices});
+      {List<PetServicesPetService> petServices,
+      List<PetServicesPetService> selectedServices});
 }
 
 /// @nodoc
@@ -423,11 +424,11 @@ class __$$LoadedImplCopyWithImpl<$Res>
       null == petServices
           ? _value._petServices
           : petServices // ignore: cast_nullable_to_non_nullable
-              as List<PetServiceDTO>,
+              as List<PetServicesPetService>,
       selectedServices: null == selectedServices
           ? _value._selectedServices
           : selectedServices // ignore: cast_nullable_to_non_nullable
-              as List<PetServiceDTO>,
+              as List<PetServicesPetService>,
     ));
   }
 }
@@ -435,8 +436,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(final List<PetServiceDTO> petServices,
-      {final List<PetServiceDTO> selectedServices = const [],
+  const _$LoadedImpl(final List<PetServicesPetService> petServices,
+      {final List<PetServicesPetService> selectedServices = const [],
       final String? $type})
       : _petServices = petServices,
         _selectedServices = selectedServices,
@@ -445,18 +446,18 @@ class _$LoadedImpl implements Loaded {
   factory _$LoadedImpl.fromJson(Map<String, dynamic> json) =>
       _$$LoadedImplFromJson(json);
 
-  final List<PetServiceDTO> _petServices;
+  final List<PetServicesPetService> _petServices;
   @override
-  List<PetServiceDTO> get petServices {
+  List<PetServicesPetService> get petServices {
     if (_petServices is EqualUnmodifiableListView) return _petServices;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_petServices);
   }
 
-  final List<PetServiceDTO> _selectedServices;
+  final List<PetServicesPetService> _selectedServices;
   @override
   @JsonKey()
-  List<PetServiceDTO> get selectedServices {
+  List<PetServicesPetService> get selectedServices {
     if (_selectedServices is EqualUnmodifiableListView)
       return _selectedServices;
     // ignore: implicit_dynamic_type
@@ -502,8 +503,8 @@ class _$LoadedImpl implements Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)
+    required TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -515,8 +516,8 @@ class _$LoadedImpl implements Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult? Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -528,8 +529,8 @@ class _$LoadedImpl implements Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -586,13 +587,13 @@ class _$LoadedImpl implements Loaded {
 }
 
 abstract class Loaded implements PetServiceState {
-  const factory Loaded(final List<PetServiceDTO> petServices,
-      {final List<PetServiceDTO> selectedServices}) = _$LoadedImpl;
+  const factory Loaded(final List<PetServicesPetService> petServices,
+      {final List<PetServicesPetService> selectedServices}) = _$LoadedImpl;
 
   factory Loaded.fromJson(Map<String, dynamic> json) = _$LoadedImpl.fromJson;
 
-  List<PetServiceDTO> get petServices;
-  List<PetServiceDTO> get selectedServices;
+  List<PetServicesPetService> get petServices;
+  List<PetServicesPetService> get selectedServices;
 
   /// Create a copy of PetServiceState
   /// with the given fields replaced by the non-null parameter values.
@@ -679,8 +680,8 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)
+    required TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -692,8 +693,8 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult? Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult? Function(String message)? error,
   }) {
@@ -705,8 +706,8 @@ class _$ErrorImpl implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<PetServiceDTO> petServices,
-            List<PetServiceDTO> selectedServices)?
+    TResult Function(List<PetServicesPetService> petServices,
+            List<PetServicesPetService> selectedServices)?
         loaded,
     TResult Function(String message)? error,
     required TResult orElse(),

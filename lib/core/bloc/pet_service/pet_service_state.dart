@@ -9,8 +9,8 @@ class PetServiceState with _$PetServiceState {
   const factory PetServiceState.initial() = Initial;
   const factory PetServiceState.loading() = Loading;
   const factory PetServiceState.loaded(
-    List<PetServiceDTO> petServices, {
-    @Default([]) List<PetServiceDTO> selectedServices,
+    List<PetServicesPetService> petServices, {
+    @Default([]) List<PetServicesPetService> selectedServices,
   }) = Loaded;
   const factory PetServiceState.error(String message) = Error;
 

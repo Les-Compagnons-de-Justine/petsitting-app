@@ -20,7 +20,7 @@ mixin _$UserCreationState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserDTO createdUser) success,
+    required TResult Function(UsersUser createdUser) success,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$UserCreationState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserDTO createdUser)? success,
+    TResult? Function(UsersUser createdUser)? success,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$UserCreationState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserDTO createdUser)? success,
+    TResult Function(UsersUser createdUser)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -132,7 +132,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserDTO createdUser) success,
+    required TResult Function(UsersUser createdUser) success,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -143,7 +143,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserDTO createdUser)? success,
+    TResult? Function(UsersUser createdUser)? success,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -154,7 +154,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserDTO createdUser)? success,
+    TResult Function(UsersUser createdUser)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -249,7 +249,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserDTO createdUser) success,
+    required TResult Function(UsersUser createdUser) success,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -260,7 +260,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserDTO createdUser)? success,
+    TResult? Function(UsersUser createdUser)? success,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -271,7 +271,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserDTO createdUser)? success,
+    TResult Function(UsersUser createdUser)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -329,7 +329,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserDTO createdUser});
+  $Res call({UsersUser createdUser});
 }
 
 /// @nodoc
@@ -351,7 +351,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       null == createdUser
           ? _value.createdUser
           : createdUser // ignore: cast_nullable_to_non_nullable
-              as UserDTO,
+              as UsersUser,
     ));
   }
 }
@@ -362,7 +362,7 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl(this.createdUser);
 
   @override
-  final UserDTO createdUser;
+  final UsersUser createdUser;
 
   @override
   String toString() {
@@ -394,7 +394,7 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserDTO createdUser) success,
+    required TResult Function(UsersUser createdUser) success,
     required TResult Function(String error) failure,
   }) {
     return success(createdUser);
@@ -405,7 +405,7 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserDTO createdUser)? success,
+    TResult? Function(UsersUser createdUser)? success,
     TResult? Function(String error)? failure,
   }) {
     return success?.call(createdUser);
@@ -416,7 +416,7 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserDTO createdUser)? success,
+    TResult Function(UsersUser createdUser)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -465,9 +465,9 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements UserCreationState {
-  const factory _Success(final UserDTO createdUser) = _$SuccessImpl;
+  const factory _Success(final UsersUser createdUser) = _$SuccessImpl;
 
-  UserDTO get createdUser;
+  UsersUser get createdUser;
 
   /// Create a copy of UserCreationState
   /// with the given fields replaced by the non-null parameter values.
@@ -546,7 +546,7 @@ class _$FailureImpl implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(UserDTO createdUser) success,
+    required TResult Function(UsersUser createdUser) success,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -557,7 +557,7 @@ class _$FailureImpl implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(UserDTO createdUser)? success,
+    TResult? Function(UsersUser createdUser)? success,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -568,7 +568,7 @@ class _$FailureImpl implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(UserDTO createdUser)? success,
+    TResult Function(UsersUser createdUser)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {

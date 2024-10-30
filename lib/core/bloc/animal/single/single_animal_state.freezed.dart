@@ -14,35 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SingleAnimalState _$SingleAnimalStateFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'initial':
-      return Initial.fromJson(json);
-    case 'loading':
-      return Loading.fromJson(json);
-    case 'added':
-      return Added.fromJson(json);
-    case 'updated':
-      return Updated.fromJson(json);
-    case 'deleted':
-      return Deleted.fromJson(json);
-    case 'error':
-      return Error.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'SingleAnimalState',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
-}
-
 /// @nodoc
 mixin _$SingleAnimalState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) =>
@@ -51,8 +30,8 @@ mixin _$SingleAnimalState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) =>
@@ -61,8 +40,8 @@ mixin _$SingleAnimalState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -99,9 +78,6 @@ mixin _$SingleAnimalState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Serializes this SingleAnimalState to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -145,15 +121,9 @@ class __$$InitialImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$InitialImpl implements Initial {
-  const _$InitialImpl({final String? $type}) : $type = $type ?? 'initial';
-
-  factory _$InitialImpl.fromJson(Map<String, dynamic> json) =>
-      _$$InitialImplFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$InitialImpl();
 
   @override
   String toString() {
@@ -166,7 +136,6 @@ class _$InitialImpl implements Initial {
         (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -175,8 +144,8 @@ class _$InitialImpl implements Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -188,8 +157,8 @@ class _$InitialImpl implements Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -201,8 +170,8 @@ class _$InitialImpl implements Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -255,19 +224,10 @@ class _$InitialImpl implements Initial {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$InitialImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Initial implements SingleAnimalState {
   const factory Initial() = _$InitialImpl;
-
-  factory Initial.fromJson(Map<String, dynamic> json) = _$InitialImpl.fromJson;
 }
 
 /// @nodoc
@@ -290,15 +250,9 @@ class __$$LoadingImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$LoadingImpl implements Loading {
-  const _$LoadingImpl({final String? $type}) : $type = $type ?? 'loading';
-
-  factory _$LoadingImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LoadingImplFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$LoadingImpl();
 
   @override
   String toString() {
@@ -311,7 +265,6 @@ class _$LoadingImpl implements Loading {
         (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -320,8 +273,8 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -333,8 +286,8 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -346,8 +299,8 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -400,19 +353,10 @@ class _$LoadingImpl implements Loading {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LoadingImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Loading implements SingleAnimalState {
   const factory Loading() = _$LoadingImpl;
-
-  factory Loading.fromJson(Map<String, dynamic> json) = _$LoadingImpl.fromJson;
 }
 
 /// @nodoc
@@ -421,7 +365,7 @@ abstract class _$$AddedImplCopyWith<$Res> {
           _$AddedImpl value, $Res Function(_$AddedImpl) then) =
       __$$AddedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AnimalDTO animal});
+  $Res call({AnimalWithOwner animal});
 }
 
 /// @nodoc
@@ -443,25 +387,18 @@ class __$$AddedImplCopyWithImpl<$Res>
       null == animal
           ? _value.animal
           : animal // ignore: cast_nullable_to_non_nullable
-              as AnimalDTO,
+              as AnimalWithOwner,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$AddedImpl implements Added {
-  const _$AddedImpl(this.animal, {final String? $type})
-      : $type = $type ?? 'added';
 
-  factory _$AddedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$AddedImplFromJson(json);
+class _$AddedImpl implements Added {
+  const _$AddedImpl(this.animal);
 
   @override
-  final AnimalDTO animal;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  final AnimalWithOwner animal;
 
   @override
   String toString() {
@@ -476,7 +413,6 @@ class _$AddedImpl implements Added {
             (identical(other.animal, animal) || other.animal == animal));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, animal);
 
@@ -493,8 +429,8 @@ class _$AddedImpl implements Added {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -506,8 +442,8 @@ class _$AddedImpl implements Added {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -519,8 +455,8 @@ class _$AddedImpl implements Added {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -573,21 +509,12 @@ class _$AddedImpl implements Added {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$AddedImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Added implements SingleAnimalState {
-  const factory Added(final AnimalDTO animal) = _$AddedImpl;
+  const factory Added(final AnimalWithOwner animal) = _$AddedImpl;
 
-  factory Added.fromJson(Map<String, dynamic> json) = _$AddedImpl.fromJson;
-
-  AnimalDTO get animal;
+  AnimalWithOwner get animal;
 
   /// Create a copy of SingleAnimalState
   /// with the given fields replaced by the non-null parameter values.
@@ -602,7 +529,7 @@ abstract class _$$UpdatedImplCopyWith<$Res> {
           _$UpdatedImpl value, $Res Function(_$UpdatedImpl) then) =
       __$$UpdatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AnimalDTO animal});
+  $Res call({AnimalWithOwner animal});
 }
 
 /// @nodoc
@@ -624,25 +551,18 @@ class __$$UpdatedImplCopyWithImpl<$Res>
       null == animal
           ? _value.animal
           : animal // ignore: cast_nullable_to_non_nullable
-              as AnimalDTO,
+              as AnimalWithOwner,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$UpdatedImpl implements Updated {
-  const _$UpdatedImpl(this.animal, {final String? $type})
-      : $type = $type ?? 'updated';
 
-  factory _$UpdatedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UpdatedImplFromJson(json);
+class _$UpdatedImpl implements Updated {
+  const _$UpdatedImpl(this.animal);
 
   @override
-  final AnimalDTO animal;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  final AnimalWithOwner animal;
 
   @override
   String toString() {
@@ -657,7 +577,6 @@ class _$UpdatedImpl implements Updated {
             (identical(other.animal, animal) || other.animal == animal));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, animal);
 
@@ -674,8 +593,8 @@ class _$UpdatedImpl implements Updated {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -687,8 +606,8 @@ class _$UpdatedImpl implements Updated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -700,8 +619,8 @@ class _$UpdatedImpl implements Updated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -754,21 +673,12 @@ class _$UpdatedImpl implements Updated {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UpdatedImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Updated implements SingleAnimalState {
-  const factory Updated(final AnimalDTO animal) = _$UpdatedImpl;
+  const factory Updated(final AnimalWithOwner animal) = _$UpdatedImpl;
 
-  factory Updated.fromJson(Map<String, dynamic> json) = _$UpdatedImpl.fromJson;
-
-  AnimalDTO get animal;
+  AnimalWithOwner get animal;
 
   /// Create a copy of SingleAnimalState
   /// with the given fields replaced by the non-null parameter values.
@@ -797,15 +707,9 @@ class __$$DeletedImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$DeletedImpl implements Deleted {
-  const _$DeletedImpl({final String? $type}) : $type = $type ?? 'deleted';
-
-  factory _$DeletedImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DeletedImplFromJson(json);
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
+  const _$DeletedImpl();
 
   @override
   String toString() {
@@ -818,7 +722,6 @@ class _$DeletedImpl implements Deleted {
         (other.runtimeType == runtimeType && other is _$DeletedImpl);
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => runtimeType.hashCode;
 
@@ -827,8 +730,8 @@ class _$DeletedImpl implements Deleted {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -840,8 +743,8 @@ class _$DeletedImpl implements Deleted {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -853,8 +756,8 @@ class _$DeletedImpl implements Deleted {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -907,19 +810,10 @@ class _$DeletedImpl implements Deleted {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DeletedImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Deleted implements SingleAnimalState {
   const factory Deleted() = _$DeletedImpl;
-
-  factory Deleted.fromJson(Map<String, dynamic> json) = _$DeletedImpl.fromJson;
 }
 
 /// @nodoc
@@ -956,19 +850,12 @@ class __$$ErrorImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$ErrorImpl implements Error {
-  const _$ErrorImpl(this.message, {final String? $type})
-      : $type = $type ?? 'error';
 
-  factory _$ErrorImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ErrorImplFromJson(json);
+class _$ErrorImpl implements Error {
+  const _$ErrorImpl(this.message);
 
   @override
   final String message;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
 
   @override
   String toString() {
@@ -983,7 +870,6 @@ class _$ErrorImpl implements Error {
             (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -1000,8 +886,8 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(AnimalDTO animal) added,
-    required TResult Function(AnimalDTO animal) updated,
+    required TResult Function(AnimalWithOwner animal) added,
+    required TResult Function(AnimalWithOwner animal) updated,
     required TResult Function() deleted,
     required TResult Function(String message) error,
   }) {
@@ -1013,8 +899,8 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(AnimalDTO animal)? added,
-    TResult? Function(AnimalDTO animal)? updated,
+    TResult? Function(AnimalWithOwner animal)? added,
+    TResult? Function(AnimalWithOwner animal)? updated,
     TResult? Function()? deleted,
     TResult? Function(String message)? error,
   }) {
@@ -1026,8 +912,8 @@ class _$ErrorImpl implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(AnimalDTO animal)? added,
-    TResult Function(AnimalDTO animal)? updated,
+    TResult Function(AnimalWithOwner animal)? added,
+    TResult Function(AnimalWithOwner animal)? updated,
     TResult Function()? deleted,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -1080,19 +966,10 @@ class _$ErrorImpl implements Error {
     }
     return orElse();
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ErrorImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class Error implements SingleAnimalState {
   const factory Error(final String message) = _$ErrorImpl;
-
-  factory Error.fromJson(Map<String, dynamic> json) = _$ErrorImpl.fromJson;
 
   String get message;
 

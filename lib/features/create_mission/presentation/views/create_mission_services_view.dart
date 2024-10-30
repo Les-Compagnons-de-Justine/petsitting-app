@@ -2,6 +2,7 @@ import "package:collection/collection.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:petsitting/core/bloc/animal/list/animal_list_cubit.dart';
 import 'package:petsitting/core/bloc/animal/list/animal_list_state.dart';
@@ -25,7 +26,7 @@ class CreateMissionServicesView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyServicesNotifier = useState<List<DailyServiceDTO>>([]);
+    final dailyServicesNotifier = useState<List<MissionsDailyServiceWithDetails>>([]);
 
     useEffect(() {
       context.read<AnimalListCubit>().loadAnimals(missionCreation.customer!.id);
@@ -44,32 +45,28 @@ class CreateMissionServicesView extends HookWidget {
             builder: (context, petServiceState) {
               final petServices = petServiceState.maybeWhen(
                 loaded: (values, _) => values,
-                orElse: () => <PetServiceDTO>[],
+                orElse: () => <PetServicesPetService>[],
               );
 
               return BlocBuilder<AnimalListCubit, AnimalListState>(
                 builder: (context, animalState) {
-                  return animalState.maybeWhen(
-                    error: (error) {
-                      return Text('Erreur : $error');
-                    },
-                    loaded: (values) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          _showAddServiceForm(
-                            context,
-                            dailyServicesNotifier,
-                            values,
-                            petServices,
-                          );
-                        },
-                        child: const Text('Ajouter un service'),
-                      );
-                    },
-                    orElse: () {
-                      return const Text("Aucun animal disponible.");
-                    },
-                  );
+                  if (animalState.status == AnimalListStatus.loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (animalState.status == AnimalListStatus.error) {
+                    return const Text('Erreur lors du chargement des animaux.');
+                  } else {
+                    return ElevatedButton(
+                      onPressed: () {
+                        _showAddServiceForm(
+                          context,
+                          dailyServicesNotifier,
+                          animalState.animals,
+                          petServices,
+                        );
+                      },
+                      child: const Text('Ajouter un service'),
+                    );
+                  }
                 },
               );
             },
@@ -78,8 +75,7 @@ class CreateMissionServicesView extends HookWidget {
           _buildDailyServicesList(dailyServicesNotifier.value),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () =>
-                _submitMission(context, dailyServicesNotifier.value),
+            onPressed: () => _submitMission(context, dailyServicesNotifier.value),
             child: const Text('Créer la mission'),
           ),
         ],
@@ -89,9 +85,9 @@ class CreateMissionServicesView extends HookWidget {
 
   void _showAddServiceForm(
     BuildContext context,
-    ValueNotifier<List<DailyServiceDTO>> dailyServicesNotifier,
-    List<AnimalDTO> animals,
-    List<PetServiceDTO> petServices,
+    ValueNotifier<List<MissionsDailyServiceWithDetails>> dailyServicesNotifier,
+    List<AnimalWithOwner> animals,
+    List<PetServicesPetService> petServices,
   ) {
     showBarModalBottomSheet(
       context: context,
@@ -107,14 +103,13 @@ class CreateMissionServicesView extends HookWidget {
     );
   }
 
-  Widget _buildDailyServicesList(List<DailyServiceDTO> dailyServices) {
+  Widget _buildDailyServicesList(List<MissionsDailyServiceWithDetails> dailyServices) {
     if (dailyServices.isEmpty) {
       return const Text("Aucun service ajouté.");
     }
 
     // Group the daily services by date for better readability
-    final groupedServices = groupBy(
-        dailyServices, (DailyServiceDTO dailyService) => dailyService.date);
+    final groupedServices = groupBy(dailyServices, (MissionsDailyServiceWithDetails dailyService) => dailyService.date);
 
     return Column(
       children: groupedServices.entries.map((entry) {
@@ -130,23 +125,19 @@ class CreateMissionServicesView extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Date : ${date.toLocal().toString().split(' ')[0]}',
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                  'Date : ${Jiffy.parse(date!).format()}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                ...servicesOnDate.expand(
-                    (dailyService) => dailyService.services.map((service) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0),
-                            child: ListTile(
-                              title: Text(
-                                  '${service.petService.name} - ${service.price.toStringAsFixed(2)} €'),
-                              leading: const Icon(Icons
-                                  .pets), // Optionnel, icône pour plus de visuel
-                            ),
-                          );
-                        })),
+                ...servicesOnDate.expand((dailyService) => dailyService.services!.map((service) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        child: ListTile(
+                          title: Text('${service.animal?.name} - ${service.price!.toStringAsFixed(2)} €'),
+                          leading: const Icon(Icons.pets), // Optionnel, icône pour plus de visuel
+                        ),
+                      );
+                    }))
               ],
             ),
           ),
@@ -156,10 +147,7 @@ class CreateMissionServicesView extends HookWidget {
   }
 
   // Méthode pour soumettre la mission avec tous les services
-  void _submitMission(
-      BuildContext context, List<DailyServiceDTO> dailyServices) {
-    context
-        .read<CreateMissionBloc>()
-        .add(CreateMissionEvent.createMission(missionCreation));
+  void _submitMission(BuildContext context, List<MissionsDailyServiceWithDetails> dailyServices) {
+    context.read<CreateMissionBloc>().add(CreateMissionEvent.createMission(missionCreation));
   }
 }

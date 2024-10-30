@@ -64,7 +64,7 @@ Map<String, dynamic> _$$PartiallyAuthenticatedImplToJson(
 
 _$AuthenticatedImpl _$$AuthenticatedImplFromJson(Map<String, dynamic> json) =>
     _$AuthenticatedImpl(
-      UserDTO.fromJson(json['user'] as Map<String, dynamic>),
+      UsersUser.fromJson(json['user'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 

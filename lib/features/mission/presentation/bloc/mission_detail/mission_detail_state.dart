@@ -7,8 +7,6 @@ part 'mission_detail_state.freezed.dart';
 class MissionDetailState with _$MissionDetailState {
   const factory MissionDetailState.initial() = Initial;
   const factory MissionDetailState.loading() = Loading;
-  const factory MissionDetailState.loaded({
-    required MissionDTO mission,
-  }) = Loaded;
+  const factory MissionDetailState.loaded({required MissionsMissionWithDetails mission}) = Loaded;
   const factory MissionDetailState.error(String message) = Error;
 }

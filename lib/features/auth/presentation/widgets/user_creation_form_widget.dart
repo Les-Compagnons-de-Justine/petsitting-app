@@ -7,7 +7,7 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 import 'package:reactive_forms/reactive_forms.dart';
 
 class UserCreationFormWidget extends HookWidget {
-  final Function(UserCreationDTO) onUserCreated;
+  final Function(UsersCreateUserRequest) onUserCreated;
 
   const UserCreationFormWidget({
     super.key,
@@ -106,21 +106,20 @@ class UserCreationFormWidget extends HookWidget {
                         context.read<ErrorBloc>().handleErrorMessage('Veuillez entrer une adresse valide');
                         return;
                       }
-                      final newUser = UserCreationDTO(
-                        firebaseUid: '', // This should be handled by your backend
+                      final newUser = UsersCreateUserRequest(
+                        firebaseUid: '',
                         lastname: formData['lastname'] as String,
                         firstname: formData['firstname'] as String,
                         email: '',
-                        address: PlaceDetailsDTO(
+                        address: PlaceDetails(
                           name: address.name,
                           formattedAddress: address.formattedAddress,
                           latitude: address.latitude,
                           longitude: address.longitude,
                         ),
                         phone: formData['phone'] as String,
-                        role: UserCreationDTORole.$client,
-                        isVerified: false,
-                        registrationDate: DateTime.now(),
+                        role: UsersUserRole.roleclient,
+                        creationDate: DateTime.now().toIso8601String(),
                       );
                       onUserCreated(newUser);
                     }

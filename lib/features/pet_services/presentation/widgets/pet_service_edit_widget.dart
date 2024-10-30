@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 
 class PetServiceEditWidget extends HookWidget {
-  final PetServiceDTO? service;
-  final Function(PetServiceDTO)? onSave;
+  final PetServicesPetService? service;
+  final Function(PetServicesPetService)? onSave;
 
   const PetServiceEditWidget({
     super.key,
@@ -18,8 +18,8 @@ class PetServiceEditWidget extends HookWidget {
     final descriptionController = useTextEditingController(text: service?.description ?? '');
     final durationController = useTextEditingController(text: service?.durationMinutes.toString() ?? '');
     final priceController = useTextEditingController(text: service?.basePrice.toString() ?? '');
-    final category = useState<PetServiceDTOCategory>(service?.category ?? PetServiceDTOCategory.basicCare);
-    final animalTypes = useState<List<PetServiceDTOAnimalTypes>>(service?.animalTypes ?? []);
+    final category = useState<PetServicesCategory>(service?.category ?? PetServicesCategory.basiccare);
+    final animalTypes = useState<List<PetServicesAnimalType>>(service?.animalTypes ?? []);
     final isCustomPriceAllowed = useState<bool>(service?.isCustomPriceAllowed ?? false);
     final isCustomDurationAllowed = useState<bool>(service?.isCustomDurationAllowed ?? false);
     final includedItems = useState<List<String>>(service?.includedItems ?? []);
@@ -34,14 +34,14 @@ class PetServiceEditWidget extends HookWidget {
     }
 
     Widget buildDropdown() {
-      return DropdownButtonFormField<PetServiceDTOCategory>(
+      return DropdownButtonFormField<PetServicesCategory>(
         value: category.value,
         onChanged: (newValue) {
           if (newValue != null) {
             category.value = newValue;
           }
         },
-        items: PetServiceDTOCategory.values.map((cat) {
+        items: PetServicesCategory.values.map((cat) {
           return DropdownMenuItem(
             value: cat,
             child: Text(cat.toString().split('.').last),
@@ -54,7 +54,7 @@ class PetServiceEditWidget extends HookWidget {
     Widget buildAnimalTypeChips() {
       return Wrap(
         spacing: 8.0,
-        children: PetServiceDTOAnimalTypes.values.map((type) {
+        children: PetServicesAnimalType.values.map((type) {
           return FilterChip(
             label: Text(type.toString().split('.').last),
             selected: animalTypes.value.contains(type),
@@ -147,7 +147,7 @@ class PetServiceEditWidget extends HookWidget {
             if (onSave != null)
               ElevatedButton(
                 onPressed: () {
-                  final updatedService = PetServiceDTO(
+                  final updatedService = PetServicesPetService(
                     id: service?.id,
                     name: nameController.text,
                     description: descriptionController.text,

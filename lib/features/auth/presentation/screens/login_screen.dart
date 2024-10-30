@@ -14,12 +14,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (BuildContext context, state) {
-        state.maybeWhen(
-          authenticated: (_) {
-            context.go(RouteNames.home);
-          },
-          orElse: () {},
-        );
+        if (state is Authenticated) {
+          context.go(RouteNames.home);
+        }
       },
       child: firebase_ui.SignInScreen(
         providers: [

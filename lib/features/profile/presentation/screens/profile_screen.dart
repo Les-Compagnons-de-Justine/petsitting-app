@@ -5,6 +5,7 @@ import 'package:petsitting/core/repositories/user/user_repository.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
 import 'package:petsitting/core/widgets/custom_app_bar.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:petsitting/features/auth/presentation/bloc/auth/auth_event.dart';
 import 'package:petsitting/features/settings/presentation/widgets/user_edit_form_widget.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 import 'package:quickalert/quickalert.dart';
@@ -34,15 +35,15 @@ class ProfileScreen extends HookWidget {
     );
   }
 
-  void _handleUserUpdate(BuildContext context, UserUpdateDTO updatedUser) {
-    context.read<UserRepository>().updateUser(updatedUser.id, updatedUser).then((_) {
+  void _handleUserUpdate(BuildContext context, UsersUpdateUserRequest updatedUser) {
+    context.read<UserRepository>().updateUser(updatedUser.id!, updatedUser).then((_) {
       if (context.mounted) {
         QuickAlert.show(
           context: context,
           type: QuickAlertType.success,
           text: 'Profil mis à jour avec succès',
           onConfirmBtnTap: () {
-            context.read<AuthBloc>().add(const AuthEvent.checkStatus());
+            context.read<AuthBloc>().add(AuthEventCheckStatus());
             Navigator.of(context).pop(); // Retour à l'écran précédent
             Navigator.of(context).pop(); // Ferme l'alerte
           },

@@ -10,12 +10,12 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
   PetServiceCubit(this._petServiceRepository) : super(const PetServiceState.initial());
 
   Future<void> loadPetServices({
-    PetServiceDTOCategory? category,
-    List<PetServiceDTOAnimalTypes>? animalTypes,
+    PetServicesCategory? category,
+    List<PetServicesAnimalType>? animalTypes,
   }) async {
     emit(const PetServiceState.loading());
     try {
-      List<PetServiceDTO> services;
+      List<PetServicesPetService> services;
       if (category != null) {
         services = await _petServiceRepository.getPetServicesByCategory(category);
       } else {
@@ -23,7 +23,7 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
       }
 
       if (animalTypes != null && animalTypes.isNotEmpty) {
-        services = services.where((service) => service.animalTypes.any((type) => animalTypes.contains(type))).toList();
+        services = services.where((service) => service.animalTypes!.any((type) => animalTypes.contains(type))).toList();
       }
 
       emit(PetServiceState.loaded(services, selectedServices: []));
@@ -32,7 +32,7 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
     }
   }
 
-  Future<void> loadPetServicesByCategory(PetServiceDTOCategory category) async {
+  Future<void> loadPetServicesByCategory(PetServicesCategory category) async {
     emit(const PetServiceState.loading());
     try {
       final petServices = await _petServiceRepository.getPetServicesByCategory(category);
@@ -42,10 +42,10 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
     }
   }
 
-  void toggleServiceSelection(PetServiceDTO service) {
+  void toggleServiceSelection(PetServicesPetService service) {
     final currentState = state;
     if (currentState is Loaded) {
-      final selectedServices = List<PetServiceDTO>.from(currentState.selectedServices);
+      final selectedServices = List<PetServicesPetService>.from(currentState.selectedServices);
       if (selectedServices.contains(service)) {
         selectedServices.remove(service);
       } else {
@@ -62,7 +62,7 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
     }
   }
 
-  Future<void> createPetService(PetServiceDTO service) async {
+  Future<void> createPetService(PetServicesPetService service) async {
     try {
       await _petServiceRepository.createPetService(service);
       loadPetServices();
@@ -71,7 +71,7 @@ class PetServiceCubit extends HydratedCubit<PetServiceState> {
     }
   }
 
-  Future<void> updatePetService(PetServiceDTO service) async {
+  Future<void> updatePetService(PetServicesPetService service) async {
     try {
       await _petServiceRepository.updatePetService(service.id!, service);
       loadPetServices();

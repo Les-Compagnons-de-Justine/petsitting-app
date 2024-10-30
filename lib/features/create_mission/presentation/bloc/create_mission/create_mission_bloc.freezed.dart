@@ -526,7 +526,7 @@ mixin _$CreateMissionState {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -535,7 +535,7 @@ mixin _$CreateMissionState {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -544,7 +544,7 @@ mixin _$CreateMissionState {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) =>
@@ -644,7 +644,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) {
     return initial();
@@ -656,7 +656,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) {
     return initial?.call();
@@ -668,7 +668,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -807,7 +807,7 @@ class _$EditingImpl implements _Editing {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) {
     return editing(missionCreation);
@@ -819,7 +819,7 @@ class _$EditingImpl implements _Editing {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) {
     return editing?.call(missionCreation);
@@ -831,7 +831,7 @@ class _$EditingImpl implements _Editing {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -938,7 +938,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) {
     return loading();
@@ -950,7 +950,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) {
     return loading?.call();
@@ -962,7 +962,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -1023,7 +1023,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({MissionDTO mission});
+  $Res call({MissionsMissionWithDetails mission});
 }
 
 /// @nodoc
@@ -1045,7 +1045,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       null == mission
           ? _value.mission
           : mission // ignore: cast_nullable_to_non_nullable
-              as MissionDTO,
+              as MissionsMissionWithDetails,
     ));
   }
 }
@@ -1056,7 +1056,7 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl(this.mission);
 
   @override
-  final MissionDTO mission;
+  final MissionsMissionWithDetails mission;
 
   @override
   String toString() {
@@ -1088,7 +1088,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) {
     return success(mission);
@@ -1100,7 +1100,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) {
     return success?.call(mission);
@@ -1112,7 +1112,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -1164,9 +1164,10 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements CreateMissionState {
-  const factory _Success(final MissionDTO mission) = _$SuccessImpl;
+  const factory _Success(final MissionsMissionWithDetails mission) =
+      _$SuccessImpl;
 
-  MissionDTO get mission;
+  MissionsMissionWithDetails get mission;
 
   /// Create a copy of CreateMissionState
   /// with the given fields replaced by the non-null parameter values.
@@ -1246,7 +1247,7 @@ class _$FailureImpl implements _Failure {
     required TResult Function() initial,
     required TResult Function(MissionCreation missionCreation) editing,
     required TResult Function() loading,
-    required TResult Function(MissionDTO mission) success,
+    required TResult Function(MissionsMissionWithDetails mission) success,
     required TResult Function(String error) failure,
   }) {
     return failure(error);
@@ -1258,7 +1259,7 @@ class _$FailureImpl implements _Failure {
     TResult? Function()? initial,
     TResult? Function(MissionCreation missionCreation)? editing,
     TResult? Function()? loading,
-    TResult? Function(MissionDTO mission)? success,
+    TResult? Function(MissionsMissionWithDetails mission)? success,
     TResult? Function(String error)? failure,
   }) {
     return failure?.call(error);
@@ -1270,7 +1271,7 @@ class _$FailureImpl implements _Failure {
     TResult Function()? initial,
     TResult Function(MissionCreation missionCreation)? editing,
     TResult Function()? loading,
-    TResult Function(MissionDTO mission)? success,
+    TResult Function(MissionsMissionWithDetails mission)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {

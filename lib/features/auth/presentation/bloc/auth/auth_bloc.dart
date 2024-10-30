@@ -2,16 +2,13 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:petsitting/core/extensions/user_extension.dart';
 import 'package:petsitting/core/utils/user_manager.dart';
 import 'package:petsitting/features/auth/domain/repositories/auth_repository.dart';
+import 'package:petsitting/features/auth/presentation/bloc/auth/auth_event.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart' as client;
-
-part 'auth_bloc.freezed.dart';
-part 'auth_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
@@ -20,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
     required AuthRepository authRepository,
   })  : _authRepository = authRepository,
-        super(const AuthState.initial()) {
+        super(Initial()) {
     on<AuthEventAuthStateChanged>(_onAuthStateChanged);
     on<AuthEventSignIn>(_onSignIn);
     on<AuthEventSignUp>(_onSignUp);
@@ -29,67 +26,67 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Écoute les changements d'état d'authentification
     _authSubscription = FirebaseAuth.instance.authStateChanges().listen((firebaseUser) {
-      add(AuthEvent.authStateChanged(firebaseUser));
+      add(AuthEventAuthStateChanged(firebaseUser));
     });
   }
 
   Future<void> _onAuthStateChanged(AuthEventAuthStateChanged event, Emitter<AuthState> emit) async {
     if (event.user != null && !event.user!.emailVerified) {
-      emit(const AuthState.emailUnverified());
+      emit(EmailUnverified());
       return;
     }
 
-    emit(const AuthState.checking());
+    emit(Checking());
 
     try {
       final firebaseUser = event.user;
       if (firebaseUser != null) {
         final user = await _authRepository.getCurrentUser();
         if (user != null) {
-          emit(AuthState.authenticated(user));
+          emit(Authenticated(user));
           UserManager().setUser(user);
         } else {
-          emit(const AuthState.partiallyAuthenticated());
+          emit(PartiallyAuthenticated());
         }
       } else {
-        emit(const AuthState.unauthenticated());
+        emit(Unauthenticated());
         UserManager().clearUser();
       }
     } catch (e) {
-      emit(AuthState.error(e.toString()));
+      emit(Error(e.toString()));
     }
   }
 
   Future<void> _onSignIn(AuthEventSignIn event, Emitter<AuthState> emit) async {
-    emit(const AuthState.loading());
+    emit(Loading());
     try {
       final firebaseUser = FirebaseAuth.instance.currentUser;
       if (firebaseUser == null) {
-        emit(const AuthState.error('Aucun utilisateur connecté à Firebase'));
+        emit(Error('Aucun utilisateur connecté à Firebase'));
         return;
       }
 
       final bffUser = await _authRepository.getCurrentUser();
       if (bffUser != null) {
-        emit(AuthState.authenticated(bffUser));
+        emit(Authenticated(bffUser));
         UserManager().setUser(bffUser);
       } else {
-        emit(const AuthState.partiallyAuthenticated());
+        emit(PartiallyAuthenticated());
       }
     } catch (e) {
       debugPrint('Caught error: $e');
-      emit(AuthState.error(e.toString()));
+      emit(Error(e.toString()));
     }
   }
 
   Future<void> _onSignOut(AuthEventSignOut event, Emitter<AuthState> emit) async {
     await _authRepository.signOut();
-    emit(const AuthState.unauthenticated());
+    emit(Unauthenticated());
     UserManager().clearUser();
   }
 
   Future<void> _onSignUp(AuthEventSignUp event, Emitter<AuthState> emit) async {
-    emit(const AuthState.loading());
+    emit(Loading());
     try {
       final existingUser = await _authRepository.getUserFromBff(event.user.email!);
 
@@ -98,24 +95,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final updatedUser = existingUser.toUpdateDTO(event.user.uid);
 
         final linkedUser = await _authRepository.updateUserInBff(updatedUser);
-        emit(AuthState.authenticated(linkedUser));
+        emit(Authenticated(linkedUser));
       } else {
         // Aucun utilisateur existant dans le BFF, on passe à l'état partiallyAuthenticated
         // pour que l'utilisateur puisse compléter son profil
-        emit(const AuthState.partiallyAuthenticated());
+        emit(PartiallyAuthenticated());
       }
     } catch (e) {
-      emit(AuthState.error(e.toString()));
+      emit(Error(e.toString()));
     }
   }
 
   Future<void> _onCreateAccount(AuthEventCreateAccount event, Emitter<AuthState> emit) async {
-    emit(const AuthState.loading());
+    emit(Loading());
 
     try {
       final firebaseUser = FirebaseAuth.instance.currentUser;
       if (firebaseUser == null) {
-        emit(const AuthState.error('Aucun utilisateur Firebase connecté'));
+        emit(Error('Aucun utilisateur Firebase connecté'));
         return;
       }
 
@@ -126,10 +123,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final createdUser = await _authRepository.createUserInBff(firebaseUser, updatedUser);
 
-      emit(AuthState.authenticated(createdUser));
+      emit(Authenticated(createdUser));
       UserManager().setUser(createdUser);
     } catch (e) {
-      emit(AuthState.createUserError(e.toString()));
+      emit(CreateUserError(e.toString()));
     }
   }
 

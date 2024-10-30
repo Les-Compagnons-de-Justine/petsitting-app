@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:petsitting/core/router/route_names.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:petsitting/features/auth/presentation/bloc/auth/auth_event.dart';
 import 'package:petsitting/features/auth/presentation/bloc/auth/auth_state.dart';
 import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dart';
 import 'package:quickalert/quickalert.dart';
@@ -12,19 +13,24 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          authenticated: (user) => _buildSettingsContent(context, user),
-          unauthenticated: () => _unauthenticated(context),
-          partiallyAuthenticated: () => _unauthenticated(context),
-          orElse: () => const Center(child: CircularProgressIndicator()),
-        );
-      },
+    return SafeArea(
+      child: Scaffold(
+        body: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is Authenticated) {
+              return _buildSettingsContent(context, state.user);
+            } else if (state is Unauthenticated || state is PartiallyAuthenticated) {
+              return _unauthenticated(context);
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
+      ),
     );
   }
 
-  Widget _buildSettingsContent(BuildContext context, UserDTO user) {
+  Widget _buildSettingsContent(BuildContext context, UsersUser user) {
     return ListView(
       children: [
         Padding(
@@ -57,7 +63,7 @@ class SettingsScreen extends StatelessWidget {
       confirmBtnText: 'Oui',
       cancelBtnText: 'Non',
       onConfirmBtnTap: () {
-        context.read<AuthBloc>().add(const AuthEvent.signOut());
+        context.read<AuthBloc>().add(AuthEventSignOut());
         Navigator.of(context).pop(); // Close the alert
       },
     );

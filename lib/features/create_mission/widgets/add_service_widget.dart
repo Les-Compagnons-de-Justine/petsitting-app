@@ -10,7 +10,7 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 import 'package:reactive_forms/reactive_forms.dart';
 
 class AddServiceWidget extends HookWidget {
-  final Function(MissionAnimalServiceCreationDTO) onAddService;
+  final Function(MissionsAnimalServiceWithDetails) onAddService;
   final String userId;
   final DateTime missionDate;
 
@@ -23,8 +23,8 @@ class AddServiceWidget extends HookWidget {
 
   FormGroup buildForm() {
     return FormGroup({
-      'animal': FormControl<AnimalDTO>(validators: [Validators.required]),
-      'service': FormControl<PetServiceDTO>(
+      'animal': FormControl<AnimalWithOwner>(validators: [Validators.required]),
+      'service': FormControl<PetServicesPetService>(
         validators: [Validators.required],
         disabled: true,
       ),
@@ -95,8 +95,7 @@ class AddServiceWidget extends HookWidget {
                         labelText: 'Prix',
                         suffixIcon: Icon(Icons.euro),
                       ),
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
                       validationMessages: {
                         'required': (error) => 'Ce champ est requis',
                         'number': (error) => 'Veuillez entrer un nombre',
@@ -106,9 +105,7 @@ class AddServiceWidget extends HookWidget {
                     ReactiveFormConsumer(
                       builder: (context, form, child) {
                         return ElevatedButton(
-                          onPressed: form.valid
-                              ? () => _submitForm(context, form)
-                              : null,
+                          onPressed: form.valid ? () => _submitForm(context, form) : null,
                           child: const Text('Ajouter le service'),
                         );
                       },
@@ -125,14 +122,14 @@ class AddServiceWidget extends HookWidget {
 
   void _submitForm(BuildContext context, FormGroup form) {
     if (form.valid) {
-      final selectedAnimal = form.control('animal').value as AnimalDTO;
-      final selectedService = form.control('service').value as PetServiceDTO;
+      final selectedAnimal = form.control('animal').value as AnimalWithOwner;
+      final selectedService = form.control('service').value as PetServicesPetService;
       final price = form.control('price').value as double;
 
-      final missionAnimalService = MissionAnimalServiceCreationDTO(
-        animalId: selectedAnimal.id!,
-        petServiceId: selectedService.id!,
-        date: missionDate,
+      final missionAnimalService = MissionsAnimalServiceWithDetails(
+        animal: selectedAnimal,
+        petService: selectedService,
+        date: missionDate.toIso8601String(),
         price: price,
       );
 
@@ -143,37 +140,38 @@ class AddServiceWidget extends HookWidget {
 
   Widget _buildAnimalDropdown(
     AnimalListState state, {
-    Function(FormControl<AnimalDTO>)? onChanged,
+    Function(FormControl<AnimalWithOwner>)? onChanged,
   }) {
-    return state.maybeWhen(
-      loaded: (animals) => ReactiveDropdownField<AnimalDTO>(
-        formControlName: 'animal',
-        onChanged: onChanged,
-        items: animals
-            .map((animal) => DropdownMenuItem(
-                  value: animal,
-                  child: Text(animal.name),
-                ))
-            .toList(),
-        decoration: const InputDecoration(
-          labelText: 'Sélectionnez un animal',
-          border: OutlineInputBorder(),
-        ),
+    if (state.status == AnimalListStatus.error) {
+      return const Text('Erreur lors du chargement des animaux.');
+    } else if (state.status == AnimalListStatus.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return ReactiveDropdownField<AnimalWithOwner>(
+      formControlName: 'animal',
+      onChanged: onChanged,
+      items: state.animals
+          .map((animal) => DropdownMenuItem(
+                value: animal,
+                child: Text(animal.name!),
+              ))
+          .toList(),
+      decoration: const InputDecoration(
+        labelText: 'Sélectionnez un animal',
+        border: OutlineInputBorder(),
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (message) => Text('Erreur: $message'),
-      orElse: () => const SizedBox(),
     );
   }
 
   Widget _buildServiceDropdown(PetServiceState state, FormGroup form) {
     return state.maybeWhen(
-      loaded: (services, _) => ReactiveDropdownField<PetServiceDTO>(
+      loaded: (services, _) => ReactiveDropdownField<PetServicesPetService>(
         formControlName: 'service',
         items: services
             .map((service) => DropdownMenuItem(
                   value: service,
-                  child: Text(service.name),
+                  child: Text(service.name!),
                 ))
             .toList(),
         decoration: const InputDecoration(
@@ -182,8 +180,7 @@ class AddServiceWidget extends HookWidget {
         ),
         onChanged: (service) {
           if (service.value != null) {
-            form.control('durationMinutes').value =
-                service.value!.durationMinutes;
+            form.control('durationMinutes').value = service.value!.durationMinutes;
             form.control('price').value = service.value!.basePrice;
           }
         },

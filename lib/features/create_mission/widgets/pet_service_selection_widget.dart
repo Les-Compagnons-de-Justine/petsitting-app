@@ -22,7 +22,7 @@ class PetServiceSelectionWidget extends StatelessWidget {
               final service = services[index];
               final isSelected = selectedServices.contains(service);
               return ListTile(
-                title: Text(service.name),
+                title: Text(service.name!),
                 subtitle: Text('${service.description} - ${service.basePrice} €'),
                 trailing: isSelected ? const Icon(Icons.check) : null,
                 onTap: () => context.read<PetServiceCubit>().toggleServiceSelection(service),

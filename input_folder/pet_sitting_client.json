@@ -1,1 +1,2009 @@
-{"openapi":"3.0.1","info":{"title":"OpenAPI definition","version":"v0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/api/users/{id}":{"get":{"tags":["user-controller"],"operationId":"getUserById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}},"put":{"tags":["user-controller"],"operationId":"updateUser","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserUpdateDTO"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}},"delete":{"tags":["user-controller"],"operationId":"deleteUser","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"204":{"description":"No Content"}}}},"/api/recurring-schedules/{scheduleId}":{"put":{"tags":["recurring-schedule-controller"],"operationId":"updateRecurringSchedule","parameters":[{"name":"scheduleId","in":"path","required":true,"schema":{"type":"string"}},{"name":"startTime","in":"query","required":true,"schema":{"type":"string","format":"date-time"}},{"name":"endTime","in":"query","required":true,"schema":{"type":"string","format":"date-time"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RecurringScheduleDTO"}}}}}},"delete":{"tags":["recurring-schedule-controller"],"operationId":"deleteRecurringSchedule","parameters":[{"name":"scheduleId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"204":{"description":"No Content"}}}},"/api/pet-services/{id}":{"get":{"tags":["pet-service-controller"],"operationId":"getPetServiceById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}},"put":{"tags":["pet-service-controller"],"operationId":"updatePetService","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetServiceDTO"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}},"delete":{"tags":["pet-service-controller"],"operationId":"deletePetService","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"204":{"description":"No Content"}}}},"/api/animals/{id}":{"get":{"tags":["animal-controller"],"operationId":"getAnimalById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimalDTO"}}}}}},"put":{"tags":["animal-controller"],"operationId":"updateAnimal","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnimalUpdateDTO"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimalDTO"}}}}}},"delete":{"tags":["animal-controller"],"operationId":"deleteAnimal","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"204":{"description":"No Content"}}}},"/api/users":{"post":{"tags":["user-controller"],"operationId":"createUser","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserCreationDTO"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}}},"/api/users/vet-assistant":{"post":{"tags":["user-controller"],"operationId":"createVetAssistant","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserCreationDTO"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}}},"/api/recurring-schedules":{"get":{"tags":["recurring-schedule-controller"],"operationId":"getRecurringSchedules","parameters":[{"name":"vetAssistantId","in":"query","required":true,"schema":{"type":"string"}},{"name":"dayOfWeek","in":"query","required":true,"schema":{"type":"string","enum":["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"]}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/RecurringScheduleDTO"}}}}}}},"post":{"tags":["recurring-schedule-controller"],"operationId":"addRecurringSchedule","parameters":[{"name":"vetAssistantId","in":"query","required":true,"schema":{"type":"string"}},{"name":"dayOfWeek","in":"query","required":true,"schema":{"type":"string","enum":["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"]}},{"name":"startTime","in":"query","required":true,"schema":{"type":"string","format":"date-time"}},{"name":"endTime","in":"query","required":true,"schema":{"type":"string","format":"date-time"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/RecurringScheduleDTO"}}}}}}},"/api/pet-services":{"get":{"tags":["pet-service-controller"],"operationId":"getAllPetServices","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}}},"post":{"tags":["pet-service-controller"],"operationId":"createPetService","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetServiceDTO"}}},"required":true},"responses":{"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}}},"/api/missions":{"post":{"tags":["mission-controller"],"operationId":"createMission","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/MissionCreationDTO"}}},"required":true},"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MissionDTO"}}}}}}},"/api/missions/status/{missionId}/start":{"post":{"tags":["mission-status-controller"],"operationId":"startMission","parameters":[{"name":"missionId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"409":{"description":"Conflict","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MissionDTO"}}}}}}},"/api/missions/status/{missionId}/confirm":{"post":{"tags":["mission-status-controller"],"operationId":"confirmMission","parameters":[{"name":"missionId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"409":{"description":"Conflict","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MissionDTO"}}}}}}},"/api/missions/status/{missionId}/complete":{"post":{"tags":["mission-status-controller"],"operationId":"completeMission","parameters":[{"name":"missionId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"409":{"description":"Conflict","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MissionDTO"}}}}}}},"/api/animals":{"post":{"tags":["animal-controller"],"operationId":"createAnimal","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AnimalCreateDTO"}}},"required":true},"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"201":{"description":"Created","content":{"*/*":{"schema":{"$ref":"#/components/schemas/AnimalDTO"}}}}}}},"/api/users/me":{"get":{"tags":["user-controller"],"operationId":"getCurrentUser","responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}}},"/api/users/firebase/{id}":{"get":{"tags":["user-controller"],"operationId":"getUserByFirebaseId","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}}},"/api/users/email":{"get":{"tags":["user-controller"],"operationId":"getUserByEmail","parameters":[{"name":"email","in":"query","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/UserDTO"}}}}}}},"/api/users/all":{"get":{"tags":["user-controller"],"operationId":"getAllUsers","responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/UserDTO"}}}}}}}},"/api/places/suggestions":{"get":{"tags":["places-controller"],"operationId":"getPlaceSuggestions","parameters":[{"name":"query","in":"query","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/PlaceSuggestion"}}}}}}}},"/api/places/details/{placeId}":{"get":{"tags":["places-controller"],"operationId":"getPlaceDetails","parameters":[{"name":"placeId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/PlaceDetails"}}}}}}},"/api/pet-services/category/{category}":{"get":{"tags":["pet-service-controller"],"operationId":"getPetServicesByCategory","parameters":[{"name":"category","in":"path","required":true,"schema":{"type":"string","enum":["BASIC_CARE","MEDICAL","TRAINING","TRANSPORT","SPECIALIZED","HOUSE_CARE"]}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}}}},"/api/pet-services/animal-type/{animalType}":{"get":{"tags":["pet-service-controller"],"operationId":"getPetServicesByAnimalType","parameters":[{"name":"animalType","in":"path","required":true,"schema":{"type":"string","enum":["DOG","CAT","BIRD","REPTILE","SMALL_MAMMAL","EXOTIC","FISH"]}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/PetServiceDTO"}}}}}}}},"/api/missions/{id}":{"get":{"tags":["mission-controller"],"operationId":"getMissionById","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/MissionDTO"}}}}}}},"/api/missions/{id}/payment-status":{"get":{"tags":["mission-controller"],"operationId":"getMissionPaymentStatus","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"string","enum":["SUCCEEDED","PROCESSING","REQUIRES_PAYMENT_METHOD","REQUIRES_CONFIRMATION","CANCELED","UNKNOWN"]}}}}}}},"/api/missions/vet-assistant/{vetAssistantId}":{"get":{"tags":["mission-controller"],"operationId":"getMissionsByVetAssistantId","parameters":[{"name":"vetAssistantId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MissionDTO"}}}}}}}},"/api/missions/date-range":{"get":{"tags":["mission-controller"],"operationId":"getMissionsByDateRange","parameters":[{"name":"startDate","in":"query","required":true,"schema":{"type":"string","format":"date"}},{"name":"endDate","in":"query","required":true,"schema":{"type":"string","format":"date"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MissionDTO"}}}}}}}},"/api/missions/client/{clientId}":{"get":{"tags":["mission-controller"],"operationId":"getMissionsByClientId","parameters":[{"name":"clientId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"400":{"description":"Bad Request","content":{"*/*":{"schema":{"type":"string"}}}},"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/MissionDTO"}}}}}}}},"/api/animals/owner/{ownerId}":{"get":{"tags":["animal-controller"],"operationId":"getAnimalsByOwnerId","parameters":[{"name":"ownerId","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"404":{"description":"Not Found","content":{"*/*":{"schema":{"type":"string"}}}},"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/AnimalDTO"}}}}}}}}},"components":{"schemas":{"PlaceDetailsDTO":{"required":["formattedAddress","latitude","longitude","name"],"type":"object","properties":{"name":{"type":"string"},"formattedAddress":{"type":"string"},"latitude":{"type":"number","format":"double"},"longitude":{"type":"number","format":"double"}}},"UserUpdateDTO":{"required":["address","email","firebaseUid","firstname","id","isVerified","lastname","phone","registrationDate","role"],"type":"object","properties":{"id":{"type":"string"},"firebaseUid":{"type":"string"},"lastname":{"type":"string"},"firstname":{"type":"string"},"email":{"type":"string"},"address":{"$ref":"#/components/schemas/PlaceDetailsDTO"},"phone":{"type":"string"},"role":{"type":"string","enum":["CLIENT","VET_ASSISTANT"]},"photoUrl":{"type":"string"},"emergencyContact":{"type":"string"},"preferredCommunicationMethod":{"type":"string"},"isVerified":{"type":"boolean"},"registrationDate":{"type":"string","format":"date"},"notes":{"type":"string"}}},"UserDTO":{"required":["address","email","firstname","id","isVerified","lastname","phone","registrationDate","role"],"type":"object","properties":{"id":{"type":"string"},"firebaseId":{"type":"string"},"lastname":{"type":"string"},"firstname":{"type":"string"},"email":{"type":"string"},"address":{"$ref":"#/components/schemas/PlaceDetailsDTO"},"phone":{"type":"string"},"role":{"type":"string","enum":["CLIENT","VET_ASSISTANT"]},"photoUrl":{"type":"string"},"emergencyContact":{"type":"string"},"preferredCommunicationMethod":{"type":"string"},"isVerified":{"type":"boolean"},"registrationDate":{"type":"string","format":"date"},"notes":{"type":"string"}}},"LocalTime":{"type":"object","properties":{"hour":{"type":"integer","format":"int32"},"minute":{"type":"integer","format":"int32"},"second":{"type":"integer","format":"int32"},"nano":{"type":"integer","format":"int32"}}},"PlaceDetails":{"required":["formattedAddress","latitude","longitude","name"],"type":"object","properties":{"name":{"type":"string"},"formattedAddress":{"type":"string"},"latitude":{"type":"number","format":"double"},"longitude":{"type":"number","format":"double"}}},"RecurringScheduleDTO":{"required":["dayOfWeek","endTime","startTime","vetAssistant"],"type":"object","properties":{"id":{"type":"string"},"vetAssistant":{"$ref":"#/components/schemas/User"},"dayOfWeek":{"type":"string","enum":["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"]},"startTime":{"$ref":"#/components/schemas/LocalTime"},"endTime":{"$ref":"#/components/schemas/LocalTime"}}},"Timestamp":{"type":"object","properties":{"seconds":{"type":"integer","format":"int64"},"nanos":{"type":"integer","format":"int32"}}},"User":{"required":["address","email","firstname","isVerified","lastname","phone","registrationDate","role"],"type":"object","properties":{"id":{"type":"string"},"firebaseId":{"type":"string"},"lastname":{"type":"string"},"firstname":{"type":"string"},"email":{"type":"string"},"address":{"$ref":"#/components/schemas/PlaceDetails"},"phone":{"type":"string"},"role":{"type":"string","enum":["CLIENT","VET_ASSISTANT"]},"photoUrl":{"type":"string"},"emergencyContact":{"type":"string"},"preferredCommunicationMethod":{"type":"string"},"isVerified":{"type":"boolean"},"registrationDate":{"$ref":"#/components/schemas/Timestamp"},"notes":{"type":"string"}}},"PetServiceDTO":{"required":["animalTypes","basePrice","category","description","durationMinutes","includedItems","isCustomDurationAllowed","isCustomPriceAllowed","name"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"durationMinutes":{"type":"integer","format":"int32"},"basePrice":{"type":"number","format":"double"},"category":{"type":"string","enum":["BASIC_CARE","MEDICAL","TRAINING","TRANSPORT","SPECIALIZED","HOUSE_CARE"]},"animalTypes":{"type":"array","items":{"type":"string","enum":["DOG","CAT","BIRD","REPTILE","SMALL_MAMMAL","EXOTIC","FISH"]}},"isCustomPriceAllowed":{"type":"boolean"},"isCustomDurationAllowed":{"type":"boolean"},"includedItems":{"type":"array","items":{"type":"string"}}}},"AnimalUpdateDTO":{"required":["birthDate","id","name","ownerId","species"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"ownerId":{"type":"string"},"species":{"type":"string","enum":["DOG","CAT","BIRD","FISH","REPTILE","RODENT","RABBIT","FERRET","HORSE","COW","PIG","SHEEP","GOAT","POULTRY","OTHER"]},"breed":{"type":"string"},"gender":{"type":"string","enum":["MALE","FEMALE"]},"birthDate":{"type":"string","format":"date"},"weight":{"type":"number","format":"double"},"size":{"type":"string","enum":["SMALL","MEDIUM","LARGE"]},"microchipNumber":{"type":"string"},"vaccinationsUpToDate":{"type":"boolean"},"medicalConditions":{"type":"string"},"medications":{"type":"array","items":{"type":"string"}},"allergies":{"type":"array","items":{"type":"string"}},"specialNeeds":{"type":"string"},"feedingInstructions":{"type":"string"},"behaviorNotes":{"type":"string"},"energyLevel":{"type":"string","enum":["LOW","MEDIUM","HIGH"]},"houseTrained":{"type":"boolean"},"petFriendly":{"type":"boolean"},"childFriendly":{"type":"boolean"},"photoUrl":{"type":"string"},"veterinarianContact":{"type":"string"},"lastVetVisit":{"type":"string","format":"date"},"specialInstructions":{"type":"string"}}},"AnimalDTO":{"required":["birthDate","name","owner","species"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"species":{"type":"string","enum":["DOG","CAT","BIRD","FISH","REPTILE","RODENT","RABBIT","FERRET","HORSE","COW","PIG","SHEEP","GOAT","POULTRY","OTHER"]},"breed":{"type":"string"},"gender":{"type":"string","enum":["MALE","FEMALE"]},"birthDate":{"type":"string","format":"date"},"weight":{"type":"number","format":"double"},"size":{"type":"string","enum":["SMALL","MEDIUM","LARGE"]},"microchipNumber":{"type":"string"},"vaccinationsUpToDate":{"type":"boolean"},"medicalConditions":{"type":"string"},"medications":{"type":"array","items":{"type":"string"}},"allergies":{"type":"array","items":{"type":"string"}},"specialNeeds":{"type":"string"},"feedingInstructions":{"type":"string"},"behaviorNotes":{"type":"string"},"energyLevel":{"type":"string","enum":["LOW","MEDIUM","HIGH"]},"houseTrained":{"type":"boolean"},"petFriendly":{"type":"boolean"},"childFriendly":{"type":"boolean"},"photoUrl":{"type":"string"},"veterinarianContact":{"type":"string"},"lastVetVisit":{"type":"string","format":"date"},"specialInstructions":{"type":"string"},"owner":{"$ref":"#/components/schemas/UserDTO"}}},"UserCreationDTO":{"required":["address","email","firstname","isVerified","lastname","phone","registrationDate","role"],"type":"object","properties":{"firebaseUid":{"type":"string"},"lastname":{"type":"string"},"firstname":{"type":"string"},"email":{"type":"string"},"address":{"$ref":"#/components/schemas/PlaceDetailsDTO"},"phone":{"type":"string"},"role":{"type":"string","enum":["CLIENT","VET_ASSISTANT"]},"photoUrl":{"type":"string"},"emergencyContact":{"type":"string"},"preferredCommunicationMethod":{"type":"string"},"isVerified":{"type":"boolean"},"registrationDate":{"type":"string","format":"date"},"notes":{"type":"string"}}},"DailyServiceCreationDTO":{"required":["date","services"],"type":"object","properties":{"date":{"type":"string","format":"date"},"services":{"type":"array","items":{"$ref":"#/components/schemas/MissionAnimalServiceCreationDTO"}}}},"MissionAnimalServiceCreationDTO":{"required":["animalId","date","petServiceId","price"],"type":"object","properties":{"animalId":{"type":"string"},"petServiceId":{"type":"string"},"date":{"type":"string","format":"date"},"price":{"type":"number","format":"double"}}},"MissionCreationDTO":{"required":["clientId","dailyServices","endDate","location","startDate"],"type":"object","properties":{"clientId":{"type":"string"},"startDate":{"type":"string","format":"date"},"endDate":{"type":"string","format":"date"},"dailyServices":{"type":"array","items":{"$ref":"#/components/schemas/DailyServiceCreationDTO"}},"notes":{"type":"string"},"location":{"$ref":"#/components/schemas/PlaceDetailsDTO"}}},"DailyServiceDTO":{"required":["date","services"],"type":"object","properties":{"date":{"type":"string","format":"date"},"services":{"type":"array","items":{"$ref":"#/components/schemas/MissionAnimalServiceDTO"}}}},"MissionAnimalServiceDTO":{"required":["animal","date","petService","price"],"type":"object","properties":{"animal":{"$ref":"#/components/schemas/AnimalDTO"},"petService":{"$ref":"#/components/schemas/PetServiceDTO"},"date":{"type":"string","format":"date-time"},"price":{"type":"number","format":"double"}}},"MissionDTO":{"required":["client","dailyServices","endDate","location","missionStatus","price","startDate"],"type":"object","properties":{"id":{"type":"string"},"startDate":{"type":"string","format":"date"},"endDate":{"type":"string","format":"date"},"client":{"$ref":"#/components/schemas/UserDTO"},"vetAssistant":{"$ref":"#/components/schemas/UserDTO"},"dailyServices":{"type":"array","items":{"$ref":"#/components/schemas/DailyServiceDTO"}},"missionStatus":{"type":"string","enum":["PENDING","CONFIRMED","IN_PROGRESS","COMPLETED","CANCELLED"]},"paymentIntentClientSecret":{"type":"string"},"notes":{"type":"string"},"price":{"type":"number","format":"double"},"location":{"$ref":"#/components/schemas/PlaceDetailsDTO"}}},"AnimalCreateDTO":{"required":["birthDate","name","ownerId","species"],"type":"object","properties":{"name":{"type":"string"},"ownerId":{"type":"string"},"species":{"type":"string","enum":["DOG","CAT","BIRD","FISH","REPTILE","RODENT","RABBIT","FERRET","HORSE","COW","PIG","SHEEP","GOAT","POULTRY","OTHER"]},"breed":{"type":"string"},"gender":{"type":"string","enum":["MALE","FEMALE"]},"birthDate":{"type":"string","format":"date"},"weight":{"type":"number","format":"double"},"size":{"type":"string","enum":["SMALL","MEDIUM","LARGE"]},"microchipNumber":{"type":"string"},"vaccinationsUpToDate":{"type":"boolean"},"medicalConditions":{"type":"string"},"medications":{"type":"array","items":{"type":"string"}},"allergies":{"type":"array","items":{"type":"string"}},"specialNeeds":{"type":"string"},"feedingInstructions":{"type":"string"},"behaviorNotes":{"type":"string"},"energyLevel":{"type":"string","enum":["LOW","MEDIUM","HIGH"]},"houseTrained":{"type":"boolean"},"petFriendly":{"type":"boolean"},"childFriendly":{"type":"boolean"},"photoUrl":{"type":"string"},"veterinarianContact":{"type":"string"},"lastVetVisit":{"type":"string","format":"date"},"specialInstructions":{"type":"string"}}},"PlaceSuggestion":{"required":["description","placeId"],"type":"object","properties":{"placeId":{"type":"string"},"description":{"type":"string"}}}}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample API for managing petsitting missions, users, and places.",
+    "title": "Petsitting API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/api/animals": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "animals"
+        ],
+        "summary": "Update an animal",
+        "parameters": [
+          {
+            "description": "Updated animal data",
+            "name": "animal",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/animal.Animal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/animal.WithOwner"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "animals"
+        ],
+        "summary": "Create a new animal",
+        "parameters": [
+          {
+            "description": "Animal data",
+            "name": "animal",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/animal.Animal"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/animal.WithOwner"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/animals/owner/{ownerId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "animals"
+        ],
+        "summary": "Get animals by owner ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Owner ID",
+            "name": "ownerId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/animal.WithOwner"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/animals/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "animals"
+        ],
+        "summary": "Get an animal by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Animal ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/animal.WithOwner"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "animals"
+        ],
+        "summary": "Delete an animal by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Animal ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/animal.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Create a new mission",
+        "parameters": [
+          {
+            "description": "Mission data",
+            "name": "mission",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/missions.CreateMissionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/client/{clientId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Get missions by client ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Client ID",
+            "name": "clientId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/missions.Mission"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/client/{clientId}/details": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Get missions by client ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Client ID",
+            "name": "clientId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/missions.MissionWithDetails"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/date-range": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Get missions within a date range",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Start Date in format YYYY-MM-DD",
+            "name": "startDate",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "End Date in format YYYY-MM-DD",
+            "name": "endDate",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/missions.MissionWithDetails"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/vet-assistant/{vetAssistantId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Get missions by vet assistant ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Vet Assistant ID",
+            "name": "vetAssistantId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/missions.MissionWithDetails"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Get a mission by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/assign/{vetAssistantId}": {
+      "put": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Assign a vet assistant to a mission",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Vet Assistant ID",
+            "name": "vetAssistantId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/cancel": {
+      "put": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Cancel a mission",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/complete": {
+      "put": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Complete a mission",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/confirm": {
+      "put": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Confirm a mission",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/mark-paid": {
+      "put": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Mark a mission as paid",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/missions/{id}/status": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "missions"
+        ],
+        "summary": "Update mission status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Mission ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "New status",
+            "name": "status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/missions.UpdateMissionStatusRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/missions.MissionWithDetails"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/missions.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/pet-services": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Get all pet services",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pet_services.PetService"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Create a new pet service",
+        "parameters": [
+          {
+            "description": "Pet Service data",
+            "name": "service",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pet_services.PetService"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/pet_services.PetService"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/pet-services/animal-type/{animalType}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Get pet services by animal type",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Animal Type",
+            "name": "animalType",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pet_services.PetService"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/pet-services/category/{category}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Get pet services by category",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Pet Service Category",
+            "name": "category",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pet_services.PetService"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/pet-services/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Get a pet service by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Service ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/pet_services.PetService"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Update a pet service by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Service ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Updated pet service data",
+            "name": "service",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pet_services.PetService"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/pet_services.PetService"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "pet_services"
+        ],
+        "summary": "Delete a pet service by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Service ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/pet_services.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/places/details/{placeId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "places"
+        ],
+        "summary": "Get place details",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Place ID",
+            "name": "placeId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/place.Details"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/place.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/place.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/places/suggestions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "places"
+        ],
+        "summary": "Get place suggestions",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Search query",
+            "name": "query",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/place.Suggestion"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/place.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/place.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users.User"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "description": "User data",
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users.CreateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/users.User"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/users/email/{email}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a user by email",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "User email",
+            "name": "email",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/users.User"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Get the current user",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/users.User"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Get a user by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "User ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/users.User"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "Update a user by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "User ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Updated user data",
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users.UpdateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/users.User"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Delete a user by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "User ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/users.ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "animal.Animal": {
+      "type": "object",
+      "properties": {
+        "allergies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behaviorNotes": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "breed": {
+          "type": "string"
+        },
+        "childFriendly": {
+          "type": "boolean"
+        },
+        "energyLevel": {
+          "$ref": "#/definitions/animal.EnergyLevel"
+        },
+        "feedingInstructions": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/animal.Gender"
+        },
+        "houseTrained": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastVetVisit": {
+          "type": "string"
+        },
+        "medicalConditions": {
+          "type": "string"
+        },
+        "medications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "microchipNumber": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ownerId": {
+          "type": "string"
+        },
+        "petFriendly": {
+          "type": "boolean"
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "size": {
+          "$ref": "#/definitions/animal.Size"
+        },
+        "specialInstructions": {
+          "type": "string"
+        },
+        "specialNeeds": {
+          "type": "string"
+        },
+        "species": {
+          "$ref": "#/definitions/animal.Species"
+        },
+        "vaccinationsUpToDate": {
+          "type": "boolean"
+        },
+        "veterinarianContact": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number"
+        }
+      }
+    },
+    "animal.EnergyLevel": {
+      "type": "string",
+      "enum": [
+        "LOW",
+        "NORMAL",
+        "HIGH"
+      ],
+      "x-enum-varnames": [
+        "Low",
+        "Normal",
+        "High"
+      ]
+    },
+    "animal.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "animal.Gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ],
+      "x-enum-varnames": [
+        "Male",
+        "Female"
+      ]
+    },
+    "animal.Size": {
+      "type": "string",
+      "enum": [
+        "SMALL",
+        "MEDIUM",
+        "LARGE"
+      ],
+      "x-enum-varnames": [
+        "Small",
+        "Medium",
+        "Large"
+      ]
+    },
+    "animal.Species": {
+      "type": "string",
+      "enum": [
+        "DOG",
+        "CAT",
+        "BIRD",
+        "FISH",
+        "REPTILE",
+        "RODENT",
+        "RABBIT",
+        "FERRET",
+        "HORSE",
+        "COW",
+        "PIG",
+        "SHEEP",
+        "GOAT",
+        "POULTRY",
+        "OTHER"
+      ],
+      "x-enum-varnames": [
+        "Dog",
+        "Cat",
+        "Bird",
+        "Fish",
+        "Reptile",
+        "Rodent",
+        "Rabbit",
+        "Ferret",
+        "Horse",
+        "Cow",
+        "Pig",
+        "Sheep",
+        "Goat",
+        "Poultry",
+        "Other"
+      ]
+    },
+    "animal.WithOwner": {
+      "type": "object",
+      "properties": {
+        "allergies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behaviorNotes": {
+          "type": "string"
+        },
+        "birthDate": {
+          "type": "string"
+        },
+        "breed": {
+          "type": "string"
+        },
+        "childFriendly": {
+          "type": "boolean"
+        },
+        "energyLevel": {
+          "$ref": "#/definitions/animal.EnergyLevel"
+        },
+        "feedingInstructions": {
+          "type": "string"
+        },
+        "gender": {
+          "$ref": "#/definitions/animal.Gender"
+        },
+        "houseTrained": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastVetVisit": {
+          "type": "string"
+        },
+        "medicalConditions": {
+          "type": "string"
+        },
+        "medications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "microchipNumber": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "owner": {
+          "$ref": "#/definitions/users.User"
+        },
+        "petFriendly": {
+          "type": "boolean"
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "size": {
+          "$ref": "#/definitions/animal.Size"
+        },
+        "specialInstructions": {
+          "type": "string"
+        },
+        "specialNeeds": {
+          "type": "string"
+        },
+        "species": {
+          "$ref": "#/definitions/animal.Species"
+        },
+        "vaccinationsUpToDate": {
+          "type": "boolean"
+        },
+        "veterinarianContact": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number"
+        }
+      }
+    },
+    "missions.AnimalService": {
+      "type": "object",
+      "properties": {
+        "animalId": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "petServiceId": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "missions.AnimalServiceWithDetails": {
+      "type": "object",
+      "properties": {
+        "animal": {
+          "$ref": "#/definitions/animal.WithOwner"
+        },
+        "date": {
+          "type": "string"
+        },
+        "petService": {
+          "$ref": "#/definitions/pet_services.PetService"
+        },
+        "price": {
+          "type": "number"
+        }
+      }
+    },
+    "missions.CreateMissionRequest": {
+      "type": "object",
+      "required": [
+        "clientId",
+        "dailyServices",
+        "endDate",
+        "location",
+        "startDate"
+      ],
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "dailyServices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/missions.DailyService"
+          }
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        }
+      }
+    },
+    "missions.DailyService": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/missions.AnimalService"
+          }
+        }
+      }
+    },
+    "missions.DailyServiceWithDetails": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/missions.AnimalServiceWithDetails"
+          }
+        }
+      }
+    },
+    "missions.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "missions.Mission": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "dailyServices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/missions.DailyService"
+          }
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/missions.Status"
+        },
+        "vetAssistantId": {
+          "type": "string"
+        }
+      }
+    },
+    "missions.MissionWithDetails": {
+      "type": "object",
+      "properties": {
+        "client": {
+          "$ref": "#/definitions/users.User"
+        },
+        "dailyServices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/missions.DailyServiceWithDetails"
+          }
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/missions.Status"
+        },
+        "vetAssistant": {
+          "$ref": "#/definitions/users.User"
+        }
+      }
+    },
+    "missions.Status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "CONFIRMED",
+        "IN_PROGRESS",
+        "COMPLETED",
+        "PAID",
+        "CANCELLED"
+      ],
+      "x-enum-varnames": [
+        "StatusPending",
+        "StatusConfirmed",
+        "StatusInProgress",
+        "StatusCompleted",
+        "StatusPaid",
+        "StatusCancelled"
+      ]
+    },
+    "missions.UpdateMissionStatusRequest": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/missions.Status"
+        }
+      }
+    },
+    "pet_services.AnimalType": {
+      "type": "string",
+      "enum": [
+        "DOG",
+        "CAT",
+        "BIRD",
+        "REPTILE",
+        "SMALL_MAMMAL",
+        "EXOTIC",
+        "FISH"
+      ],
+      "x-enum-varnames": [
+        "Dog",
+        "Cat",
+        "Bird",
+        "Reptile",
+        "SmallMammal",
+        "Exotic",
+        "Fish"
+      ]
+    },
+    "pet_services.Category": {
+      "type": "string",
+      "enum": [
+        "BASIC_CARE",
+        "MEDICAL",
+        "TRAINING",
+        "TRANSPORT",
+        "SPECIALIZED",
+        "HOUSE_CARE"
+      ],
+      "x-enum-varnames": [
+        "BasicCare",
+        "Medical",
+        "Training",
+        "Transport",
+        "Specialized",
+        "HouseCare"
+      ]
+    },
+    "pet_services.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "pet_services.PetService": {
+      "type": "object",
+      "properties": {
+        "animalTypes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pet_services.AnimalType"
+          }
+        },
+        "basePrice": {
+          "type": "number"
+        },
+        "category": {
+          "$ref": "#/definitions/pet_services.Category"
+        },
+        "description": {
+          "type": "string"
+        },
+        "durationMinutes": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "includedItems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isCustomDurationAllowed": {
+          "type": "boolean"
+        },
+        "isCustomPriceAllowed": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "place.Details": {
+      "type": "object",
+      "properties": {
+        "formattedAddress": {
+          "type": "string"
+        },
+        "latitude": {
+          "type": "number"
+        },
+        "longitude": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "place.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "place.Suggestion": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "placeId": {
+          "type": "string"
+        }
+      }
+    },
+    "users.CreateUserRequest": {
+      "type": "object",
+      "required": [
+        "address",
+        "email",
+        "firebaseUid",
+        "firstname",
+        "lastname",
+        "phone",
+        "role"
+      ],
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "creationDate": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emergencyContact": {
+          "type": "string"
+        },
+        "firebaseUid": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "photoURL": {
+          "type": "string"
+        },
+        "preferredCommunicationMethod": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/users.UserRole"
+        }
+      }
+    },
+    "users.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "users.UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emergencyContact": {
+          "type": "string"
+        },
+        "firebaseUid": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "photoURL": {
+          "type": "string"
+        },
+        "preferredCommunicationMethod": {
+          "type": "string"
+        },
+        "updateDate": {
+          "type": "string"
+        }
+      }
+    },
+    "users.User": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/place.Details"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emergencyContact": {
+          "type": "string"
+        },
+        "firebaseId": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isVerified": {
+          "type": "boolean"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "preferredCommunicationMethod": {
+          "type": "string"
+        },
+        "registrationDate": {
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/definitions/users.UserRole"
+        }
+      }
+    },
+    "users.UserRole": {
+      "type": "string",
+      "enum": [
+        "CLIENT",
+        "VET_ASSISTANT"
+      ],
+      "x-enum-varnames": [
+        "RoleClient",
+        "RoleAdmin"
+      ]
+    }
+  }
+}

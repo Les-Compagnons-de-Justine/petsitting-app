@@ -11,7 +11,7 @@ class AuthState with _$AuthState {
   const factory AuthState.emailUnverified() = EmailUnverified;
   const factory AuthState.unauthenticated() = Unauthenticated;
   const factory AuthState.partiallyAuthenticated() = PartiallyAuthenticated;
-  const factory AuthState.authenticated(UserDTO user) = Authenticated;
+  const factory AuthState.authenticated(UsersUser user) = Authenticated;
   const factory AuthState.createUserError(String message) = CreateUserError;
   const factory AuthState.loading() = Loading;
   const factory AuthState.error(String message) = Error;

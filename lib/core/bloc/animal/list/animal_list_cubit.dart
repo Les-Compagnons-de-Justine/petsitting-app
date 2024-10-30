@@ -6,57 +6,39 @@ import 'package:petsitting/swagger_generated_code/pet_sitting_client.swagger.dar
 class AnimalListCubit extends Cubit<AnimalListState> {
   final AnimalRepository _animalRepository;
 
-  AnimalListCubit(this._animalRepository)
-      : super(const AnimalListState.initial());
+  AnimalListCubit(this._animalRepository) : super(AnimalListState.initial());
 
   Future<void> loadAnimals(String? userId) async {
     if (userId == null) {
-      emit(const AnimalListState.unauthenticated());
+      emit(state.copyWith(status: AnimalListStatus.error));
       return;
     }
 
-    emit(const AnimalListState.loading());
+    emit(state.copyWith(status: AnimalListStatus.loading));
 
     try {
       final animals = await _animalRepository.getAnimalsByOwnerId(userId);
-      emit(AnimalListState.loaded(animals));
+      emit(state.copyWith(status: AnimalListStatus.loaded, animals: animals));
     } catch (e) {
-      emit(AnimalListState.error(
-          'Erreur lors du chargement des animaux: ${e.toString()}'));
+      emit(state.copyWith(status: AnimalListStatus.error));
     }
   }
 
-  void addAnimalToList(AnimalDTO animal) {
-    state.maybeWhen(
-      loaded: (currentAnimals) {
-        emit(AnimalListState.loaded([...currentAnimals, animal]));
-      },
-      orElse: () {
-        emit(AnimalListState.loaded([animal]));
-      },
-    );
+  void addAnimalToList(AnimalWithOwner animal) {
+    emit(state.copyWith(status: AnimalListStatus.loaded, animals: [...state.animals, animal]));
   }
 
-  void updateAnimalInList(AnimalDTO updatedAnimal) {
-    state.maybeWhen(
-      loaded: (currentAnimals) {
-        final updatedAnimals = currentAnimals
-            .map((a) => a.id == updatedAnimal.id ? updatedAnimal : a)
-            .toList();
-        emit(AnimalListState.loaded(updatedAnimals));
-      },
-      orElse: () {},
-    );
+  void updateAnimalInList(AnimalWithOwner updatedAnimal) {
+    emit(state.copyWith(
+      status: AnimalListStatus.loaded,
+      animals: state.animals.map((a) => a.id == updatedAnimal.id ? updatedAnimal : a).toList(),
+    ));
   }
 
   void removeAnimalFromList(String animalId) {
-    state.maybeWhen(
-      loaded: (currentAnimals) {
-        final updatedAnimals =
-            currentAnimals.where((a) => a.id != animalId).toList();
-        emit(AnimalListState.loaded(updatedAnimals));
-      },
-      orElse: () {},
-    );
+    emit(state.copyWith(
+      status: AnimalListStatus.loaded,
+      animals: state.animals.where((a) => a.id != animalId).toList(),
+    ));
   }
 }

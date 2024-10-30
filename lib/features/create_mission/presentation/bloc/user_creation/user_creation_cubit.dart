@@ -11,7 +11,7 @@ class UserCreationCubit extends Cubit<UserCreationState> {
 
   UserCreationCubit(this._userRepository) : super(const UserCreationState.initial());
 
-  Future<void> createUser(UserCreationDTO userCreationDTO) async {
+  Future<void> createUser(UsersCreateUserRequest userCreationDTO) async {
     emit(const UserCreationState.loading());
 
     try {

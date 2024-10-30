@@ -55,14 +55,14 @@ class CreateMissionBloc extends Bloc<CreateMissionEvent, CreateMissionState> {
     emit(const CreateMissionState.initial());
   }
 
-  MissionCreationDTO _convertToMissionCreationDTO(MissionCreation missionCreation) {
-    return MissionCreationDTO(
-      clientId: missionCreation.customer!.id,
-      startDate: missionCreation.startDate!,
-      endDate: missionCreation.endDate!,
+  MissionsCreateMissionRequest _convertToMissionCreationDTO(MissionCreation missionCreation) {
+    return MissionsCreateMissionRequest(
+      startDate: missionCreation.startDate!.toIso8601String(),
+      endDate: missionCreation.endDate!.toIso8601String(),
       dailyServices: missionCreation.dailyServices!,
       notes: missionCreation.notes,
       location: missionCreation.location!,
+      clientId: missionCreation.customer!.id!,
     );
   }
 }
